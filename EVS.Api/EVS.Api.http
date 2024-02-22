@@ -1,0 +1,6 @@
+@EVS.Api_HostAddress = http://localhost:5231
+
+GET {{EVS.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
