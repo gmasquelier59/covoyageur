@@ -2,7 +2,8 @@
 
 namespace EVS.Api.Datas
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
     {
+
     }
 }
