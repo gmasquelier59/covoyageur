@@ -3,9 +3,9 @@ using System.Linq.Expressions;
 
 namespace EVS.Api.Repositories
 {
-    public class RideRepository : IRepository<Ride>
+    public class RideRepository : IRideRepository
     {
-        public Task<int> Add(Ride ride) 
+        public Task<Guid> Add(Ride ride) 
         {
             throw new NotImplementedException();
         }
@@ -25,10 +25,10 @@ namespace EVS.Api.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<List<Ride>> GetAll(Expression<Func<Ride, bool>> predicate)
-        {
-            throw new NotImplementedException();
-        }
+        //public Task<List<Ride>> GetAll(Expression<Func<Ride, bool>> predicate)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         public Task<Ride?> GetById(Guid id)
         {

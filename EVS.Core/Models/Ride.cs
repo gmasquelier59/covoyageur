@@ -45,7 +45,19 @@ namespace EVS.Core.Models
         [Required]
         public int Seats { get; set; }
 
-        public List<Reservation> Reservations { get; set; }
-        public List<Feedback> Feedbacks { get; set; }
+        public List<Reservation> Reservations { get; set; } = new List<Reservation>();
+        public List<Feedback> Feedbacks { get; set; } = new List<Feedback> { };
+
+        public static Guid FirstOrDefault(Func<object, bool> value, object )
+        {
+            throw new NotImplementedException();
+        }
+
+        public Guid FirstOrDefaultIt(Ride ride, User user)
+        {
+            return ride.UserId;
+        }
+
+        
     }
 }

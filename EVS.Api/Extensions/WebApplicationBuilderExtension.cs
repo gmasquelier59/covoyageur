@@ -12,10 +12,10 @@ namespace EVS.Api.Extensions
     {
         public static void AddServices(this WebApplicationBuilder builder)
         {
-            builder.Services.AddScoped<IRepository<User>, UserRepository>();
-            builder.Services.AddScoped<IRepository<Feedback>, FeedbackRepository>();
-            builder.Services.AddScoped<IRepository<Ride>, RideRepository>();
-            builder.Services.AddScoped<IRepository<Reservation>, ReservationRepository>();
+            builder.Services.AddScoped<IUserRepository<User>, UserRepository>();
+            builder.Services.AddScoped<IUserRepository<Feedback>, FeedbackRepository>();
+            builder.Services.AddScoped<IUserRepository<Ride>, RideRepository>();
+            builder.Services.AddScoped<IUserRepository<Reservation>, ReservationRepository>();
         }
 
         public static void AddDatabase(this WebApplicationBuilder builder)
@@ -27,9 +27,13 @@ namespace EVS.Api.Extensions
                     string connectionString = builder.Configuration.GetConnectionString("MysqlConnection")!;
                     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
                 }
-                else
+                else if (builder.Configuration["Database"] == "sqlserver")
                 {
                     options.UseSqlServer(builder.Configuration.GetConnectionString("SqlServerConnection"));
+                }
+                else
+                {
+                    throw new ArgumentOutOfRangeException("Le type de base de données n'a pas été reconnu");
                 }
             });
         }

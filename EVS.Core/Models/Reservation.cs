@@ -10,7 +10,7 @@ namespace EVS.Core.Models
         public Guid ReservationId { get; set; }
 
         [ForeignKey("Ride")]
-        public Ride IdRide { get; set; } = new Ride();
+        public Ride RideId { get; set; } = new Ride();
 
         [ForeignKey("User")]
         public User UserId { get; set; } = new User();
