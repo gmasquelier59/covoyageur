@@ -20,8 +20,8 @@ namespace EVS.Core.Models
         public int Note { get; set; } // Peut être une valeur entre 1 et 5
 
         [Required]
-        public string? Comment { get; set; }
+        public string Comment { get; set; } = string.Empty;
 
-        
+
     }
 }

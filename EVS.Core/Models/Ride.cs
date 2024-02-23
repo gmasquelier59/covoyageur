@@ -16,7 +16,7 @@ namespace EVS.Core.Models
         public User User { get; set; } = new User();
 
         [Required]
-        public string? StartCity { get; set; }
+        public string StartCity { get; set; } = string.Empty;
 
         [Required]
         public Double StartLatitude { get; set; }
@@ -25,7 +25,7 @@ namespace EVS.Core.Models
         public Double StartLongitude { get; set; }
 
         [Required]
-        public string EndCity { get; set; }
+        public string EndCity { get; set; } = string.Empty;
 
         [Required]
         public Double EndLatitude { get; set; }
