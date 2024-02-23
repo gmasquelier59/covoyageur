@@ -3,7 +3,7 @@
 namespace EVS.Api.Controllers
 {
     [Route("/ride")]
-    [Tags("Rides")]
+    [Tags("Trajets")]
     public class RideController : Controller
     {
         [HttpGet]

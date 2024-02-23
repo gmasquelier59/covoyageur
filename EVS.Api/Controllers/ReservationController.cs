@@ -3,7 +3,7 @@
 namespace EVS.Api.Controllers
 {
     [Route("/reservation")]
-    [Tags("Reservations")]
+    [Tags("Réservations")]
     public class ReservationController : Controller
     {
         [HttpGet]

@@ -4,7 +4,7 @@ using EVS.Core.Models;
 namespace EVS.Api.Controllers
 {
     [Route("/user")]
-    [Tags("Users")]
+    [Tags("Utilisateurs")]
     [ApiController]
     public class UserController : Controller
     {
