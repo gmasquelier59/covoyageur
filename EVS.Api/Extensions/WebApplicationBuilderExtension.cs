@@ -27,9 +27,13 @@ namespace EVS.Api.Extensions
                     string connectionString = builder.Configuration.GetConnectionString("MysqlConnection")!;
                     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
                 }
-                else
+                else if (builder.Configuration["Database"] == "sqlserver")
                 {
                     options.UseSqlServer(builder.Configuration.GetConnectionString("SqlServerConnection"));
+                }
+                else
+                {
+                    throw new ArgumentOutOfRangeException("Le type de base de données n'a pas été reconnu");
                 }
             });
         }
