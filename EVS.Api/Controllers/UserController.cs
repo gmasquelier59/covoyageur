@@ -22,7 +22,7 @@ namespace EVS.Api.Controllers
         /// </summary>
         /// <param name="id">Identifiant de l'utilisateur</param>
         [HttpGet("/user/{id}")]
-        public IActionResult GetById(int id)
+        public IActionResult GetById(Guid id)
         {
             throw new NotImplementedException();
         }
@@ -40,7 +40,7 @@ namespace EVS.Api.Controllers
         /// Enregistre un nouvel utilisateur (non administrateur)
         /// </summary>
         [HttpPost("/register")]
-        public IActionResult Register(User user)
+        public IActionResult Register([FromBody] User user)
         {
             throw new NotImplementedException();
         }
@@ -49,7 +49,7 @@ namespace EVS.Api.Controllers
         /// Retourne un token JWT d'authentification pour un utilisateur
         /// </summary>
         [HttpPost("/login")]
-        public IActionResult Login(User user)
+        public IActionResult Login([FromBody] User user)
         {
             throw new NotImplementedException();
         }
@@ -66,8 +66,9 @@ namespace EVS.Api.Controllers
         /// <summary>
         /// Supprime un utilisateur à partir de son id (supprime également les trajets, les réservations et les feedbacks associés)
         /// </summary>
+        /// <param name="id">Identifiant de l'utilisateur</param>
         [HttpDelete("/user/{id}")]
-        public IActionResult DeleteById(int id)
+        public IActionResult DeleteById(Guid id)
         {
             throw new NotImplementedException();
         }
