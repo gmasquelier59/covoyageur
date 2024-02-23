@@ -1,6 +1,7 @@
 ﻿using EVS.Api.Datas;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using System.Reflection;
 
 namespace EVS.Api.Extensions
 {
@@ -43,6 +44,9 @@ namespace EVS.Api.Extensions
                         Url = new Uri("https://www.gnu.org/licenses/gpl-3.0.html")
                     }
                 });
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                options.IncludeXmlComments(xmlPath);
             });
         }
     }
