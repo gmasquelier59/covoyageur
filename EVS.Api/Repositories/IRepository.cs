@@ -12,7 +12,7 @@ namespace EVS.Api.Repositories
         /// <summary>
         /// Retourne une entité par son id. Peut retourner null.
         /// </summary>
-        public Task<Entity?> GetById(int id);
+        public Task<Entity?> GetById(Guid id);
 
         /// <summary>
         /// Retourne une entité répondant à un prédicat. Peut retourner null.
@@ -33,12 +33,12 @@ namespace EVS.Api.Repositories
         /// Met à jour une entité dans le repository
         /// </summary>
         /// <returns>true si la mise à jour a été effectuée, false si la mise à jour n'a pas pu être faite ou si l'entité n'existe pas</returns>
-        Task<bool> Update(Entity contact);
+        Task<bool> Update(Entity entity);
 
         /// <summary>
         /// Supprime une entité du repository
         /// </summary>
         /// <returns>true si la suppression a été effectuée, false si la suppression n'a pas pu être faite ou si l'entité n'existe pas</returns>
-        Task<bool> Delete(int id);
+        Task<bool> Delete(Guid id);
     }
 }

@@ -1,4 +1,6 @@
 ﻿using EVS.Api.Datas;
+using EVS.Api.Repositories;
+using EVS.Core.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
@@ -7,6 +9,12 @@ namespace EVS.Api.Extensions
 {
     public static class WebApplicationBuilderExtension
     {
+        public static void AddServices(this WebApplicationBuilder builder)
+        {
+            builder.Services.AddScoped<IRepository<User>, UserRepository>();
+            builder.Services.AddScoped<IRepository<Feedback>, FeedbackRepository>();
+        }
+
         public static void AddDatabase(this WebApplicationBuilder builder)
         {
             builder.Services.AddDbContext<AppDbContext>(options =>
