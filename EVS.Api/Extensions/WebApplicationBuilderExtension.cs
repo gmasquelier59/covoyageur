@@ -37,7 +37,7 @@ namespace EVS.Api.Extensions
                 {
                     Version = "v1",
                     Title = "API \"En voiture Simone !\"",
-                    Description = "",
+                    Description = "Documentation de l'API de l'application \"En voiture Simone !\"",
                     License = new OpenApiLicense
                     {
                         Name = "GNU General Public License v3.0",
