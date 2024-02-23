@@ -4,6 +4,7 @@ using EVS.Core.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
+using System.Text.Json.Serialization;
 
 namespace EVS.Api.Extensions
 {
@@ -33,7 +34,10 @@ namespace EVS.Api.Extensions
 
         public static void AddControllers(this WebApplicationBuilder builder)
         {
-            builder.Services.AddControllers();
+            builder.Services.AddControllers()
+                .AddJsonOptions(options =>
+                    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter())
+                );
         }
 
         public static void AddSwagger(this WebApplicationBuilder builder)
