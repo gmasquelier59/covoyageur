@@ -14,6 +14,8 @@ namespace EVS.Api.Extensions
         {
             builder.Services.AddScoped<IRepository<User>, UserRepository>();
             builder.Services.AddScoped<IRepository<Feedback>, FeedbackRepository>();
+            builder.Services.AddScoped<IRepository<Ride>, RideRepository>();
+            builder.Services.AddScoped<IRepository<Reservation>, ReservationRepository>();
         }
 
         public static void AddDatabase(this WebApplicationBuilder builder)
