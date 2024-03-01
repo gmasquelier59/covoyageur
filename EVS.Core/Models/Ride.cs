@@ -6,41 +6,44 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EVS.Core.Models
 {
+    [Table("ride")]
     public class Ride
     {
+        [Column("id")]
         public Guid Id { get; set; }
 
+        [Column("user_id")]
         public Guid UserId { get; set; }
         public User User { get; set; } = new User();
 
-        [Required, MaxLength(50)]
+        [Required, MaxLength(50), Column("start_city")]
         public string StartCity { get; set; } = string.Empty;
 
-        [Required]
+        [Required, Column("start_latitude")]
         public Double StartLatitude { get; set; }
 
-        [Required]
+        [Required, Column("start_longitude")]
         public Double StartLongitude { get; set; }
 
-        [Required, MaxLength(50)]
+        [Required, MaxLength(50), Column("end_city")]
         public string EndCity { get; set; } = string.Empty;
 
-        [Required]
+        [Required, Column("end_latitude")]
         public Double EndLatitude { get; set; }
 
-        [Required]
-        public Double EndtLongitude { get; set; }
+        [Required, Column("end_longitude")]
+        public Double EndLongitude { get; set; }
 
-        [Required]
+        [Required, Column("distance")]
         public int Distance { get; set; }
 
-        [Required]
+        [Required, Column("departure")]
         public DateTime Departure { get; set; }
 
-        [Required]
+        [Required, Column("price")]
         public Double Price { get; set; }
 
-        [Required, Range(1, 10)]
+        [Required, Range(1, 10), Column("seats")]
         public int Seats { get; set; }
 
         public List<Reservation> Reservations { get; set; } = new List<Reservation>();
