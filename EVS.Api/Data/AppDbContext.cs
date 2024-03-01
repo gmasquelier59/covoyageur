@@ -21,6 +21,24 @@ namespace EVS.Api.Datas
                 .HasMany(e => e.Reservations)
                 .WithOne(e => e.User)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            Guid adminGuid = Guid.NewGuid();
+
+            modelBuilder.Entity<User>().HasData(
+                new User()
+                {
+                    Id = adminGuid,
+                    IsAdmin = true,
+                    FirstName = "Admin",
+                    LastName = "Admin",
+                    Pseudo = "admin",
+                    Birthday = DateTime.Now,
+                    CarDescription = "",
+                    PhoneNumber = "0102030405",
+                    Email = "admin@envoituresimone.com",
+                    Password = "123456789" // TODO : Faire le hash du password une fois JWT en place
+                }
+            );
         }
     }
 }

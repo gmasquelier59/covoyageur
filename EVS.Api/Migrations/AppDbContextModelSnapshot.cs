@@ -212,7 +212,28 @@ namespace EVS.Api.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Email")
+                        .IsUnique();
+
+                    b.HasIndex("Pseudo")
+                        .IsUnique();
+
                     b.ToTable("user");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("89acddfa-00d9-4213-b47d-d821a283e5ba"),
+                            Birthday = new DateTime(2024, 3, 1, 11, 49, 59, 653, DateTimeKind.Local).AddTicks(1369),
+                            CarDescription = "",
+                            Email = "admin@envoituresimone.com",
+                            FirstName = "Admin",
+                            LastName = "Admin",
+                            Password = "123456789",
+                            PhoneNumber = "0102030405",
+                            Photo = "",
+                            Pseudo = "admin"
+                        });
                 });
 
             modelBuilder.Entity("EVS.Core.Models.Feedback", b =>

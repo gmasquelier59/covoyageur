@@ -113,6 +113,11 @@ namespace EVS.Api.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.InsertData(
+                table: "user",
+                columns: new[] { "id", "birthday", "car_description", "email", "firstname", "lastname", "password", "phone_number", "photo", "pseudo" },
+                values: new object[] { new Guid("89acddfa-00d9-4213-b47d-d821a283e5ba"), new DateTime(2024, 3, 1, 11, 49, 59, 653, DateTimeKind.Local).AddTicks(1369), "", "admin@envoituresimone.com", "Admin", "Admin", "123456789", "0102030405", "", "admin" });
+
             migrationBuilder.CreateIndex(
                 name: "IX_feedback_ride_id",
                 table: "feedback",
@@ -137,6 +142,18 @@ namespace EVS.Api.Migrations
                 name: "IX_ride_user_id",
                 table: "ride",
                 column: "user_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_user_email",
+                table: "user",
+                column: "email",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_user_pseudo",
+                table: "user",
+                column: "pseudo",
+                unique: true);
         }
 
         /// <inheritdoc />
