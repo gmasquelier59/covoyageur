@@ -12,11 +12,11 @@ namespace EVS.Core.Models
 
         [Column("ride_id")]
         public Guid RideId { get; set; }
-        public Ride Ride { get; set; } = new Ride();
+        public Ride Ride { get; set; } = null!;
 
         [Column("user_id")]
         public Guid UserId { get; set; }
-        public User User { get; set; } = new User();
+        public User User { get; set; } = null!;
 
         [Required, Column("reservation_date")]
         public DateTime ReservationDate { get; set; }

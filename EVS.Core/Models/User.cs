@@ -54,10 +54,10 @@ namespace EVS.Core.Models
         [Required, Column("accept_food")]
         public Boolean AcceptFood = false;
 
-        public List<Ride> Rides { get; set; } = new List<Ride>();
+        public List<Ride> Rides { get; } = new List<Ride>();
 
-        public List<Reservation> Reservations { get; set; } = new List<Reservation>();
+        public List<Reservation> Reservations { get; } = new List<Reservation>();
 
-        public List<Feedback> Feedbacks { get; set; } = new List<Feedback>();
+        public List<Feedback> Feedbacks { get; } = new List<Feedback>();
     }
 }

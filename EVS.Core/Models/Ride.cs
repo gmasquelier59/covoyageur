@@ -14,7 +14,7 @@ namespace EVS.Core.Models
 
         [Column("user_id")]
         public Guid UserId { get; set; }
-        public User User { get; set; } = new User();
+        public User User { get; set; } = null!;
 
         [Required, MaxLength(50), Column("start_city")]
         public string StartCity { get; set; } = string.Empty;
