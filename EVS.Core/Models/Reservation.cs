@@ -6,19 +6,18 @@ namespace EVS.Core.Models
 {
     public class Reservation
     {
-        [Key]
-        public Guid ReservationId { get; set; }
+        public Guid Id { get; set; }
 
-        [ForeignKey("Ride")]
-        public Ride IdRide { get; set; } = new Ride();
+        public Guid RideId { get; set; }
+        public Ride Ride { get; set; } = new Ride();
 
-        [ForeignKey("User")]
-        public User UserId { get; set; } = new User();
+        public Guid UserId { get; set; }
+        public User User { get; set; } = new User();
 
         [Required]
         public DateTime ReservationDate { get; set; }
 
         [Required]
-        public ReservationStatus Status { get; set; } // Peut être "Pending", "Confirmed", etc.
+        public ReservationStatus Status { get; set; }
     }
 }

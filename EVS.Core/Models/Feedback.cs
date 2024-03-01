@@ -5,21 +5,18 @@ namespace EVS.Core.Models
 {
     public class Feedback
     {
-        [Key]
-        public int FeedbackId { get; set; }
+        public Guid Id { get; set; } = Guid.NewGuid();
 
-        [ForeignKey("Driver")]
-        public int RideId { get; set; }
+        public Guid RideId { get; set; }
         public Ride Ride { get; set; } = new Ride();
 
-        [ForeignKey("Passenger")]
-        public int UserId { get; set; }
+        public Guid UserId { get; set; }
         public User User { get; set; } = new User();
 
-        [Required]
-        public int Note { get; set; } // Peut être une valeur entre 1 et 5
+        [Required, Range(1, 5)]
+        public int Note { get; set; }
 
-        [Required]
+        [Required, MaxLength(500)]
         public string Comment { get; set; } = string.Empty;
 
 

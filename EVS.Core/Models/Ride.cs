@@ -8,14 +8,12 @@ namespace EVS.Core.Models
 {
     public class Ride
     {
-        [Key]
         public Guid Id { get; set; }
 
-        [ForeignKey("User")]
         public Guid UserId { get; set; }
         public User User { get; set; } = new User();
 
-        [Required]
+        [Required, MaxLength(50)]
         public string StartCity { get; set; } = string.Empty;
 
         [Required]
@@ -24,7 +22,7 @@ namespace EVS.Core.Models
         [Required]
         public Double StartLongitude { get; set; }
 
-        [Required]
+        [Required, MaxLength(50)]
         public string EndCity { get; set; } = string.Empty;
 
         [Required]
@@ -42,10 +40,11 @@ namespace EVS.Core.Models
         [Required]
         public Double Price { get; set; }
 
-        [Required]
+        [Required, Range(1, 10)]
         public int Seats { get; set; }
 
-        public List<Reservation> Reservations { get; set; }
-        public List<Feedback> Feedbacks { get; set; }
+        public List<Reservation> Reservations { get; set; } = new List<Reservation>();
+
+        public List<Feedback> Feedbacks { get; set; } = new List<Feedback>();
     }
 }

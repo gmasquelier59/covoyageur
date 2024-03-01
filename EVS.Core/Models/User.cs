@@ -4,34 +4,33 @@ namespace EVS.Core.Models
 {
     public class User
     {
-        [Key]
         public Guid Id { get; set; }
 
-        [Required]
+        [Required, MaxLength(50)]
         public string LastName { get; set; } = string.Empty;
         
-        [Required]
+        [Required, MaxLength(50)]
         public string FirstName { get; set; } = string.Empty;
 
-        [Required]
+        [Required, MaxLength(20)]
         public string Pseudo { get; set; } = string.Empty;
 
-        [Required]
+        [Required, MaxLength(100)]
         public string Email { get; set; } = string.Empty;
 
-        [Required]
+        [Required, MaxLength(100)]
         public string Password { get; set; } = string.Empty;
 
-        [Required]
+        [Required, Length(10, 10)]
         public string PhoneNumber { get; set; } = string.Empty;
 
         [Required]
         public DateTime? Birthday { get; set; }
 
-        [Required]
+        [Required, MaxLength(200)]
         public string Photo { get; set; } = string.Empty;
 
-        [Required]
+        [Required, MaxLength(200)]
         public string CarDescription { get; set; } = string.Empty;
 
         [Required]
@@ -51,10 +50,11 @@ namespace EVS.Core.Models
 
         [Required]
         public Boolean AcceptFood = false;
-        // Autres propriétés utilisateur comme nom, prénom, etc.
 
         public List<Ride> Rides { get; set; } = new List<Ride>();
+
         public List<Reservation> Reservations { get; set; } = new List<Reservation>();
+
         public List<Feedback> Feedbacks { get; set; } = new List<Feedback>();
     }
 }
