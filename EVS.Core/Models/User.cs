@@ -36,7 +36,7 @@ namespace EVS.Core.Models
         [Required, MaxLength(200), Column("photo")]
         public string Photo { get; set; } = string.Empty;
 
-        [Required, MaxLength(200), Column("car_description")]
+        [MaxLength(200), Column("car_description")]
         public string CarDescription { get; set; } = string.Empty;
 
         [Required, Column("is_admin")]

@@ -27,7 +27,7 @@ namespace EVS.Api.DTOs
         [Required, MaxLength(200)]
         public string? Photo { get; set; }
 
-        [Required, MaxLength(200)]
+        [MaxLength(200)]
         public string? CarDescription { get; set; }
 
         [Required]
