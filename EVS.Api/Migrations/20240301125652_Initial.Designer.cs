@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EVS.Api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240301112547_Initial")]
+    [Migration("20240301125652_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -27,9 +27,9 @@ namespace EVS.Api.Migrations
 
             modelBuilder.Entity("EVS.Core.Models.Feedback", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnName("id");
 
                     b.Property<string>("Comments")
@@ -42,14 +42,12 @@ namespace EVS.Api.Migrations
                         .HasColumnType("int")
                         .HasColumnName("note");
 
-                    b.Property<string>("RideId")
-                        .IsRequired()
-                        .HasColumnType("char(36)")
+                    b.Property<Guid>("RideId")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnName("ride_id");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("char(36)")
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnName("user_id");
 
                     b.HasKey("Id");
@@ -63,27 +61,25 @@ namespace EVS.Api.Migrations
 
             modelBuilder.Entity("EVS.Core.Models.Reservation", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnName("id");
 
                     b.Property<DateTime>("ReservationDate")
                         .HasColumnType("datetime2")
                         .HasColumnName("reservation_date");
 
-                    b.Property<string>("RideId")
-                        .IsRequired()
-                        .HasColumnType("char(36)")
+                    b.Property<Guid>("RideId")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnName("ride_id");
 
                     b.Property<int>("Status")
                         .HasColumnType("int")
                         .HasColumnName("status");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("char(36)")
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnName("user_id");
 
                     b.HasKey("Id");
@@ -97,9 +93,9 @@ namespace EVS.Api.Migrations
 
             modelBuilder.Entity("EVS.Core.Models.Ride", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnName("id");
 
                     b.Property<DateTime>("Departure")
@@ -146,9 +142,8 @@ namespace EVS.Api.Migrations
                         .HasColumnType("float")
                         .HasColumnName("start_longitude");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("char(36)")
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnName("user_id");
 
                     b.HasKey("Id");
@@ -160,9 +155,9 @@ namespace EVS.Api.Migrations
 
             modelBuilder.Entity("EVS.Core.Models.User", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnName("id");
 
                     b.Property<DateTime?>("Birthday")
@@ -231,8 +226,8 @@ namespace EVS.Api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "8d40e5be-d584-4737-b83c-43fb20818c10",
-                            Birthday = new DateTime(2024, 3, 1, 12, 25, 47, 258, DateTimeKind.Local).AddTicks(2129),
+                            Id = new Guid("3a408642-5cc6-436d-bb51-1fb3bb537065"),
+                            Birthday = new DateTime(2024, 3, 1, 13, 56, 52, 318, DateTimeKind.Local).AddTicks(8560),
                             CarDescription = "",
                             Email = "admin@envoituresimone.com",
                             FirstName = "Admin",

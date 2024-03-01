@@ -15,7 +15,7 @@ namespace EVS.Api.Migrations
                 name: "user",
                 columns: table => new
                 {
-                    id = table.Column<string>(type: "char(36)", nullable: false),
+                    id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     lastname = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     firstname = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     pseudo = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
@@ -35,8 +35,8 @@ namespace EVS.Api.Migrations
                 name: "ride",
                 columns: table => new
                 {
-                    id = table.Column<string>(type: "char(36)", nullable: false),
-                    user_id = table.Column<string>(type: "char(36)", nullable: false),
+                    id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    user_id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     start_city = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     start_latitude = table.Column<double>(type: "float", nullable: false),
                     start_longitude = table.Column<double>(type: "float", nullable: false),
@@ -63,9 +63,9 @@ namespace EVS.Api.Migrations
                 name: "feedback",
                 columns: table => new
                 {
-                    id = table.Column<string>(type: "char(36)", nullable: false),
-                    ride_id = table.Column<string>(type: "char(36)", nullable: false),
-                    user_id = table.Column<string>(type: "char(36)", nullable: false),
+                    id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ride_id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    user_id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     note = table.Column<int>(type: "int", nullable: false),
                     comments = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false)
                 },
@@ -90,9 +90,9 @@ namespace EVS.Api.Migrations
                 name: "reservation",
                 columns: table => new
                 {
-                    id = table.Column<string>(type: "char(36)", nullable: false),
-                    ride_id = table.Column<string>(type: "char(36)", nullable: false),
-                    user_id = table.Column<string>(type: "char(36)", nullable: false),
+                    id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ride_id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    user_id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     reservation_date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     status = table.Column<int>(type: "int", nullable: false)
                 },
@@ -116,7 +116,7 @@ namespace EVS.Api.Migrations
             migrationBuilder.InsertData(
                 table: "user",
                 columns: new[] { "id", "birthday", "car_description", "email", "firstname", "lastname", "password", "phone_number", "photo", "pseudo" },
-                values: new object[] { "8d40e5be-d584-4737-b83c-43fb20818c10", new DateTime(2024, 3, 1, 12, 25, 47, 258, DateTimeKind.Local).AddTicks(2129), "", "admin@envoituresimone.com", "Admin", "Admin", "123456789", "0102030405", "", "admin" });
+                values: new object[] { new Guid("3a408642-5cc6-436d-bb51-1fb3bb537065"), new DateTime(2024, 3, 1, 13, 56, 52, 318, DateTimeKind.Local).AddTicks(8560), "", "admin@envoituresimone.com", "Admin", "Admin", "123456789", "0102030405", "", "admin" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_feedback_ride_id",

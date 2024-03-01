@@ -7,10 +7,10 @@ namespace EVS.Core.Models
     [Table("reservation")]
     public class Reservation
     {
-        [Column("id", TypeName = "char(36)")]
+        [Column("id")]
         public Guid Id { get; set; }
 
-        [Column("ride_id", TypeName = "char(36)")]
+        [Column("ride_id")]
         public Guid RideId { get; set; }
         public Ride Ride { get; set; } = null!;
 
