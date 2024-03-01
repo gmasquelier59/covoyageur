@@ -9,10 +9,10 @@ namespace EVS.Core.Models
     [Table("ride")]
     public class Ride
     {
-        [Column("id")]
+        [Column("id", TypeName = "char(36)")]
         public Guid Id { get; set; }
 
-        [Column("user_id")]
+        [Column("user_id", TypeName = "char(36)")]
         public Guid UserId { get; set; }
         public User User { get; set; } = null!;
 

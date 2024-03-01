@@ -6,14 +6,14 @@ namespace EVS.Core.Models
     [Table("feedback")]
     public class Feedback
     {
-        [Column("id")]
+        [Column("id", TypeName = "char(36)")]
         public Guid Id { get; set; } = Guid.NewGuid();
 
-        [Column("ride_id")]
+        [Column("ride_id", TypeName = "char(36)")]
         public Guid RideId { get; set; }
         public Ride Ride { get; set; } = null!;
 
-        [Column("user_id")]
+        [Column("user_id", TypeName = "char(36)")]
         public Guid UserId { get; set; }
         public User User { get; set; } = null!;
 

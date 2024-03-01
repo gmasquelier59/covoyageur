@@ -9,7 +9,7 @@ namespace EVS.Core.Models
     [Index(nameof(Email), IsUnique = true)]
     public class User
     {
-        [Column("id")]
+        [Column("id", TypeName = "char(36)")]
         public Guid Id { get; set; }
 
         [Required, MaxLength(50), Column("lastname")]
