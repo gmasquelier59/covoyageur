@@ -6,7 +6,6 @@ namespace EVS.Api.DTOs
 {
     public class RideDTO
     {
-        public Guid Id { get; set; }
         [Required, MaxLength(50)]
         public string? StartCity { get; set; }
         [Required]

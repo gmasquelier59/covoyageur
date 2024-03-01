@@ -11,7 +11,7 @@ namespace EVS.Core.Models
         public Guid Id { get; set; }
 
         [Column("ride_id")]
-        public Guid RideId { get; set; }
+        public Guid RideId { get; set; }    
         public Ride Ride { get; set; } = new Ride();
 
         [Column("user_id")]
