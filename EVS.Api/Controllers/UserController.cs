@@ -3,7 +3,6 @@ using EVS.Core.Models;
 
 namespace EVS.Api.Controllers
 {
-    [Route("/user")]
     [Tags("Utilisateurs")]
     [ApiController]
     public class UserController : Controller
@@ -12,7 +11,7 @@ namespace EVS.Api.Controllers
         /// Retourne la liste de tous les utilisateurs
         /// </summary>
         [HttpGet("/users")]
-        public IActionResult All()
+        public ActionResult<List<User>> All()
         {
             throw new NotImplementedException();
         }
@@ -22,7 +21,7 @@ namespace EVS.Api.Controllers
         /// </summary>
         /// <param name="id">Identifiant de l'utilisateur</param>
         [HttpGet("/user/{id}")]
-        public IActionResult GetById(Guid id)
+        public ActionResult<User> GetById(Guid id)
         {
             throw new NotImplementedException();
         }
@@ -31,7 +30,7 @@ namespace EVS.Api.Controllers
         /// Retourne les informations de l'utilisateur connecté
         /// </summary>
         [HttpGet("/user")]
-        public IActionResult GetCurrentUser()
+        public ActionResult<User> GetCurrentUser()
         {
             throw new NotImplementedException();
         }
@@ -40,7 +39,7 @@ namespace EVS.Api.Controllers
         /// Enregistre un nouvel utilisateur (non administrateur)
         /// </summary>
         [HttpPost("/register")]
-        public IActionResult Register([FromBody] User user)
+        public ActionResult<User> Register([FromBody] User user)
         {
             throw new NotImplementedException();
         }
@@ -49,7 +48,7 @@ namespace EVS.Api.Controllers
         /// Retourne un token JWT d'authentification pour un utilisateur
         /// </summary>
         [HttpPost("/login")]
-        public IActionResult Login([FromBody] User user)
+        public ActionResult Login([FromBody] User user)
         {
             throw new NotImplementedException();
         }
@@ -58,7 +57,7 @@ namespace EVS.Api.Controllers
         /// Met à jour les informations de l'utilisateur connecté
         /// </summary>
         [HttpPut("/user")]
-        public IActionResult Update()
+        public ActionResult<User> Update()
         {
             throw new NotImplementedException();
         }
@@ -68,7 +67,7 @@ namespace EVS.Api.Controllers
         /// </summary>
         /// <param name="id">Identifiant de l'utilisateur</param>
         [HttpDelete("/user/{id}")]
-        public IActionResult DeleteById(Guid id)
+        public ActionResult DeleteById(Guid id)
         {
             throw new NotImplementedException();
         }
