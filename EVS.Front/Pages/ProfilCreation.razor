@@ -1,0 +1,426 @@
+﻿@page "/profilcreation"
+@using System.Text.RegularExpressions
+@using System.ComponentModel.DataAnnotations
+@using MudBlazor
+@using FluentValidation
+@using Severity = MudBlazor.Severity
+@inject ISnackbar Snackbar
+@inherits LayoutComponentBase
+
+
+<a style="display: flex; justify-content: center; align-items: center; ">
+    <MudGrid>
+		<MudItem xs="6">
+<MudText Typo="Typo.h2" Color="Color.Primary" Style="margin:2em; margin-left:0em">Creation de votre compte En Voiture Simone !</MudText>
+        </MudItem>
+        
+	<MudItem xs="5" sm="5">
+		<MudPaper Class="pa-4">
+			<MudForm @ref="form" @bind-IsValid="@success" @bind-Errors="@errors">
+				<MudTextField T="string" Label="Nom" Required="true" RequiredError="Votre nom nous est nécessaire!" />
+				<MudTextField T="string" Label="Prenom" Required="true" RequiredError="Votre prenom nous est nécessaire!" />
+				<MudTextField T="string" Label="Numéro de Téléphone" Required="true" RequiredError="Votre numéro nous est nécessaire!" />
+				<MudDatePicker Label="Date" Required="true" RequiredError="Nous avons besoin de votre date de naissance!" />
+				<MudTextField T="string" Label="Pseudonyme" Required="true" RequiredError="Un pseudo nous est nécessaire!" />
+				<MudTextField T="string" Label="Email" Required="true" RequiredError="Votre email nous est nécessaire!"
+							  Validation="@(new EmailAddressAttribute() {ErrorMessage = "The email address is invalid"})" />
+				<MudTextField T="string" Label="Description de votre voiture" Required="false" />
+				<MudTextField T="string" Label="Password" HelperText="Choose a strong password" @ref="pwField1"
+							  InputType="InputType.Password"
+							  Validation="@(new Func<string, IEnumerable<string>>(PasswordStrength))" Required="true"
+							  RequiredError="Password is required!" />
+				<MudTextField T="string"
+							  Label="Password" HelperText="Repeat the password" InputType="InputType.Password"
+							  Validation="@(new Func<string, string>(PasswordMatch))" />
+
+				<a style="margin:2em">
+				<MudFileUpload Style="margin:1em" T="IBrowserFile" For="@(() => model.File)" @bind-Files="model.File" OnFilesChanged="UploadFiles" Accept=".png, .jpg" SuppressOnChangeWhenInvalid="SuppressOnChangeWhenInvalid">
+					<ButtonTemplate>
+						<MudButton HtmlTag="label"
+								   Variant="Variant.Filled"
+								   Color="Color.Primary"
+								   StartIcon="@Icons.Material.Filled.CloudUpload"
+								   for="@context.Id">
+							Enregistrer votre photo
+						</MudButton>
+						<MudButton OnClick="@context.Actions.ClearAsync"
+								   Variant="Variant.Filled"
+								   Color="Color.Primary"
+								   StartIcon="@Icons.Material.Filled.Clear">
+							Supprimer votre photo
+						</MudButton>
+					</ButtonTemplate>
+				</MudFileUpload>
+				</a>
+
+				<a>
+					<MudSwitch @bind-Value="SmallTalk" Color="Color.Secondary" UnCheckedColor="Color.Primary" Converter="@(new SmallTalkToBoolConverter())"> @(SmallTalk)</MudSwitch>
+					<MudSwitch @bind-Value="AcceptMusic" Color="Color.Secondary" UnCheckedColor="Color.Primary" Converter="@(new AcceptMusicToBoolConverter())"> @(AcceptMusic)</MudSwitch>
+					<MudSwitch @bind-Value="AcceptFood" Color="Color.Secondary" UnCheckedColor="Color.Primary" Converter="@(new AcceptFoodToBoolConverter())"> @(AcceptFood)</MudSwitch>
+					<MudSwitch @bind-Value="AcceptPet" Color="Color.Secondary" UnCheckedColor="Color.Primary" Converter="@(new AcceptPetToBoolConverter())"> @(AcceptPet)</MudSwitch>
+					<MudSwitch @bind-Value="AcceptSmoker" Color="Color.Secondary" UnCheckedColor="Color.Primary" Converter="@(new AcceptSmokerToBoolConverter())"> @(AcceptSmoker)</MudSwitch>
+				</a>
+
+				<a class="d-flex align-center justify-space-between" style="margin:2em">
+						<MudButton Variant="Variant.Text" OnClick="@ToggleOpen">J'accepte les conditons d'utilisation de EnVoitureSimone!</MudButton><MudCheckBox T="bool" Required="true" Style="margin:1em" />
+
+					<MudPopover Open="@_isOpen" Fixed="true" Class="px-8 pt-8">
+						<div class="d-flex flex-column">
+							<MudText>
+								Les utilisateurs doivent être âgés d'au moins 18 ans et posséder un permis de conduire valide. Ils doivent également accepter de partager les frais de voyage de manière équitable. Les conducteurs doivent être assurés et enregistrés auprès des autorités compétentes. Les passagers doivent respecter les règles de sécurité et de courtoisie. Le site n'est pas responsable des accidents ou des dommages. Les utilisateurs doivent respecter les lois locales et les droits d'auteur.
+							</MudText>
+							<MudButton OnClick="@ToggleOpen" Class="ml-auto mr-n3 mb-1" Color="Color.Error">Je suis d'accord</MudButton>
+						</div>
+					</MudPopover>
+                    </a>
+					<MudCardActions>
+						<MudButton Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto" OnClick="@(async () => await Submit())">Creer votre compte</MudButton>
+					</MudCardActions>
+				
+			</MudForm>
+		</MudPaper>
+	</MudItem>
+</MudGrid>
+</a>
+
+
+
+
+@code {
+
+	public string SmallTalk { get; set; } = "J'aime discuter!";
+	public string AcceptMusic { get; set; } = "J'aime écouter de la musique!";
+	public string AcceptFood { get; set; } = "J'aime manger en voyageant!";
+	public string AcceptPet { get; set; } = "J'aime beaucoup les animaux!";
+	public string AcceptSmoker { get; set; } = "Avec moi tu peux fumer sans problème!";
+
+	bool success;
+	string[] errors = { };
+	MudTextField<string> pwField1;
+	MudForm form;
+
+	private IEnumerable<string> PasswordStrength(string pw)
+	{
+		if (string.IsNullOrWhiteSpace(pw))
+		{
+			yield return "Password is required!";
+			yield break;
+		}
+		if (pw.Length < 8)
+			yield return "Password must be at least of length 8";
+		if (!Regex.IsMatch(pw, @"[A-Z]"))
+			yield return "Password must contain at least one capital letter";
+		if (!Regex.IsMatch(pw, @"[a-z]"))
+			yield return "Password must contain at least one lowercase letter";
+		if (!Regex.IsMatch(pw, @"[0-9]"))
+			yield return "Password must contain at least one digit";
+	}
+
+	private string PasswordMatch(string arg)
+	{
+		if (pwField1.Value != arg)
+			return "Passwords don't match";
+		return null;
+	}
+
+	public bool _isOpen;
+
+	public void ToggleOpen()
+	{
+		if (_isOpen)
+			_isOpen = false;
+		else
+			_isOpen = true;
+	}
+
+	public class SmallTalkToBoolConverter : BoolConverter<string>
+	{
+
+		public SmallTalkToBoolConverter()
+		{
+			SetFunc = OnSetTalk;
+			GetFunc = OnGetTalk;
+		}
+
+		private string TrueStringTalk = "Je suis très discret.";
+		private string FalseStringTalk = "J'aime discuter!";
+		private string NullStringTalk = "Une erreur est survenue";
+
+		private string OnGetTalk(bool? value)
+		{
+			try
+			{
+				return (value == true) ? TrueStringTalk : FalseStringTalk;
+			}
+			catch (Exception e)
+			{
+				UpdateGetError("Conversion error: " + e.Message);
+				return NullStringTalk;
+			}
+		}
+
+		private bool? OnSetTalk(string arg)
+		{
+			if (arg == null)
+				return null;
+			try
+			{
+				if (arg == TrueStringTalk)
+					return true;
+				if (arg == FalseStringTalk)
+					return false;
+				else
+					return null;
+			}
+			catch (FormatException e)
+			{
+				UpdateSetError("Conversion error: " + e.Message);
+				return null;
+			}
+		}
+	}
+
+	public class AcceptMusicToBoolConverter : BoolConverter<string>
+	{
+
+		public AcceptMusicToBoolConverter()
+		{
+			SetFunc = OnSetAcceptMusic;
+			GetFunc = OnGetAcceptMusic;
+		}
+
+		private string TrueStringAcceptMusic = "Je préfère le silence.";
+		private string FalseStringAcceptMusic = "J'aime écouter de la musique!";
+		private string NullStringAcceptMusic = "Une erreur est survenue";
+
+		private string OnGetAcceptMusic(bool? value)
+		{
+			try
+			{
+				return (value == true) ? TrueStringAcceptMusic : FalseStringAcceptMusic;
+			}
+			catch (Exception e)
+			{
+				UpdateGetError("Conversion error: " + e.Message);
+				return NullStringAcceptMusic;
+			}
+		}
+
+		private bool? OnSetAcceptMusic(string arg)
+		{
+			if (arg == null)
+				return null;
+			try
+			{
+				if (arg == TrueStringAcceptMusic)
+					return true;
+				if (arg == FalseStringAcceptMusic)
+					return false;
+				else
+					return null;
+			}
+			catch (FormatException e)
+			{
+				UpdateSetError("Conversion error: " + e.Message);
+				return null;
+			}
+		}
+	}
+
+	public class AcceptFoodToBoolConverter : BoolConverter<string>
+	{
+
+		public AcceptFoodToBoolConverter()
+		{
+			SetFunc = OnSetAcceptFood;
+			GetFunc = OnGetAcceptFood;
+		}
+
+		private string TrueStringAcceptFood = "Je préfère manger à une table.";
+		private string FalseStringAcceptFood = "J'aime manger en voyageant!";
+		private string NullStringAcceptFood = "Une erreur est survenue";
+
+		private string OnGetAcceptFood(bool? value)
+		{
+			try
+			{
+				return (value == true) ? TrueStringAcceptFood : FalseStringAcceptFood;
+			}
+			catch (Exception e)
+			{
+				UpdateGetError("Conversion error: " + e.Message);
+				return NullStringAcceptFood;
+			}
+		}
+
+		private bool? OnSetAcceptFood(string arg)
+		{
+			if (arg == null)
+				return null;
+			try
+			{
+				if (arg == TrueStringAcceptFood)
+					return true;
+				if (arg == FalseStringAcceptFood)
+					return false;
+				else
+					return null;
+			}
+			catch (FormatException e)
+			{
+				UpdateSetError("Conversion error: " + e.Message);
+				return null;
+			}
+		}
+	}
+
+	public class AcceptPetToBoolConverter : BoolConverter<string>
+	{
+
+		public AcceptPetToBoolConverter()
+		{
+			SetFunc = OnSetAcceptPet;
+			GetFunc = OnGetAcceptPet;
+		}
+
+		private string TrueStringAcceptPet = "Je préfère voyager sans animaux.";
+		private string FalseStringAcceptPet = "J'aime beaucoup les animaux!";
+		private string NullStringAcceptPet = "Une erreur est survenue";
+
+		private string OnGetAcceptPet(bool? value)
+		{
+			try
+			{
+				return (value == true) ? TrueStringAcceptPet : FalseStringAcceptPet;
+			}
+			catch (Exception e)
+			{
+				UpdateGetError("Conversion error: " + e.Message);
+				return NullStringAcceptPet;
+			}
+		}
+
+		private bool? OnSetAcceptPet(string arg)
+		{
+			if (arg == null)
+				return null;
+			try
+			{
+				if (arg == TrueStringAcceptPet)
+					return true;
+				if (arg == FalseStringAcceptPet)
+					return false;
+				else
+					return null;
+			}
+			catch (FormatException e)
+			{
+				UpdateSetError("Conversion error: " + e.Message);
+				return null;
+			}
+		}
+	}
+
+
+	public class AcceptSmokerToBoolConverter : BoolConverter<string>
+	{
+
+		public AcceptSmokerToBoolConverter()
+		{
+			SetFunc = OnSetAcceptSmoker;
+			GetFunc = OnGetAcceptSmoker;
+		}
+
+		private string TrueStringAcceptSmoker = "Je n'aime pas la fumée!";
+		private string FalseStringAcceptSmoker = "Avec moi tu peux fumer sans problème!";
+		private string NullStringAcceptSmoker = "Une erreur est survenue";
+
+		private string OnGetAcceptSmoker(bool? value)
+		{
+			try
+			{
+				return (value == true) ? TrueStringAcceptSmoker : FalseStringAcceptSmoker;
+			}
+			catch (Exception e)
+			{
+				UpdateGetError("Conversion error: " + e.Message);
+				return NullStringAcceptSmoker;
+			}
+		}
+
+		private bool? OnSetAcceptSmoker(string arg)
+		{
+			if (arg == null)
+				return null;
+			try
+			{
+				if (arg == TrueStringAcceptSmoker)
+					return true;
+				if (arg == FalseStringAcceptSmoker)
+					return false;
+				else
+					return null;
+			}
+			catch (FormatException e)
+			{
+				UpdateSetError("Conversion error: " + e.Message);
+				return null;
+			}
+		}
+	}
+
+	private FileModel model = new();
+	private FileModelFluentValidator ValidationRules = new();
+	private bool SuppressOnChangeWhenInvalid;
+
+	private void UploadFiles(InputFileChangeEventArgs e)
+	{
+
+		Snackbar.Configuration.PositionClass = Defaults.Classes.Position.TopCenter;
+		Snackbar.Add($"This file has the extension {model.File.Name.Split(".").Last()}", Severity.Info);
+
+		//TODO upload the files to the server
+	}
+
+	private async Task Submit()
+	{
+		await form.Validate();
+
+		if (form.IsValid)
+		{
+			Snackbar.Add("Submited!");
+		}
+	}
+
+
+	public class FileModel
+	{
+		public string Name { get; set; }
+		public IBrowserFile File { get; set; }
+	}
+
+
+	public class FileModelFluentValidator : AbstractValidator<FileModel>
+	{
+		public FileModelFluentValidator()
+		{
+			RuleFor(x => x.Name)
+				.NotEmpty()
+				.Length(1, 100);
+			RuleFor(x => x.File)
+			.NotEmpty();
+			When(x => x.File != null, () =>
+			{
+				RuleFor(x => x.File.Size).LessThanOrEqualTo(10485760).WithMessage("La taille de votre fichier ne peut être suppérieur à 10 MB");
+			});
+		}
+
+		public Func<object, string, Task<IEnumerable<string>>> ValidateValue => async (model, propertyName) =>
+		{
+			var result = await ValidateAsync(ValidationContext<FileModel>.CreateWithOptions((FileModel)model, x => x.IncludeProperties(propertyName)));
+			if (result.IsValid)
+				return Array.Empty<string>();
+			return result.Errors.Select(e => e.ErrorMessage);
+		};
+	}
+}

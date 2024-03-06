@@ -1,16 +1,129 @@
-﻿@inherits LayoutComponentBase
-<div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
+﻿@using MudBlazor
+@inherits LayoutComponentBase
 
-    <main>
-        <div class="top-row px-4">
-            <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
-        </div>
+<MudThemeProvider Theme="@this.CurrentTheme" />
+<MudDialogProvider />
+<MudSnackbarProvider />
 
-        <article class="content px-4">
-            @Body
-        </article>
-    </main>
-</div>
+<MudLayout>
+	<MudAppBar Elevation="1" Color="Color.Primary" style="color: white" Size="Size.Large">
+
+		<div>
+			<a href="/">
+				<MudImage Src="images/logoERS.svg" Alt="Simone" style="height: 20%; max-width: 20%;" />
+			</a>
+		</div>
+
+		<MudButton Href="/journeyproposal" StartIcon="@Icons.Material.Filled.AddCircleOutline" Class="white-text" Size="Size.Large">Proposer un voyage</MudButton>
+		<MudButton Href="/journeylists" StartIcon="@Icons.Material.Filled.DirectionsCar" Class="white-text" Size="Size.Large">Mes trajets</MudButton>
+
+
+		<MudMenu StartIcon="@Icons.Material.Filled.AccountCircle" EndIcon="@Icons.Material.Filled.KeyboardArrowDown" Color="Color.Inherit" Size="Size.Large">
+			<MudMenuItem Href="/connection" style="color:#3b8382"> Se connecter</MudMenuItem>
+			<MudMenuItem Href="/profilcreation" style="color:#3b8382">Créer un compte</MudMenuItem>
+
+		</MudMenu>
+	</MudAppBar>
+
+
+	<CascadingValue Value="darkModeActive">
+		<MudMainContent>
+			@Body
+		</MudMainContent>
+	</CascadingValue>
+
+	<feet>
+
+		<MudContainer Fixed="true" Height="200px" Square="true" Class="mud-theme-primary" style="color:#054752; margin-top: 5em; width:100%">
+			<MudGrid>
+
+				<MudItem sm="4">
+					<MudText Typo="Typo.h5" Style="margin:1em">Voyagez avec nous</MudText>
+
+					<MudItem>  <MudSwitch @bind-Value="@this.darkModeActive" Color="Color.Primary" Class="ma-4" T="bool" Label="Toggle Light/Dark Mode" onclick="@ToggleDarkMode" /></MudItem>
+
+
+				</MudItem>
+				<MudItem sm="4">
+					<MudText Typo="Typo.h5" Style="margin:1em">Covoiturage</MudText>
+
+
+				</MudItem>
+				<MudItem sm="4">
+					<p>   <MudText Typo="Typo.h5" Style="margin:1em">En savoir plus</MudText></p>
+					<p>
+						<MudLink Href="sudo apt-get install -y dotnet-runtime-8.0" Class="white-text">En savoir plus</MudLink>
+					</p>
+					<p>  <MudLink Href="https://www.youtube.com/watch?v=DFseXGy79OE" Class="white-text">Comment ça marche</MudLink></p>
+					<p>  <MudLink Href="https://www.amazon.fr/QUI-SUIS-JE-Collectif/dp/2761922905" Class="white-text">Qui sommes-nous ?</MudLink></p>
+					<p>  <MudLink Href="https://fr.wikihow.com/demander-de-l%27aide" Class="white-text">Centre d'aide</MudLink></p>
+					<p>  <MudLink Href="https://www.youtube.com/watch?v=H9DDjyxa8GU" Class="white-text">Presse</MudLink></p>
+					<p>
+						<MudIconButton Href="https://facebook.com/blablacar.fr" Icon="@Icons.Custom.Brands.Facebook" Color="Color.Tertiary" Size="Size.Large"></MudIconButton>
+						<MudIconButton Href="https://www.linkedin.com/in/alexandre-lin%C3%A9-6b440b298/" Icon="@Icons.Custom.Brands.LinkedIn" Color="Color.Tertiary" Size="Size.Large"></MudIconButton>
+						<MudIconButton Href="https://github.com/AlexEnCode" Icon="@Icons.Custom.Brands.GitHub" Color="Color.Tertiary" Size="Size.Large"></MudIconButton>
+					</p>
+				</MudItem>
+			</MudGrid>
+		</MudContainer>
+
+		<a style="display: flex; align-items: center; justify-content: space-between; height">
+			<div>
+				<MudButton Variant="Variant.Text">
+					Transparence des plateformes
+					<audio autoplay>
+						<source src="Sounds/Klaxon.mp3" type="audio/mpeg">
+						Votre navigateur ne supporte pas l'élément audio.
+					</audio>
+
+				</MudButton>
+				<MudButton Variant="Variant.Text">Informations légales</MudButton>
+				<MudButton Variant="Variant.Text">Paramètres des cookies</MudButton>
+
+
+
+			</div>
+			<MudImage Src="images/EVStext.png" Alt="Simone" style="height: 15%; max-width: 15%; float:right " />
+		</a>
+	</feet>
+</MudLayout>
+
+@code {
+
+
+	private bool darkModeActive = false;
+
+	private MudTheme CurrentTheme = DefaultTheme;
+
+
+	public void ToggleDarkMode()
+	{
+		this.darkModeActive = !this.darkModeActive;
+		this.CurrentTheme = this.darkModeActive ? darkTheme : DefaultTheme;
+	}
+
+
+	private static MudTheme DefaultTheme = new()
+		{
+			Palette = new PaletteLight
+			{
+				Primary = "#3b8382", //vert
+				Secondary = "#CC755E",
+				Tertiary = "#ffffff"
+
+			}
+		};
+	private static MudTheme darkTheme = new()
+		{
+			Palette = new Palette
+			{
+				Primary = "#445A6E",
+				Secondary = "#FEE97E",
+				Tertiary = "#ffffff",
+				Black = "#FEE97E",
+				Background = "#1B2C3C",
+				BackgroundGrey = "#1B2C3C"
+			}
+		};
+}
+

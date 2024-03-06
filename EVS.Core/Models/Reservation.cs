@@ -4,21 +4,24 @@ using EVS.Core.Enums;
 
 namespace EVS.Core.Models
 {
+    [Table("reservation")]
     public class Reservation
     {
-        [Key]
-        public Guid ReservationId { get; set; }
+        [Column("id")]
+        public Guid Id { get; set; }
 
-        [ForeignKey("Ride")]
-        public Ride RideId { get; set; } = new Ride();
+        [Column("ride_id")]
+        public Guid RideId { get; set; }
+        public Ride Ride { get; set; } = null!;
 
-        [ForeignKey("User")]
-        public User UserId { get; set; } = new User();
+        [Column("user_id")]
+        public Guid UserId { get; set; }
+        public User User { get; set; } = null!;
 
-        [Required]
+        [Required, Column("reservation_date")]
         public DateTime ReservationDate { get; set; }
 
-        [Required]
-        public ReservationStatus Status { get; set; } // Peut être "Pending", "Confirmed", etc.
+        [Required, Column("status")]
+        public ReservationStatus Status { get; set; }
     }
 }

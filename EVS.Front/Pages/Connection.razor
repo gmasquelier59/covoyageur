@@ -1,0 +1,65 @@
+﻿@page "/connection"
+@using MudBlazor
+@inherits LayoutComponentBase
+@using System.Text.RegularExpressions
+@using System.ComponentModel.DataAnnotations
+
+<MudGrid>
+    <MudItem xs="6" Style="margin-top:10% ">
+        <MudText Typo="Typo.h2" Color="Color.Primary" >Je me connecte à</MudText>
+        <MudText Typo="Typo.h2" Color="Color.Primary"> En voiture Simone !</MudText>
+    </MudItem>
+
+    <MudItem xs="6">
+        <MudGrid Style="margin-top:20%">
+            <MudItem xs="12" sm="7">
+                <MudPaper Class="pa-4" Style="padding: 1em">
+                    <MudForm >
+                        <MudTextField @bind-Value="TextValue" Label="Pseudo" Variant="Variant.Filled" Margin="Margin.Dense"></MudTextField>
+                        <MudTextField @bind-Value="Password" Label="Mot de Passe" Variant="Variant.Filled" InputType="@PasswordInput" Adornment="Adornment.End" AdornmentIcon="@PasswordInputIcon" OnAdornmentClick="ButtonTestclick" AdornmentAriaLabel="Show Password" />
+                        <p style="margin:1em">Vous n'avez pas encore de compte? <MudLink Href="ProfilCreation">Cliquer ici.</MudLink></p>
+                        <div class="d-flex align-center justify-space-between">
+                           
+                            <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Se connecter</MudButton>
+                        </div>
+                    </MudForm>
+                </MudPaper>
+            </MudItem>
+        </MudGrid>
+    </MudItem>
+</MudGrid>
+
+
+@code {
+
+    public string TextValue { get; set; }
+    public string Password { get; set; }
+
+    bool success;
+    bool isShow;
+    private void OnValidSubmit(EditContext context)
+    {
+        success = true;
+        StateHasChanged();
+    }
+
+    InputType PasswordInput = InputType.Password;
+    string PasswordInputIcon = Icons.Material.Filled.VisibilityOff;
+
+    void ButtonTestclick()
+    {
+        @if (isShow)
+        {
+            isShow = false;
+            PasswordInputIcon = Icons.Material.Filled.VisibilityOff;
+            PasswordInput = InputType.Password;
+        }
+        else
+        {
+            isShow = true;
+            PasswordInputIcon = Icons.Material.Filled.Visibility;
+            PasswordInput = InputType.Text;
+        }
+    }
+}
+}

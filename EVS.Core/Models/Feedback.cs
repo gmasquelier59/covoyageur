@@ -3,24 +3,25 @@ using System.ComponentModel.DataAnnotations;
 
 namespace EVS.Core.Models
 {
+    [Table("feedback")]
     public class Feedback
     {
-        [Key]
-        public int FeedbackId { get; set; }
+        [Column("id")]
+        public Guid Id { get; set; } = Guid.NewGuid();
 
-        [ForeignKey("Driver")]
-        public int RideId { get; set; }
-        public Ride Ride { get; set; } = new Ride();
+        [Column("ride_id")]
+        public Guid RideId { get; set; }
+        public Ride Ride { get; set; } = null!;
 
-        [ForeignKey("Passenger")]
-        public int UserId { get; set; }
-        public User User { get; set; } = new User();
+        [Column("user_id")]
+        public Guid UserId { get; set; }
+        public User User { get; set; } = null!;
 
-        [Required]
-        public int Note { get; set; } // Peut être une valeur entre 1 et 5
+        [Required, Range(1, 5), Column("note")]
+        public int Note { get; set; }
 
-        [Required]
-        public string Comment { get; set; } = string.Empty;
+        [Required, MaxLength(500), Column("comments")]
+        public string Comments { get; set; } = string.Empty;
 
 
     }
