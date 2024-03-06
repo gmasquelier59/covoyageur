@@ -3,7 +3,7 @@ using System.Linq.Expressions;
 
 namespace EVS.Api.Repositories
 {
-    public class FeedbackRepository : IRepository<Feedback>
+    public class FeedbackRepository : IUserRepository<Feedback>
     {
         public Task<int> Add(Feedback feedback)
         {

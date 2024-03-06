@@ -12,10 +12,10 @@ namespace EVS.Api.Extensions
     {
         public static void AddServices(this WebApplicationBuilder builder)
         {
-            builder.Services.AddScoped<IRepository<User>, UserRepository>();
-            builder.Services.AddScoped<IRepository<Feedback>, FeedbackRepository>();
-            builder.Services.AddScoped<IRepository<Ride>, RideRepository>();
-            builder.Services.AddScoped<IRepository<Reservation>, ReservationRepository>();
+            builder.Services.AddScoped<IUserRepository<User>, UserRepository>();
+            builder.Services.AddScoped<IUserRepository<Feedback>, FeedbackRepository>();
+            builder.Services.AddScoped<IUserRepository<Ride>, RideRepository>();
+            builder.Services.AddScoped<IUserRepository<Reservation>, ReservationRepository>();
         }
 
         public static void AddDatabase(this WebApplicationBuilder builder)
