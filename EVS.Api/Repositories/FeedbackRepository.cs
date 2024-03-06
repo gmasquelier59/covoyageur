@@ -1,43 +1,6 @@
-﻿using EVS.Core.Models;
-using System.Linq.Expressions;
-
-namespace EVS.Api.Repositories
+﻿namespace EVS.Api.Repositories
 {
-    public class FeedbackRepository : IUserRepository<Feedback>
+    public class FeedbackRepository
     {
-        public Task<int> Add(Feedback feedback)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> Delete(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Feedback?> Get(Expression<Func<Feedback, bool>> predicate)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<List<Feedback>> GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<List<Feedback>> GetAll(Expression<Func<Feedback, bool>> predicate)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Feedback?> GetById(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> Update(Feedback feedback)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

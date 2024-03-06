@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using EVS.Core.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace EVS.Api.Controllers
 {
-    [Route("/feedback")]
     [Tags("Feedbacks")]
     [ApiController]
     public class FeedbackController : Controller
@@ -12,7 +12,7 @@ namespace EVS.Api.Controllers
         /// </summary>
         /// <param name="rideId">Identifiant du trajet</param>
         [HttpGet("/feedbacks/ride/{rideId}")]
-        public IActionResult GetByRideId(Guid rideId)
+        public ActionResult<List<Feedback>> GetAllByRideId(Guid rideId)
         {
             throw new NotImplementedException();
         }
@@ -22,7 +22,7 @@ namespace EVS.Api.Controllers
         /// </summary>
         /// <param name="userId">Identifiant de l'utilisateur</param>
         [HttpGet("/feedbacks/user/{userId}")]
-        public IActionResult GetByUserId(Guid userId)
+        public ActionResult<List<Feedback>> GetByUserId(Guid userId)
         {
             throw new NotImplementedException();
         }
@@ -32,7 +32,7 @@ namespace EVS.Api.Controllers
         /// </summary>
         /// <param name="rideId">Identifiant du trajet</param>
         [HttpPost("/feedback/{rideId}")]
-        public IActionResult Create(Guid rideId)
+        public ActionResult<Feedback> Create(Guid rideId)
         {
             throw new NotImplementedException();
         }
@@ -42,7 +42,7 @@ namespace EVS.Api.Controllers
         /// </summary>
         /// <param name="id">Identifiant du feedback</param>
         [HttpPut("/feedback/{id}")]
-        public IActionResult Update(Guid id)
+        public ActionResult<Feedback> Update(Guid id)
         {
             throw new NotImplementedException();
         }

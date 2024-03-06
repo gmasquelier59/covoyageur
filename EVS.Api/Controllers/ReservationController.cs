@@ -5,7 +5,6 @@ using Microsoft.Extensions.Hosting;
 
 namespace EVS.Api.Controllers
 {
-    [Route("/reservation")]
     [Tags("Réservations")]
     [ApiController]
     public class ReservationController : Controller
@@ -16,7 +15,7 @@ namespace EVS.Api.Controllers
         /// <param name="rideId">Identifiant du trajet</param>
         /// <param name="userId">Identifiant de l'utilisateur</param>
         [HttpPost("/reservation/{rideId}/{userId}")]
-        public IActionResult Create(Guid rideId, Guid userId)
+        public ActionResult<Reservation> Create(Guid rideId, Guid userId)
         {
             throw new NotImplementedException();
         }
@@ -27,7 +26,7 @@ namespace EVS.Api.Controllers
         /// <param name="id">Identifiant de la réservation</param>
         /// <param name="Status">Identifiant du statut de réservation</param>
         [HttpPut("/reservation/{id}/{status}")]
-        public IActionResult Update(Guid id, ReservationStatus Status)
+        public ActionResult<Reservation> Update(Guid id, ReservationStatus Status)
         {
             throw new NotImplementedException();
         }
@@ -37,7 +36,7 @@ namespace EVS.Api.Controllers
         /// </summary>
         /// <param name="rideId">Identifiant de trajet</param>
         [HttpGet("/reservations/{rideId}")]
-        public IActionResult AllByRideId(Guid rideId)
+        public ActionResult<List<Reservation>> AllByRideId(Guid rideId)
         {
             throw new NotImplementedException();
         }

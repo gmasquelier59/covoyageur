@@ -6,58 +6,54 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EVS.Core.Models
 {
+    [Table("ride")]
     public class Ride
     {
-        [Key]
+        [Column("id")]
         public Guid Id { get; set; }
 
-        [ForeignKey("User")]
+        [Column("user_id")]
         public Guid UserId { get; set; }
-        public User User { get; set; } = new User();
+        public User User { get; set; } = null!;
 
-        [Required]
+        [Required, MaxLength(50), Column("start_city")]
         public string StartCity { get; set; } = string.Empty;
 
-        [Required]
+        [Required, Column("start_latitude")]
         public Double StartLatitude { get; set; }
 
-        [Required]
+        [Required, Column("start_longitude")]
         public Double StartLongitude { get; set; }
 
-        [Required]
+        [Required, MaxLength(50), Column("end_city")]
         public string EndCity { get; set; } = string.Empty;
 
-        [Required]
+        [Required, Column("end_latitude")]
         public Double EndLatitude { get; set; }
 
-        [Required]
-        public Double EndtLongitude { get; set; }
+        [Required, Column("end_longitude")]
+        public Double EndLongitude { get; set; }
 
-        [Required]
+        [Required, Column("distance")]
         public int Distance { get; set; }
 
-        [Required]
+        [Required, Column("departure")]
         public DateTime Departure { get; set; }
 
-        [Required]
+        [Required, Column("price")]
         public Double Price { get; set; }
 
-        [Required]
+        [Required, Range(1, 10), Column("seats")]
         public int Seats { get; set; }
 
         public List<Reservation> Reservations { get; set; } = new List<Reservation>();
-        public List<Feedback> Feedbacks { get; set; } = new List<Feedback> { };
 
-        public static Guid FirstOrDefault(Func<object, bool> value, object )
+        public List<Feedback> Feedbacks { get; set; } = new List<Feedback>();
+    
+
+        public static object Find(Guid rideId)
         {
             throw new NotImplementedException();
         }
-
-        public Guid FirstOrDefaultIt(Ride ride, User user)
-        {
-            return ride.UserId;
-        }
-
-        
     }
 }

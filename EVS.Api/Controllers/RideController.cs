@@ -3,7 +3,6 @@ using EVS.Core.Models;
 
 namespace EVS.Api.Controllers
 {
-    [Route("/ride")]
     [Tags("Trajets")]
     [ApiController]
     public class RideController : Controller
@@ -15,7 +14,7 @@ namespace EVS.Api.Controllers
         /// <param name="endCity">Nom de la ville de d'arrivée</param>
         /// <param name="departure">Date de départ</param>
         [HttpGet("/rides/{startCity}/{endCity}/{departure}")]
-        public IActionResult AllWithEndCity(string startCity, string endCity, DateTime departure)
+        public ActionResult<List<Ride>> AllWithEndCity(string startCity, string endCity, DateTime departure)
         {
             throw new NotImplementedException();
         }
@@ -26,7 +25,7 @@ namespace EVS.Api.Controllers
         /// <param name="startCity">Nom de la ville de départ</param>        
         /// <param name="departure">Date de départ</param>
         [HttpGet("/rides/{startCity}/{departure}")]
-        public IActionResult AllWithoutEndCity(string startCity, DateTime departure)
+        public ActionResult<List<Ride>> AllWithoutEndCity(string startCity, DateTime departure)
         {
             throw new NotImplementedException();
         }
@@ -35,7 +34,7 @@ namespace EVS.Api.Controllers
         /// Retourne la liste des trajets disponibles sur le site
         /// </summary>
         [HttpGet("/rides")]
-        public IActionResult All()
+        public ActionResult<List<Ride>> All()
         {
             throw new NotImplementedException();
         }
@@ -45,17 +44,17 @@ namespace EVS.Api.Controllers
         /// </summary>
         /// <param name="userId">Identifiant d'utilisateur</param>
         [HttpGet("/rides/{userId}")]
-        public IActionResult AllByUserId(Guid userId)
+        public ActionResult<List<Ride>> AllByUserId(Guid userId)
         {
             throw new NotImplementedException();
         }
 
         /// <summary>
-        /// Retourne un trajet précis
+        /// Retourne un trajet
         /// </summary>
         /// <param name="id">Identifiant du trajet</param>
         [HttpGet("/ride/{id}")]
-        public IActionResult GetById(Guid id)
+        public ActionResult<Ride> GetById(Guid id)
         {
             throw new NotImplementedException();
         }
@@ -64,7 +63,7 @@ namespace EVS.Api.Controllers
         /// Crée un trajet à proposer sur le site
         /// </summary>
         [HttpPost("/create")]
-        public IActionResult Create([FromBody]Ride ride)
+        public ActionResult<Ride> Create([FromBody]Ride ride)
         {
             throw new NotImplementedException();
         }
@@ -74,7 +73,7 @@ namespace EVS.Api.Controllers
         /// </summary>
         /// <param name="id">Identifiant du trajet</param>
         [HttpDelete("/ride/{id}")]
-        public IActionResult DeleteById(Guid id)
+        public ActionResult DeleteById(Guid id)
         {
             throw new NotImplementedException();
         }
