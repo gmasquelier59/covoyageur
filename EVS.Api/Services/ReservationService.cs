@@ -1,96 +1,59 @@
-﻿using System;
-using System.Linq;
+﻿using EVS.Api.Repositories;
+using EVS.Core.Enums;
 using EVS.Core.Models;
 
-namespace Api.Services
+namespace EVS.Api.Services
 {
-    public class ReservationService
+    public class ReservationService : IReservationService
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IRepository<Reservation> _reservervationRepository;
+        private readonly IRepository<Ride> _rideRepository;
+        private readonly IRepository<User> _userRepository;
 
-        private ReservationService(ApplicationDbContext context)
+        public ReservationService(IRepository<Reservation> reservervationRepository, IRepository<Ride> rideRepository, IRepository<User> userRepository)
         {
-            _context = context;
+            _reservervationRepository = reservervationRepository;
+            _rideRepository = rideRepository;
+            _userRepository = userRepository;
         }
 
-        // Méthode pour créer une nouvelle réservation
-        public Reservation CreateReservation(Guid rideId, Guid userId)
+        public async Task<Reservation?> Create(Guid rideId, Guid userId)
         {
-            // Vérifier si l'offre de trajet existe
-            var ride = _context.Ride.FirstOrDefault(t => t.RideId == rideId);
+            Ride? ride = await _rideRepository.GetById(rideId);
             if (ride == null)
-            {
                 return null;
-            }
 
-            // Vérifier si le passager existe
-            var user = _context.User.FirstOrDefault(u => u.UserId == userId);
+
+            User? user = await _userRepository.GetById(userId);
             if (user == null)
-            {
                 return null;
-            }
 
-            // Vérifier si des places sont disponibles
-            if (ride.Seats <= 0)
+            Reservation reservation = new Reservation()
             {
-                return null;
-            }
-
-            // Créer la réservation
-            var reservation = new Reservation //initialiser avec les paramètres de notre projet
-            {
-                RideId = rideId,
-                UserId = userId,
-                Status = "Pending"
+                RideId = ride.Id,
+                UserId = user.Id,
+                ReservationDate = DateTime.Now,
+                Status = Core.Enums.ReservationStatus.Pending
             };
 
-            // Mettre à jour le nombre de places disponibles sur l'offre de trajet
-            ride.AvailableSeats--;
-
-            // Sauvegarder les modifications dans la base de données
-            _context.Reservation.Add(reservation);
-            _context.SaveChanges();
-
-            return reservation;
+            return await _reservervationRepository.Add(reservation);
         }
 
-        // Méthode pour mettre à jour le statut d'une réservation
-        public Reservation UpdateReservationStatus(int reservationId, string status)
+        public async Task<List<Reservation>> GetAllByRideId(Guid rideId)
         {
-            var reservation = _context.Reservation.Find(reservationId);
+            return await _reservervationRepository.GetAll(r => r.RideId == rideId);
+        }
+
+        public async Task<Reservation?> UpdateStatus(Guid id, ReservationStatus newStatus)
+        {
+            Reservation? reservation = await _reservervationRepository.GetById(id);
+
             if (reservation == null)
-            {
                 return null;
-            }
 
-            reservation.Status = status;
+            reservation.Status = newStatus;
 
-            _context.SaveChanges();
-            return reservation;
-        }
-
-        // Méthode pour annuler une réservation
-        public bool CancelReservation(int reservationId)
-        {
-            var reservation = _context.Reservations.Find(reservationId);
-            if (reservation == null)
-            {
-                return false;
-            }
-
-            // Récupérer l'offre de trajet associée à la réservation
-            var ride = _context.Ride.FirstOrDefault(t => t.RideId == reservation.RideId);
-            if (ride != null)
-            {
-                // Augmenter le nombre de places disponibles sur l'offre de trajet
-                ride.Seats++;
-            }
-
-            _context.Reservation.Remove(reservation);
-            _context.SaveChanges();
-            return true;
+            return await _reservervationRepository.Update(reservation);
         }
     }
-
-    
 }

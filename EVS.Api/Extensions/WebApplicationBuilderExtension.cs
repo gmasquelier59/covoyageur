@@ -1,5 +1,6 @@
-﻿using EVS.Api.Datas;
+﻿using EVS.Api.Data;
 using EVS.Api.Repositories;
+using EVS.Api.Services;
 using EVS.Core.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
@@ -12,10 +13,13 @@ namespace EVS.Api.Extensions
     {
         public static void AddServices(this WebApplicationBuilder builder)
         {
-            builder.Services.AddScoped<IUserRepository<User>, UserRepository>();
-            builder.Services.AddScoped<IUserRepository<Feedback>, FeedbackRepository>();
-            builder.Services.AddScoped<IUserRepository<Ride>, RideRepository>();
-            builder.Services.AddScoped<IUserRepository<Reservation>, ReservationRepository>();
+            builder.Services.AddScoped<IRepository<User>, UserRepository>();
+            builder.Services.AddScoped<IRepository<Feedback>, FeedbackRepository>();
+            builder.Services.AddScoped<IRepository<Ride>, RideRepository>();
+            builder.Services.AddScoped<IRepository<Reservation>, ReservationRepository>();
+
+            builder.Services.AddScoped<IReservationService, ReservationService>();
+            builder.Services.AddScoped<IRideService, RideService>();
         }
 
         public static void AddDatabase(this WebApplicationBuilder builder)

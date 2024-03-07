@@ -5,7 +5,7 @@ namespace EVS.Api.Repositories
 {
     public class RideRepository : IRepository<Ride>
     {
-        public Task<int> Add(Ride ride) 
+        public Task<Ride?> Add(Ride ride) 
         {
             throw new NotImplementedException();
         }
@@ -35,7 +35,7 @@ namespace EVS.Api.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<bool> Update(Ride ride)
+        public Task<Ride?> Update(Ride ride)
         {
             throw new NotImplementedException();
         }

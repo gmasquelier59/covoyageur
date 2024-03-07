@@ -1,34 +1,51 @@
-﻿using EVS.Core.Enums;
+﻿using EVS.Api.Services;
+using EVS.Core.Enums;
 using EVS.Core.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Hosting;
 
 namespace EVS.Api.Controllers
 {
     [Tags("Réservations")]
     [ApiController]
-    public class ReservationController : Controller
+    public class ReservationController : ControllerBase
     {
+        private readonly IReservationService _reservationService;
+
+        public ReservationController(IReservationService reservationService)
+        {
+            _reservationService = reservationService;
+        }
+
         /// <summary>
         /// Crée une réservation pour un passager sur un trajet défini
         /// </summary>
         /// <param name="rideId">Identifiant du trajet</param>
         /// <param name="userId">Identifiant de l'utilisateur</param>
         [HttpPost("/reservation/{rideId}/{userId}")]
-        public ActionResult<Reservation> Create(Guid rideId, Guid userId)
+        public async Task<ActionResult<Reservation>> Create(Guid rideId, Guid userId)
         {
-            throw new NotImplementedException();
+            Reservation? reservation = await _reservationService.Create(rideId, userId);
+
+            if (reservation == null)
+                return BadRequest();
+
+            return Ok(reservation);
         }
 
         /// <summary>
-        /// Mise à jour d'une réservation (Acception ou Refus des passagers par le conducteur)
+        /// Mise à jour d'une réservation
         /// </summary>
         /// <param name="id">Identifiant de la réservation</param>
-        /// <param name="Status">Identifiant du statut de réservation</param>
+        /// <param name="status">Identifiant du statut de réservation</param>
         [HttpPut("/reservation/{id}/{status}")]
-        public ActionResult<Reservation> Update(Guid id, ReservationStatus Status)
+        public async Task<ActionResult<Reservation>> Update(Guid id, ReservationStatus status)
         {
-            throw new NotImplementedException();
+            Reservation? reservation = await _reservationService.UpdateStatus(id, status);
+
+            if (reservation == null)
+                return NotFound();
+
+            return Ok(reservation);
         }
 
         /// <summary>
@@ -36,9 +53,9 @@ namespace EVS.Api.Controllers
         /// </summary>
         /// <param name="rideId">Identifiant de trajet</param>
         [HttpGet("/reservations/{rideId}")]
-        public ActionResult<List<Reservation>> AllByRideId(Guid rideId)
+        public async Task<ActionResult<List<Reservation>>> AllByRideId(Guid rideId)
         {
-            throw new NotImplementedException();
+            return await _reservationService.GetAllByRideId(rideId);
         }
     }
 }

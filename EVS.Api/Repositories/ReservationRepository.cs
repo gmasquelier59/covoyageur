@@ -1,42 +1,82 @@
-﻿using EVS.Core.Models;
+﻿using EVS.Api.Data;
+using EVS.Core.Models;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+using static System.Collections.Specialized.BitVector32;
 
 namespace EVS.Api.Repositories
 {
     public class ReservationRepository : IRepository<Reservation>
     {
-        public Task<int> Add(Reservation entity)
+        private readonly AppDbContext _context;
+        private readonly DbSet<Reservation> _reservations;
+
+        public ReservationRepository(AppDbContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
+            _reservations = _context.Set<Reservation>();
         }
 
-        public Task<bool> Delete(Guid id)
+        public async Task<Reservation?> Add(Reservation reservation)
         {
-            throw new NotImplementedException();
+            EntityEntry<Reservation> newEntry = await _reservations.AddAsync(reservation);
+
+            if (await _context.SaveChangesAsync() > 0)
+                return newEntry.Entity;
+
+            return null;
         }
 
-        public Task<Reservation?> Get(System.Linq.Expressions.Expression<Func<Reservation, bool>> predicate)
+        public async Task<bool> Delete(Guid id)
         {
-            throw new NotImplementedException();
+            Reservation? reservationToDelete = await GetById(id);
+
+            if (reservationToDelete == null)
+                return false;
+
+            _context.Remove(reservationToDelete);
+            await _context.SaveChangesAsync();
+
+            return true;
         }
 
-        public Task<List<Reservation>> GetAll()
+        public async Task<Reservation?> Get(System.Linq.Expressions.Expression<Func<Reservation, bool>> predicate)
         {
-            throw new NotImplementedException();
+            return await _reservations.FirstOrDefaultAsync<Reservation>(predicate);
         }
 
-        public Task<List<Reservation>> GetAll(System.Linq.Expressions.Expression<Func<Reservation, bool>> predicate)
+        public async Task<List<Reservation>> GetAll()
         {
-            throw new NotImplementedException();
+            return await _reservations.ToListAsync<Reservation>();
         }
 
-        public Task<Reservation?> GetById(Guid id)
+        public async Task<List<Reservation>> GetAll(System.Linq.Expressions.Expression<Func<Reservation, bool>> predicate)
         {
-            throw new NotImplementedException();
+            return await _reservations.Where(predicate).ToListAsync<Reservation>();
         }
 
-        public Task<bool> Update(Reservation entity)
+        public async Task<Reservation?> GetById(Guid id)
         {
-            throw new NotImplementedException();
+            return await _reservations.FirstOrDefaultAsync<Reservation>(r => r.Id == id);
+        }
+
+        public async Task<Reservation?> Update(Reservation reservation)
+        {
+            Reservation? reservationToUpdate = await GetById(reservation.Id);
+
+            if (reservationToUpdate == null)
+                return null;
+
+            if (reservationToUpdate.Status != reservation.Status)
+                reservationToUpdate.Status = reservation.Status;
+
+            if (reservationToUpdate.ReservationDate != reservation.ReservationDate)
+                reservationToUpdate.ReservationDate = reservation.ReservationDate;
+
+            if (await _context.SaveChangesAsync() == 0)
+                return null;
+
+            return reservationToUpdate;
         }
     }
 }
