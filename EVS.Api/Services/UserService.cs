@@ -1,46 +1,55 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Collections.Generic;
+﻿// UserService.cs
+
 using EVS.Core.Models;
-using EVS.Api.Repositories;
+using System;
+using System.Collections.Generic;
 
 namespace EVS.Api.Services
 {
-    internal class UserService(IUserRepository<User> userRepository)
-            {
-            // Injection de dépendance vers le repository ou le service d'accès aux données des utilisateurs
-            public readonly IUserRepository<User> _userRepository = userRepository;
-
-        // Méthode pour récupérer tous les utilisateurs
-        public List<User> GetAllUsers() => _userRepository.GetAll();
-
-        // Méthode pour récupérer un utilisateur par son ID
-        public Task<User> GetUserById(Guid userId)
-            {
-                return _userRepository.GetById(userId);
-            }
-
-            // Méthode pour créer un nouvel utilisateur
-            public void CreateUser(User user)
-            {
-                _userRepository.Create(user);
-            }
-
-            // Méthode pour mettre à jour les informations d'un utilisateur existant
-            public void UpdateUser(User user)
-            {
-                _userRepository.Update(user);
-            }
-
-            // Méthode pour supprimer un utilisateur
-            public void DeleteUser(Guid userId)
-            {
-                _userRepository.Delete(userId);
-            }
+    public class UserService : IUserService
+    {
+        public List<User> GetAllUsers()
+        {
+            // Logique pour récupérer tous les utilisateurs depuis la base de données, par exemple
+            throw new NotImplementedException();
         }
 
-    
+        public User GetUserById(Guid userId)
+        {
+            // Logique pour récupérer un utilisateur par son identifiant depuis la base de données, par exemple
+            throw new NotImplementedException();
+        }
+
+        public void AddUser(User user)
+        {
+            // Logique pour ajouter un nouvel utilisateur dans la base de données, par exemple
+            throw new NotImplementedException();
+        }
+
+        public void UpdateUser(User user)
+        {
+            // Logique pour mettre à jour les informations d'un utilisateur existant dans la base de données, par exemple
+            throw new NotImplementedException();
+        }
+
+        public void DeleteUser(Guid userId)
+        {
+            // Logique pour supprimer un utilisateur de la base de données, par exemple
+            throw new NotImplementedException();
+        }
+
+       public User GetConnectedUser(Guid userId)
+        { throw new NotImplementedException(); }
+
+       public User UpdatedConnectedUser(Guid userId)
+        { throw new NotImplementedException(); }
+    }
 }
+
+
+/*
+
+POST
+/login
+Retourne un token JWT d'authentification pour un utilisateur*/
+

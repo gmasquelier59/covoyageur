@@ -18,7 +18,9 @@
         // place.address_components are google.maps.GeocoderAddressComponent objects
         // which are documented at http://goo.gle/3l5i5Mr
         if (place) {
-            
+            console.log(place);
+            console.log(place.geometry.location.lat())
+
             for (const component of place.address_components) {
                 const componentType = component.types[0];
 

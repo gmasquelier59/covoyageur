@@ -2,43 +2,118 @@
 @using MudBlazor
 @inherits LayoutComponentBase
 @inject IJSRuntime JSRuntime
-
-
-<!-- Note: The address components in this sample are based on North American address format. You might need to adjust them for the locations relevant to your app. For more information, see
-https://developers.google.com/maps/documentation/javascript/examples/places-autocomplete-addressform
-	-->
-
-<form id="address-form" action="" method="get" autocomplete="off">
-
-
-	<div>
-
-		<label class="full-field">
-			<!-- Avoid the word "address" in id, name, or label text to avoid browser autofill from conflicting with Place Autocomplete. -->
-			<span class="form-label">D'où partez vous?</span>
-			<input id="ship-address"
-				   name="ship-address"
-				   required
-				   autocomplete="off" />
-		</label>
-
-		<label class="full-field">
-			<span class="form-label">Depart</span>
-			<input id="locality" name="locality" required />
-		</label>
-	</div>
+@using System.Text.RegularExpressions
+@using System.ComponentModel.DataAnnotations
+@using MudBlazor
+@using FluentValidation
+@using Severity = MudBlazor.Severity
+@inject ISnackbar Snackbar
 
 
 
-	<button type="button" class="my-button">Save address</button>
+<MudGrid>
+	<MudItem xs="3" Style="margin-top:10% ">
+		<MudText Typo="Typo.h2" Color="Color.Primary" Style="width:auto">Votre Trajet</MudText>
 
-	<!-- Reset button provided for development testing convenience.
-	Not recommended for user-facing forms due to risk of mis-click when aiming for Submit button. -->
-	<input type="reset" value="Clear form" />
-</form>
+	</MudItem>
+
+	<MudItem xs="9">
+
+		<MudItem xs="10" Style="margin:auto; width:50%;" Outlined="true">
+
+			<MudForm>
+				<div>
+					<MudText Typo="Typo.h4" class="form-label" Color="Color.Primary">D'où partez vous?</MudText>
+
+					<div class="mud-field filled">
+						<label class="full-field">
+							<input id="ship-address"
+								   name="ship-address"
+								   required
+								   autocomplete="off" />
+						</label>
+					</div>
+					<label class="full-field">	
+							<span class="form-label"> <MudFab Color="Color.Primary" Size="Size.Small" StartIcon="@Icons.Material.Filled.LocationOn" /><input id="locality" name="locality" required /></span>
+					</label>
+
+					<MudText Typo="Typo.h4" class="form-label" Color="Color.Primary">Où allez vous?</MudText>
+					<div class="mud-field filled">
+						<label class="full-field">
+
+							<input id="ship-address"
+								   name="ship-address"
+								   required
+								   autocomplete="off" />
+						</label>
+					</div>
+
+					<label class="full-field">
+						<span class="form-label"> <MudFab Color="Color.Primary" Size="Size.Small" StartIcon="@Icons.Material.Filled.ArrowCircleRight" /> <input id="locality" name="locality" required /></span>
+						
+					</label>
+				</div>
+
+				<MudText Typo="Typo.h4" class="form-label" Color="Color.Primary">Combien de passagers souaitez-vous enmener ?</MudText>
+				<MudGrid class="counter">
+
+					<MudItem xs="9">
+
+						<MudSlider TickMarks="true" Color="Color.Secondary" @bind-Value="@NumberPassager" TickMarkLabels="@labels" Step="1" Max="5" Min="1" />
+					</MudItem>
+					<MudItem xs="3">
+						<span class="counter-value">@NumberPassager </span>
+					</MudItem>
+				</MudGrid>
+
+				<MudText Typo="Typo.h4" class="form-label" Color="Color.Primary">Quel est le prix de chaque place ?</MudText>
+
+				<MudGrid class="counter">
+
+					<MudItem xs="9">
+						<MudSlider TickMarks="true" Color="Color.Secondary" @bind-Value="@NumberPrice" Step="1" Max="99" Min="1" />
+					</MudItem>
+					<MudItem xs="3">
+						<span class="counter-value">@NumberPrice €</span>
+					</MudItem>
+
+				</MudGrid>
+
+
+				<MudCardActions>
+					<MudButton Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto" OnClick="@(async () => await Submit())">Creer votre trajet</MudButton>
+				</MudCardActions>
+
+
+			</MudForm>
+
+			@* </form> *@
+		</MudItem>
+	</MudItem>
+</MudGrid>
+
+
 
 
 @functions {
+	int NumberPrice = 15;
+	int NumberPassager;
+	string[] labels = new string[] { "1", "2", "3", "4", "5" };
+
+	MudTextField<string> pwField1;
+	MudForm form;
+
+
+	private async Task Submit()
+	{
+		await form.Validate();
+
+		if (form.IsValid)
+		{
+			Snackbar.Add("Submited!");
+		}
+	}
+
 
 
 	protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -50,4 +125,34 @@ https://developers.google.com/maps/documentation/javascript/examples/places-auto
 		}
 	}
 
+	private int counterValueVoyager = 0;
+	private int counterValueEuro = 0;
+
+	private void DecrementCounterVoyager()
+	{
+		if (counterValueVoyager > 0)
+		{
+			counterValueVoyager--;
+		}
+	}
+
+	private void IncrementCounterVoyager()
+	{
+
+		counterValueVoyager++;
+	}
+
+	private void DecrementCounterEuro()
+	{
+		if (counterValueEuro > 0)
+		{
+			counterValueEuro--;
+		}
+	}
+
+	private void IncrementCounterEuro()
+	{
+
+		counterValueEuro++;
+	}
 }
