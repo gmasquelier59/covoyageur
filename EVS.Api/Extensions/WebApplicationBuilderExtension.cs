@@ -1,4 +1,4 @@
-﻿using EVS.Api.Datas;
+﻿using EVS.Api.Data;
 using EVS.Api.Repositories;
 using EVS.Core.Models;
 using Microsoft.EntityFrameworkCore;
