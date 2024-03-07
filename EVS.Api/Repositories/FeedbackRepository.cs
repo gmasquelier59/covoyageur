@@ -5,7 +5,7 @@ namespace EVS.Api.Repositories
 {
     public class FeedbackRepository : IRepository<Feedback>
     {
-        public Task<int> Add(Feedback feedback)
+        public Task<Feedback?> Add(Feedback feedback)
         {
             throw new NotImplementedException();
         }
@@ -35,7 +35,7 @@ namespace EVS.Api.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<bool> Update(Feedback feedback)
+        public Task<Feedback?> Update(Feedback feedback)
         {
             throw new NotImplementedException();
         }
