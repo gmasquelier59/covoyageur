@@ -4,7 +4,7 @@ namespace EVS.Api.Repositories
 {
     public class ReservationRepository : IRepository<Reservation>
     {
-        public Task<int> Add(Reservation entity)
+        public Task<Reservation?> Add(Reservation entity)
         {
             throw new NotImplementedException();
         }
@@ -34,7 +34,7 @@ namespace EVS.Api.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<bool> Update(Reservation entity)
+        public Task<Reservation?> Update(Reservation entity)
         {
             throw new NotImplementedException();
         }

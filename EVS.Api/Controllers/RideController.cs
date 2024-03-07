@@ -1,12 +1,20 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using EVS.Core.Models;
+using EVS.Api.Services;
 
 namespace EVS.Api.Controllers
 {
     [Tags("Trajets")]
     [ApiController]
-    public class RideController : Controller
+    public class RideController : ControllerBase
     {
+        private readonly IRideService _rideService;
+
+        public RideController(IRideService rideService)
+        {
+            _rideService = rideService;
+        }
+
         /// <summary>
         /// Retourne la liste des trajets correspondants aux 3 critères
         /// </summary>
@@ -14,9 +22,10 @@ namespace EVS.Api.Controllers
         /// <param name="endCity">Nom de la ville de d'arrivée</param>
         /// <param name="departure">Date de départ</param>
         [HttpGet("/rides/{startCity}/{endCity}/{departure}")]
-        public ActionResult<List<Ride>> AllWithEndCity(string startCity, string endCity, DateTime departure)
+        public async Task<ActionResult<List<Ride>>> AllWithEndCity(string startCity, string endCity, DateTime departure)
         {
-            throw new NotImplementedException();
+            List<Ride> rides = await _rideService.GetAll(startCity, endCity, departure);
+            return Ok(rides);
         }
 
         /// <summary>
@@ -25,9 +34,10 @@ namespace EVS.Api.Controllers
         /// <param name="startCity">Nom de la ville de départ</param>        
         /// <param name="departure">Date de départ</param>
         [HttpGet("/rides/{startCity}/{departure}")]
-        public ActionResult<List<Ride>> AllWithoutEndCity(string startCity, DateTime departure)
+        public async Task<ActionResult<List<Ride>>> AllWithoutEndCity(string startCity, DateTime departure)
         {
-            throw new NotImplementedException();
+            List<Ride> rides = await _rideService.GetAll(startCity, departure);
+            return Ok(rides);
         }
 
         /// <summary>
@@ -36,7 +46,8 @@ namespace EVS.Api.Controllers
         [HttpGet("/rides")]
         public ActionResult<List<Ride>> All()
         {
-            throw new NotImplementedException();
+            var rides = _rideService.GetAll();
+            return Ok(rides);
         }
 
         /// <summary>
@@ -44,9 +55,10 @@ namespace EVS.Api.Controllers
         /// </summary>
         /// <param name="userId">Identifiant d'utilisateur</param>
         [HttpGet("/rides/{userId}")]
-        public ActionResult<List<Ride>> AllByUserId(Guid userId)
+        public async Task<ActionResult<List<Ride>>> AllByUserId(Guid userId)
         {
-            throw new NotImplementedException();
+            var rides = await _rideService.GetAll(userId);
+            return Ok(rides);
         }
 
         /// <summary>
@@ -56,16 +68,22 @@ namespace EVS.Api.Controllers
         [HttpGet("/ride/{id}")]
         public ActionResult<Ride> GetById(Guid id)
         {
-            throw new NotImplementedException();
+            var ride = _rideService.GetById(id);
+            if (ride == null)
+                return NotFound();
+            return Ok(ride);
         }
 
         /// <summary>
         /// Crée un trajet à proposer sur le site
         /// </summary>
         [HttpPost("/create")]
-        public ActionResult<Ride> Create([FromBody]Ride ride)
+        public async Task<ActionResult<Ride>> Create([FromBody] Ride ride)
         {
-            throw new NotImplementedException();
+            Ride? rideAdded = await _rideService.Create(ride);
+            if (rideAdded == null)
+                return BadRequest();
+            return CreatedAtAction(nameof(GetById), new { id = rideAdded.Id }, rideAdded);
         }
 
         /// <summary>
@@ -75,7 +93,9 @@ namespace EVS.Api.Controllers
         [HttpDelete("/ride/{id}")]
         public ActionResult DeleteById(Guid id)
         {
-            throw new NotImplementedException();
+            _rideService.Delete(id);
+            return Ok();
         }
     }
 }
+
