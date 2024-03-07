@@ -1,13 +1,13 @@
 ﻿//using EVS.Core.Models;
 
-//namespace EVS.Api.Repositories
-//{
-//    public class ReservationRepository : IUserRepository<Reservation>
-//    {
-//        public Task<int> Add(Reservation entity)
-//        {
-//            throw new NotImplementedException();
-//        }
+namespace EVS.Api.Repositories
+{
+    public class ReservationRepository : IRepository<Reservation>
+    {
+        public Task<int> Add(Reservation entity)
+        {
+            throw new NotImplementedException();
+        }
 
 //        public Task<bool> Delete(Guid id)
 //        {

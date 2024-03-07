@@ -49,11 +49,5 @@ namespace EVS.Core.Models
         public List<Reservation> Reservations { get; set; } = new List<Reservation>();
 
         public List<Feedback> Feedbacks { get; set; } = new List<Feedback>();
-    
-
-        public static object Find(Guid rideId)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

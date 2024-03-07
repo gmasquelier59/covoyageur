@@ -76,3 +76,71 @@ a, .btn-link {
 code {
     color: #c02d76;
 }
+
+.mud-field {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 16px;
+}
+
+    .mud-field label {
+        margin-bottom: 8px;
+    }
+
+    .mud-field input {
+        padding: 8px;
+        border: 1px solid #ced4da;
+        border-radius: 4px;
+        outline: none;
+    }
+
+.filled input {
+    background-color: #f8f9fa;
+}
+
+.full-field {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 16px;
+}
+
+    .full-field .form-label {
+        margin-bottom: 8px;
+    }
+
+.counter-value {
+    font-size: 40px;
+    color: #3b8382;
+    margin: 1em;
+}
+
+.mud-paper {
+    padding: 20px;
+    margin: auto;
+    width: 80%;
+    max-width: 600px; /* Ajustez la largeur maximale selon vos besoins */
+}
+
+.full-field {
+    margin-bottom: 16px;
+}
+
+.form-label {
+    margin-bottom: 8px;
+}
+
+.counter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+}
+
+.counter-value {
+    font-size: 25px;
+    margin: 0 10px; /* Ajoute une marge autour de la valeur du compteur */
+}
+
+.mud-button.ml-auto {
+    margin-left: auto; /* Aligne le bouton "Créer votre trajet" à droite */
+}

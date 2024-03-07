@@ -78,13 +78,9 @@ namespace EVS.Api.Services
     //        throw new NotImplementedException();
     //    }
 
-    //    public Ride GetRide(Guid userId)
-    //    {   
-    //        throw new NotImplementedException(); }
-
-    //    public User UpdatedRide(Guid userId)
-    //    { throw new NotImplementedException(); }
-    //}
+       
+    }
+}
 
 
 /*
