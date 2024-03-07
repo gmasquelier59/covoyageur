@@ -7,7 +7,7 @@ namespace EVS.Api.Repositories
         /// <summary>
         /// Ajoute une entité au repository
         /// </summary>
-        public Task<Entity> Add(Entity entity);
+        public Task<Entity?> Add(Entity entity);
 
         /// <summary>
         /// Retourne une entité par son id. Peut retourner null.
@@ -32,8 +32,8 @@ namespace EVS.Api.Repositories
         /// <summary>
         /// Met à jour une entité dans le repository
         /// </summary>
-        /// <returns>true si la mise à jour a été effectuée, false si la mise à jour n'a pas pu être faite ou si l'entité n'existe pas</returns>
-        public Task<bool> Update(Entity entity);
+        /// <returns>l'entité mise à jour, null si erreur</returns>
+        public Task<Entity?> Update(Entity entity);
 
         /// <summary>
         /// Supprime une entité du repository
