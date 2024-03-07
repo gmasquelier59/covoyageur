@@ -20,12 +20,7 @@ namespace EVS.Api.Repositories
             throw new NotImplementedException();
         }
 
-        //public Task<List<Ride>> GetAll()
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        public Task<List<Ride>> GetAll(Expression<Func<Ride, bool>> predicate)
+        public Task<List<Ride>> GetAll()
         {
             throw new NotImplementedException();
         }

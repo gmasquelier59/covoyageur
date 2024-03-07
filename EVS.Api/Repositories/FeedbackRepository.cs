@@ -1,4 +1,7 @@
-﻿namespace EVS.Api.Repositories
+﻿using EVS.Core.Models;
+using System.Linq.Expressions;
+
+namespace EVS.Api.Repositories
 {
     public class FeedbackRepository : IRepository<Feedback>
     {

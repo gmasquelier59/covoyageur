@@ -60,8 +60,7 @@ namespace EVS.Api.Services
             };
             return ride;
         }
-    }
-}
+
  
 
     //    public void AddRide(Ride ride)
