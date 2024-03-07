@@ -33,15 +33,15 @@
 		</MudMainContent>
 	</CascadingValue>
 
-	<feet>
+	<feet >
 
-		<MudContainer Fixed="true" Height="200px" Square="true" Class="mud-theme-primary" style="color:#054752; margin-top: 5em; width:100%">
+		<MudContainer Fixed="true" Height="200px" Square="true" Class="mud-theme-primary" style="color:#054752; margin-top: 5em" Size="Size.Large">
 			<MudGrid>
 
 				<MudItem sm="4">
 					<MudText Typo="Typo.h5" Style="margin:1em">Voyagez avec nous</MudText>
 
-					
+
 					<MudSwitch @bind-Value="@this.darkModeActive" Color="Color.Primary" Class="ma-4" T="bool" Label="Mode sombre" onclick="@ToggleDarkMode" />
 					<p>
 						<audio id="sound" src="/Sounds/Klaxon.mp3" />
@@ -67,7 +67,7 @@
 						<MudIconButton Href="https://facebook.com/blablacar.fr" Icon="@Icons.Custom.Brands.Facebook" Color="Color.Tertiary" Size="Size.Large"></MudIconButton>
 						<MudIconButton Href="https://www.linkedin.com/in/alexandre-lin%C3%A9-6b440b298/" Icon="@Icons.Custom.Brands.LinkedIn" Color="Color.Tertiary" Size="Size.Large"></MudIconButton>
 						<MudIconButton Href="https://github.com/AlexEnCode" Icon="@Icons.Custom.Brands.GitHub" Color="Color.Tertiary" Size="Size.Large"></MudIconButton>
-						
+
 					</p>
 				</MudItem>
 			</MudGrid>
@@ -112,8 +112,8 @@
 			{
 				Primary = "#3b8382", //vert
 				Secondary = "#CC755E",
-				Tertiary = "#ffffff"
-
+				Tertiary = "#ffffff",
+				Dark = "#000000",
 			}
 		};
 	private static MudTheme darkTheme = new()
@@ -122,7 +122,8 @@
 			{
 				Primary = "#445A6E",
 				Secondary = "#FEE97E",
-				Tertiary = "#ffffff",
+				Tertiary = "#929292",
+				Dark = "#ffffff",
 				Black = "#FEE97E",
 				Background = "#1B2C3C",
 				BackgroundGrey = "#1B2C3C"
