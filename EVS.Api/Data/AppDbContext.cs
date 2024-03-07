@@ -1,14 +1,14 @@
 ﻿using EVS.Core.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace EVS.Api.Datas
+namespace EVS.Api.Data
 {
     public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
     {
-        DbSet<User> Users { get; set; }
-        DbSet<Feedback> Feedbacks { get; set; }
-        DbSet<Ride> Rides { get; set; }
-        DbSet<Reservation> Reservations { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Feedback> Feedbacks { get; set; }
+        public DbSet<Ride> Rides { get; set; }
+        public DbSet<Reservation> Reservations { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

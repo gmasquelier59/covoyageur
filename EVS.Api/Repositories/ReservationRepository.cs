@@ -2,7 +2,7 @@
 
 namespace EVS.Api.Repositories
 {
-    public class ReservationRepository : IUserRepository<Reservation>
+    public class ReservationRepository : IRepository<Reservation>
     {
         public Task<int> Add(Reservation entity)
         {
