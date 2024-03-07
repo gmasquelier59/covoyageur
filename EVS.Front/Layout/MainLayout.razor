@@ -39,10 +39,14 @@
 
 				<MudItem sm="4">
 					<MudText Typo="Typo.h5" Style="margin:1em">Voyagez avec nous</MudText>
+					
 
-					<MudItem>  <MudSwitch @bind-Value="@this.darkModeActive" Color="Color.Primary" Class="ma-4" T="bool" Label="Toggle Light/Dark Mode" onclick="@ToggleDarkMode" /></MudItem>
 
+					<MudSwitch @bind-Value="@this.darkModeActive" Color="Color.Primary" Class="ma-4" T="bool" Label="Mode sombre" onclick="@ToggleDarkMode" />
+						
 
+						
+					
 				</MudItem>
 				<MudItem sm="4">
 					<MudText Typo="Typo.h5" Style="margin:1em">Covoiturage</MudText>
@@ -55,7 +59,7 @@
 						<MudLink Href="sudo apt-get install -y dotnet-runtime-8.0" Class="white-text">En savoir plus</MudLink>
 					</p>
 					<p>  <MudLink Href="https://www.youtube.com/watch?v=DFseXGy79OE" Class="white-text">Comment ça marche</MudLink></p>
-					<p>  <MudLink Href="https://www.amazon.fr/QUI-SUIS-JE-Collectif/dp/2761922905" Class="white-text">Qui sommes-nous ?</MudLink></p>
+					<p>  <MudLink Href="https://perdu.com/" Class="white-text">Vous êtes-vous perdu en chemin?</MudLink></p>
 					<p>  <MudLink Href="https://fr.wikihow.com/demander-de-l%27aide" Class="white-text">Centre d'aide</MudLink></p>
 					<p>  <MudLink Href="https://www.youtube.com/watch?v=H9DDjyxa8GU" Class="white-text">Presse</MudLink></p>
 					<p>
@@ -87,6 +91,7 @@
 		</a>
 	</feet>
 </MudLayout>
+
 
 @code {
 
