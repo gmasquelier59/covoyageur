@@ -5,26 +5,24 @@
 @using System.ComponentModel.DataAnnotations
 
 <MudGrid>
-    <MudItem xs="5" Style="margin-top:10%">
-		<MudText Typo="Typo.h4" Color="Color.Primary" Style="margin-left:3em">Je me connecte à En voiture Simone !</MudText>
+	<MudItem xs="5">
+        <MudText Typo="Typo.h4" Color="Color.Primary" Style="margin:3em 0 0 3em;">Je me connecte à En voiture Simone !</MudText>
     </MudItem>
 
     <MudItem xs="7">
-        <MudGrid Style="margin-top:10%">
-            <MudItem>
-                <MudPaper Class="pa-4" Style="padding: 1em">
+             <MudItem>
+				<MudPaper Class="pa-4" Style="padding: 1em; margin-top:3em">
                     <MudForm >
                         <MudTextField @bind-Value="TextValue" Label="Pseudo" Variant="Variant.Filled" Margin="Margin.Dense"></MudTextField>
                         <MudTextField @bind-Value="Password" Label="Mot de Passe" Variant="Variant.Filled" InputType="@PasswordInput" Adornment="Adornment.End" AdornmentIcon="@PasswordInputIcon" OnAdornmentClick="ButtonTestclick" AdornmentAriaLabel="Show Password" />
                         <p style="margin:1em">Vous n'avez pas encore de compte? <MudLink Href="ProfilCreation">Cliquer ici.</MudLink></p>
-                        <div class="d-flex align-center justify-space-between">
-                           
+
+                        <div class="d-flex align-center justify-space-between">    
                             <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Se connecter</MudButton>
                         </div>
                     </MudForm>
                 </MudPaper>
             </MudItem>
-        </MudGrid>
     </MudItem>
 </MudGrid>
 
@@ -60,5 +58,4 @@
             PasswordInput = InputType.Text;
         }
     }
-}
 }

@@ -20,7 +20,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Éléments de solution", "�
 		.gitignore = .gitignore
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EVS.Tests", "EVS.Tests\EVS.Tests.csproj", "{14373D38-6BAD-4C9C-87EB-6AEA706E867E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EVS.Tests", "EVS.Tests\EVS.Tests.csproj", "{14373D38-6BAD-4C9C-87EB-6AEA706E867E}"
 	ProjectSection(ProjectDependencies) = postProject
 		{55D1B77F-B35B-42CC-935A-CC0E50C3AE47} = {55D1B77F-B35B-42CC-935A-CC0E50C3AE47}
 	EndProjectSection
