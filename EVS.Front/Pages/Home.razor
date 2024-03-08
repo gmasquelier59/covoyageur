@@ -14,13 +14,13 @@
 		<MudImage Src="images/BanniereLight.png" style="width: 100%; height: auto; object-fit: cover; padding: 0; margin: 0;" />
 	}
 
-	
 
-	<div style="display: flex; justify-content: center; align-items: center;">
-		<MudGrid style="width:50%; align-items: end; margin-top:5%" Justify="Justify.SpaceAround">
+
+	<div style="display: flex; justify-content: center; align-items: center; ">
+		<MudGrid Style="width:50%; align-items: end; margin-top:5%; mud-theme-primary" Justify="Justify.SpaceAround">
 
 			<MudItem>
-				<MudAutocomplete T="string" Label="Depart" @bind-Value="value2" SearchFunc="@Search2"
+				<MudAutocomplete T="string" Label="Depart" @bind-Value="value1" SearchFunc="@Search1"
 								 ResetValueOnEmptyText="@resetValueOnEmptyText"
 								 CoerceText="@coerceText" CoerceValue="@coerceValue"
 								 AdornmentIcon="@Icons.Material.Filled.Search" AdornmentColor="Color.Primary" />
@@ -37,8 +37,7 @@
 			</MudItem>
 
 			<MudItem>
-				<MudIconButton Icon="@Icons.Material.Filled.Boy" Color="Color.Primary"> </MudIconButton>
-				<MudNumericField @bind-Value="IntValue" Min="1" Max="10" Style="width:3em" Icon="@Icons.Material.Filled.Boy" Color="Color.Primary" />
+				<MudNumericField @bind-Value="IntValue" Min="1" Max="5" Style="width:3em" Icon="@Icons.Material.Filled.Boy" Color="Color.Primary" />
 			</MudItem>
 
 			<MudItem>
@@ -66,7 +65,7 @@
 			<MudText Typo="Typo.h4" Color="Color.Primary">
 				Bénéficiez d’une Prime Covoiturage de 20 € avec Simone !
 			</MudText>
-			<MudText Typo="Typo.body1" Color="Color.Tertiary">
+			<MudText Typo="Typo.body1" Color="Color.Dark">
 				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac suscipit elit. Aliquam erat volutpat. Maecenas at tortor non libero congue consectetur. Maecenas ut quam nec nunc feugiat lacinia. Sed non ligula quis enim dictum vehicula. Sed nec sapien at nisi accumsan tempor. Nullam ut purus nec ipsum lacinia fermentum.
 			</MudText>
 		</MudItem>
@@ -77,7 +76,7 @@
 			<MudText Typo="Typo.h4" Color="Color.Primary">
 				Recevez 5 € de bienvenue !
 			</MudText>
-			<MudText Typo="Typo.body1" Color="Color.Tertiary">
+			<MudText Typo="Typo.body1" Color="Color.Dark">
 				Suspendisse potenti. Ut auctor arcu nec augue luctus, in fringilla nisl fermentum. Nullam nec enim dapibus, tincidunt ligula eget, suscipit elit. Maecenas at tortor non libero congue consectetur. Maecenas ut quam nec nunc feugiat lacinia.
 			</MudText>
 		</MudItem>
@@ -110,11 +109,14 @@
 	private string value1, value2;
 	private string[] states =
 	{
-		"Alabama", "Alaska", "American Samoa", "Arizona",
-		"Arkansas", "California", "Colorado", "Connecticut",
-		"Delaware", "District of Columbia", "Federated States of Micronesia",
-		"Florida", "Georgia", "Guam", "Hawaii", "Idaho",
-		"Illinois", "Indiana", "Iowa", "Kansas"
+		"Paris", "Marseille", "Lyon", "Toulouse", "Nice",
+	"Nantes", "Strasbourg", "Montpellier", "Bordeaux", "Lille",
+	"Rennes", "Reims", "Le Havre", "Cergy", "Saint-Étienne",
+	"Toulon", "Angers", "Grenoble", "Dijon", "Nîmes",
+	"Calais", "Boulogne-sur-Mer", "Arras", "Dunkerque",
+	"Lens", "Douai", "Valenciennes", "Tourcoing", "Roubaix",
+	"Béthune", "Cambrai", "Saint-Omer", "Maubeuge", "Gravelines",
+	"Hazebrouck", "Avesnes-sur-Helpe", "Saint-Amand-les-Eaux", "Armentières", "Bruay-la-Buissière", "villeneuve d'ascq"
 	};
 
 

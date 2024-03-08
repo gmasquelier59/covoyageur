@@ -10,11 +10,11 @@
 
 <a style="display: flex; justify-content: center; align-items: center; ">
     <MudGrid>
-		<MudItem xs="6">
-<MudText Typo="Typo.h2" Color="Color.Primary" Style="margin:2em; margin-left:0em">Creation de votre compte En Voiture Simone !</MudText>
+		<MudItem xs="5"  Style="margin-left:5%">
+			<MudText Typo="Typo.h2" Color="Color.Primary" Style="margin:2em; margin-left:0em">Creation de votre compte En voiture Simone !</MudText>
         </MudItem>
         
-	<MudItem xs="5" sm="5">
+	<MudItem xs="5">
 		<MudPaper Class="pa-4">
 			<MudForm @ref="form" @bind-IsValid="@success" @bind-Errors="@errors">
 				<MudTextField T="string" Label="Nom" Required="true" RequiredError="Votre nom nous est nécessaire!" />

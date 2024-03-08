@@ -5,14 +5,13 @@
 @using System.ComponentModel.DataAnnotations
 
 <MudGrid>
-    <MudItem xs="6" Style="margin-top:10% ">
-        <MudText Typo="Typo.h2" Color="Color.Primary" >Je me connecte à</MudText>
-        <MudText Typo="Typo.h2" Color="Color.Primary"> En voiture Simone !</MudText>
+    <MudItem xs="5" Style="margin-top:10% margin-left:5%">
+		<MudText Typo="Typo.h4" Color="Color.Primary" Style="margin-left:3em">Je me connecte à En voiture Simone !</MudText>
     </MudItem>
 
-    <MudItem xs="6">
+    <MudItem xs="5">
         <MudGrid Style="margin-top:20%">
-            <MudItem xs="12" sm="7">
+            <MudItem>
                 <MudPaper Class="pa-4" Style="padding: 1em">
                     <MudForm >
                         <MudTextField @bind-Value="TextValue" Label="Pseudo" Variant="Variant.Filled" Margin="Margin.Dense"></MudTextField>
