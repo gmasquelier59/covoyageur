@@ -2,13 +2,13 @@
 using EVS.Api.Repositories;
 using EVS.Api.Services;
 
-namespace EVS.Core.Services
+namespace EVS.Api.Services
 {
     public class RideService : IRideService
     {
-        private readonly RideRepository _rideRepository;
+        private readonly IRepository<Ride> _rideRepository;
 
-        public RideService(RideRepository rideRepository)
+        public RideService(IRepository<Ride> rideRepository)
         {
             _rideRepository = rideRepository;
         }
@@ -49,8 +49,3 @@ namespace EVS.Core.Services
         }
     }
 }
-
-
-
-
-

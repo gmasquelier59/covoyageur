@@ -66,9 +66,9 @@ namespace EVS.Api.Controllers
         /// </summary>
         /// <param name="id">Identifiant du trajet</param>
         [HttpGet("/ride/{id}")]
-        public ActionResult<Ride> GetById(Guid id)
+        public async Task<ActionResult<Ride>> GetById(Guid id)
         {
-            var ride = _rideService.GetById(id);
+            var ride = await _rideService.GetById(id);
             if (ride == null)
                 return NotFound();
             return Ok(ride);
@@ -91,10 +91,11 @@ namespace EVS.Api.Controllers
         /// </summary>
         /// <param name="id">Identifiant du trajet</param>
         [HttpDelete("/ride/{id}")]
-        public ActionResult DeleteById(Guid id)
+        public async Task<ActionResult> DeleteById(Guid id)
         {
-            _rideService.Delete(id);
-            return Ok();
+            if (await _rideService.Delete(id) == false)
+                return NotFound();
+            return NoContent();
         }
     }
 }
