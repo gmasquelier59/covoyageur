@@ -1,150 +1,133 @@
 ﻿@page "/"
 @using MudBlazor
 @inherits LayoutComponentBase
-
+@inject IJSRuntime JS
 
 <MudLayout>
 
-	@if (this.darkModeActive)
-	{
-		<MudImage Src="images/BanniereDark.png" style="width: 100%; height: auto; object-fit: cover; padding: 0; margin: 0;" />
-	}
-	else
-	{
-		<MudImage Src="images/BanniereLight.png" style="width: 100%; height: auto; object-fit: cover; padding: 0; margin: 0;" />
-	}
+    @if (this.darkModeActive)
+    {
+        <MudImage Src="images/BanniereDark.png" style="width: 100%; height: auto; object-fit: cover; padding: 0; margin: 0;" />
+    }
+    else
+    {
+        <MudImage Src="images/BanniereLight.png" style="width: 100%; height: auto; object-fit: cover; padding: 0; margin: 0;" />
+    }
 
+    <MudPaper Elevation="0" Width="75%" MaxWidth="inherit" Style="margin-top: 50px">
+        <MudGrid Spacing="0" Justify="Justify.SpaceAround" Class="gap-4 m-2">
+            <MudTextField T="string" data-google-autocomplete="true" data-value-field="city_from_selectedValue" Placeholder="Ville de départ" Adornment="Adornment.Start" AdornmentColor="Color.Primary" AdornmentIcon="@Icons.Material.Filled.Start" />
+            <input type="hidden" name="city_from_selectedValue" value="" />
+            <MudTextField T="string" data-google-autocomplete="true" data-value-field="city_to_selectedValue" Placeholder="Ville d'arrivée" Adornment="Adornment.Start" AdornmentColor="Color.Primary" AdornmentIcon="@Icons.Material.Filled.KeyboardTab" />
+            <input type="hidden" name="city_to_selectedValue" value="" />
+            <MudDatePicker @bind-Date="date" MinDate="DateTime.Today" />
+            <MudNumericField @bind-Value="IntValue" style="width: 100px" Min="1" Max="5" Adornment="Adornment.Start" AdornmentColor="Color.Primary" AdornmentIcon="@Icons.Material.Filled.AirlineSeatReclineNormal" Color="Color.Primary" />
+            <MudButton Variant="Variant.Filled" Color="Color.Primary">Rechercher</MudButton>
+        </MudGrid>
+    </MudPaper>
 
+    <MudGrid Spacing="0" Justify="Justify.Center" Style="margin-top:5%">
+        <MudItem xs="5" style="display: flex; justify-content: center; align-items: center;">
+            @if (this.darkModeActive)
+            {
+                <MudImage Src="images/VoitureFaceDark.png" Style="width:80%" />
+            }
+            else
+            {
+                <MudImage Src="images/VoitureFaceLight.png" Style="width:80%" />
+            }
+        </MudItem>
+        <MudItem xs="4" style=" justify-content: center; align-items: center;">
+            <MudText Typo="Typo.h4" Color="Color.Primary">
+                Bénéficiez d’une Prime Covoiturage de 20 € avec Simone !
+            </MudText>
+            <MudText Typo="Typo.body1" Color="Color.Dark" Style="margin-top:2em">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac suscipit elit. Aliquam erat volutpat. Maecenas at tortor non libero congue consectetur. Maecenas ut quam nec nunc feugiat lacinia. Sed non ligula quis enim dictum vehicula. Sed nec sapien at nisi accumsan tempor. Nullam ut purus nec ipsum lacinia fermentum.
+            </MudText>
+            <div style="display: flex; justify-content: center; align-items: center; margin-top:2em">
+                <MudButton Variant="Variant.Filled" Color="Color.Primary">En Savoir plus</MudButton>
+            </div>
+        </MudItem>
+    </MudGrid>
+    <MudGrid Spacing="0" Justify="Justify.Center" Style="margin-top:5%">
+        <MudItem xs="4" style=" justify-content: center; align-items: center;">
 
-	<div style="display: flex; justify-content: center; align-items: center; ">
-		<MudGrid Style="width:50%; align-items: end; margin-top:5%; mud-theme-primary" Justify="Justify.SpaceAround">
+            <MudText Typo="Typo.h4" Color="Color.Primary">
+                Recevez 5 € de bienvenue !
+            </MudText>
+            <MudText Typo="Typo.body1" Color="Color.Dark" Style="margin-top:2em">
+                Suspendisse potenti. Ut auctor arcu nec augue luctus, in fringilla nisl fermentum. Nullam nec enim dapibus, tincidunt ligula eget, suscipit elit. Maecenas at tortor non libero congue consectetur. Maecenas ut quam nec nunc feugiat lacinia.
+            </MudText>
+            <div style="display: flex; justify-content: center; align-items: center;margin-top:2em">
+                <MudButton Variant="Variant.Filled" Color="Color.Primary">En Savoir plus</MudButton>
+            </div>
+        </MudItem>
+        <MudItem xs="5" style="display: flex; justify-content: center; align-items: center;">
 
-			<MudItem>
-				<MudAutocomplete T="string" Label="Depart" @bind-Value="value1" SearchFunc="@Search1"
-								 ResetValueOnEmptyText="@resetValueOnEmptyText"
-								 CoerceText="@coerceText" CoerceValue="@coerceValue"
-								 AdornmentIcon="@Icons.Material.Filled.Search" AdornmentColor="Color.Primary" />
-			</MudItem>
-			<MudItem>
-				<MudAutocomplete T="string" Label="Destination" @bind-Value="value2" SearchFunc="@Search2"
-								 ResetValueOnEmptyText="@resetValueOnEmptyText"
-								 CoerceText="@coerceText" CoerceValue="@coerceValue"
-								 AdornmentIcon="@Icons.Material.Filled.Search" AdornmentColor="Color.Primary" />
-			</MudItem>
-
-			<MudItem>
-				<MudDatePicker @bind-Date="date" />
-			</MudItem>
-
-			<MudItem>
-				<MudNumericField @bind-Value="IntValue" Min="1" Max="5" Style="width:3em" Icon="@Icons.Material.Filled.Boy" Color="Color.Primary" />
-			</MudItem>
-
-			<MudItem>
-				<MudButton Variant="Variant.Filled" Color="Color.Primary">Rechercher</MudButton>
-
-			</MudItem>
-
-		</MudGrid>
-	</div>
-
-
-
-	<MudGrid Justify="Justify.Center" Style="margin-top:5%">
-		<MudItem xs="5" style="display: flex; justify-content: center; align-items: center;">
-			@if (this.darkModeActive)
-			{
-				<MudImage Src="images/VoitureFaceDark.png" Style="width:80%" />
-			}
-			else
-			{
-				<MudImage Src="images/VoitureFaceLight.png" Style="width:80%" />
-			}
-		</MudItem>
-		<MudItem xs="4" style=" justify-content: center; align-items: center;">
-			<MudText Typo="Typo.h4" Color="Color.Primary">
-				Bénéficiez d’une Prime Covoiturage de 20 € avec Simone !
-			</MudText>
-			<MudText Typo="Typo.body1" Color="Color.Dark" Style="margin-top:2em">
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac suscipit elit. Aliquam erat volutpat. Maecenas at tortor non libero congue consectetur. Maecenas ut quam nec nunc feugiat lacinia. Sed non ligula quis enim dictum vehicula. Sed nec sapien at nisi accumsan tempor. Nullam ut purus nec ipsum lacinia fermentum.
-			</MudText>
-			<div style="display: flex; justify-content: center; align-items: center; margin-top:2em">
-				<MudButton Variant="Variant.Filled" Color="Color.Primary">En Savoir plus</MudButton>
-			</div>
-		</MudItem>
-	</MudGrid>
-	<MudGrid Justify="Justify.Center" Style="margin-top:5%">
-		<MudItem xs="4" style=" justify-content: center; align-items: center;">
-
-			<MudText Typo="Typo.h4" Color="Color.Primary">
-				Recevez 5 € de bienvenue !
-			</MudText>
-			<MudText Typo="Typo.body1" Color="Color.Dark" Style="margin-top:2em">
-				Suspendisse potenti. Ut auctor arcu nec augue luctus, in fringilla nisl fermentum. Nullam nec enim dapibus, tincidunt ligula eget, suscipit elit. Maecenas at tortor non libero congue consectetur. Maecenas ut quam nec nunc feugiat lacinia.
-			</MudText>
-			<div style="display: flex; justify-content: center; align-items: center;margin-top:2em">
-				<MudButton Variant="Variant.Filled" Color="Color.Primary">En Savoir plus</MudButton>
-			</div>
-		</MudItem>
-		<MudItem xs="5" style="display: flex; justify-content: center; align-items: center;">
-
-			@if (this.darkModeActive)
-			{
-				<MudImage Src="images/VoitureProfilDark.png" Style="width:80%" />
-			}
-			else
-			{
-				<MudImage Src="images/VoitureProfilLight.png" Style="width:80%" />
-			}
-		</MudItem>
-	</MudGrid>
+            @if (this.darkModeActive)
+            {
+                <MudImage Src="images/VoitureProfilDark.png" Style="width:80%" />
+            }
+            else
+            {
+                <MudImage Src="images/VoitureProfilLight.png" Style="width:80%" />
+            }
+        </MudItem>
+    </MudGrid>
 
 
 </MudLayout>
 
 
 @code {
-	[CascadingParameter]
-	protected bool darkModeActive { get; set; }
+    [CascadingParameter]
+    protected bool darkModeActive { get; set; }
 
-	public int IntValue { get; set; }
-	DateTime? date = DateTime.Today;
-	private bool resetValueOnEmptyText;
-	private bool coerceText;
-	private bool coerceValue;
-	private string value1, value2;
-	private string[] states =
-	{
-		"Paris", "Marseille", "Lyon", "Toulouse", "Nice",
-	"Nantes", "Strasbourg", "Montpellier", "Bordeaux", "Lille",
-	"Rennes", "Reims", "Le Havre", "Cergy", "Saint-Étienne",
-	"Toulon", "Angers", "Grenoble", "Dijon", "Nîmes",
-	"Calais", "Boulogne-sur-Mer", "Arras", "Dunkerque",
-	"Lens", "Douai", "Valenciennes", "Tourcoing", "Roubaix",
-	"Béthune", "Cambrai", "Saint-Omer", "Maubeuge", "Gravelines",
-	"Hazebrouck", "Avesnes-sur-Helpe", "Saint-Amand-les-Eaux", "Armentières", "Bruay-la-Buissière", "villeneuve d'ascq"
-	};
-
-
-
-	bool _drawerOpen = true;
+    public int IntValue { get; set; }
+    DateTime? date = DateTime.Today;
+    private bool resetValueOnEmptyText;
+    private bool coerceText;
+    private bool coerceValue;
+    private string value1, value2;
+    private string[] states =
+    {
+        "Paris", "Marseille", "Lyon", "Toulouse", "Nice",
+    "Nantes", "Strasbourg", "Montpellier", "Bordeaux", "Lille",
+    "Rennes", "Reims", "Le Havre", "Cergy", "Saint-Étienne",
+    "Toulon", "Angers", "Grenoble", "Dijon", "Nîmes",
+    "Calais", "Boulogne-sur-Mer", "Arras", "Dunkerque",
+    "Lens", "Douai", "Valenciennes", "Tourcoing", "Roubaix",
+    "Béthune", "Cambrai", "Saint-Omer", "Maubeuge", "Gravelines",
+    "Hazebrouck", "Avesnes-sur-Helpe", "Saint-Amand-les-Eaux", "Armentières", "Bruay-la-Buissière", "villeneuve d'ascq"
+    };
 
 
-	private async Task<IEnumerable<string>> Search1(string value)
-	{
-		await Task.Delay(5);
 
-		if (string.IsNullOrEmpty(value))
-			return states;
-		return states.Where(x => x.Contains(value, StringComparison.InvariantCultureIgnoreCase));
-	}
+    bool _drawerOpen = true;
 
-	private async Task<IEnumerable<string>> Search2(string value)
-	{
-		await Task.Delay(5);
 
-		if (string.IsNullOrEmpty(value))
-			return new string[0];
-		return states.Where(x => x.Contains(value, StringComparison.InvariantCultureIgnoreCase));
-	}
+    private async Task<IEnumerable<string>> Search1(string value)
+    {
+        await Task.Delay(5);
+
+        if (string.IsNullOrEmpty(value))
+            return states;
+        return states.Where(x => x.Contains(value, StringComparison.InvariantCultureIgnoreCase));
+    }
+
+    private async Task<IEnumerable<string>> Search2(string value)
+    {
+        await Task.Delay(5);
+
+        if (string.IsNullOrEmpty(value))
+            return new string[0];
+        return states.Where(x => x.Contains(value, StringComparison.InvariantCultureIgnoreCase));
+    }
+}
+
+@code {
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await JS.InvokeVoidAsync("initAutocomplete");
+    }
 }

@@ -1,0 +1,62 @@
+﻿@page "/InBuild"
+@using MudBlazor
+@inherits LayoutComponentBase
+
+
+<MudPaper Style=" mud-theme-primary; display: flex; flex-direction: column; justify-content: center; align-items: center; margin-top: 2em;">
+
+	<MudText Typo="Typo.h2" Align="Align.Center" Color="Color.Primary" Style="margin-top:2em">
+		Cette page est encore en construction !
+	</MudText>
+
+	<MudText Typo="Typo.h5" Align="Align.Center" Color="Color.Dark" Style="margin-top:2em">
+		N'hesitez pas à revenir bientôt pour voir nos nouvelles fonctionnalités!
+	</MudText>
+
+	@if (this.darkModeActive)
+	{
+		<MudImage Src="images/VoitureFaceArretPhare.png" Alt="Simone" Style="margin:2em 0" />
+	}
+	else
+	{
+		<MudImage Src="images/VoitureFaceArret.png" Alt="Simone" Style="margin:2em 0" />
+	}
+
+</MudPaper>
+
+
+@code {
+	[CascadingParameter]
+	protected bool darkModeActive { get; set; }
+	// surface: ##263849
+
+
+
+	// private static MudTheme DefaultTheme = new()
+	// 	{
+	// 		Palette = new PaletteLight
+	// 		{
+	// 			Primary = "#3b8382", //vert
+	// 			Secondary = "#CC755E", // Rouge
+	// 			Tertiary = "#ffffff", // Blanc
+	// 			Dark = "#000000", // noir
+	// 			Surface = "#ffffff", // Blanc
+	// 			TextPrimary = "#000000" // noir
+	// 		}
+	// 	};
+	// private static MudTheme darkTheme = new()
+	// 	{
+	// 		Palette = new Palette
+	// 		{
+	// 			Primary = "#445A6E", //Bleu
+	// 			Secondary = "#FEE97E", // Jaune
+	// 			Tertiary = "#929292", // gris
+	// 			Dark = "#ffffff", // Blacnc
+	// 			Black = "#FEE97E", //jaune
+	// 			Background = "#1B2C3C", // gris
+	// 			BackgroundGrey = "#1B2C3C", // gris
+	// 			Surface = "#263849", // bleu nuit
+	// 			TextPrimary = "#ffffff"
+	// 		}
+	// 	};
+}
