@@ -44,9 +44,9 @@ namespace EVS.Api.Controllers
         /// Retourne la liste des trajets disponibles sur le site
         /// </summary>
         [HttpGet("/rides")]
-        public ActionResult<List<Ride>> All()
+        public async Task<ActionResult<List<Ride>>> All()
         {
-            var rides = _rideService.GetAll();
+            var rides = await _rideService.GetAll();
             return Ok(rides);
         }
 

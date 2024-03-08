@@ -1,4 +1,6 @@
-﻿using EVS.Core.Models;
+﻿using EVS.Api.DTOs;
+using EVS.Api.Services;
+using EVS.Core.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EVS.Api.Controllers
@@ -7,14 +9,21 @@ namespace EVS.Api.Controllers
     [ApiController]
     public class FeedbackController : Controller
     {
+        private readonly IFeedbackService _feedbackService;
+
+        public FeedbackController(IFeedbackService feedbackService)
+        {
+            _feedbackService = feedbackService;
+        }
         /// <summary>
         /// Retourne les feedbacks d'un trajet à partir de son id
         /// </summary>
         /// <param name="rideId">Identifiant du trajet</param>
         [HttpGet("/feedbacks/ride/{rideId}")]
-        public ActionResult<List<Feedback>> GetAllByRideId(Guid rideId)
+        public async Task<ActionResult<List<Feedback>>> GetAllByRideId(Guid rideId)
         {
-            throw new NotImplementedException();
+            var feedbacks = await _feedbackService.GetAllByRideId(rideId);
+            return Ok(feedbacks);
         }
 
         /// <summary>
@@ -22,9 +31,9 @@ namespace EVS.Api.Controllers
         /// </summary>
         /// <param name="userId">Identifiant de l'utilisateur</param>
         [HttpGet("/feedbacks/user/{userId}")]
-        public ActionResult<List<Feedback>> GetByUserId(Guid userId)
+        public async Task<ActionResult<List<Feedback>>> GetAllByUserId(Guid userId)
         {
-            throw new NotImplementedException();
+            return await _feedbackService.GetAllByUserId(userId);
         }
 
         /// <summary>
@@ -32,9 +41,14 @@ namespace EVS.Api.Controllers
         /// </summary>
         /// <param name="rideId">Identifiant du trajet</param>
         [HttpPost("/feedback/{rideId}")]
-        public ActionResult<Feedback> Create(Guid rideId)
+        public async Task<ActionResult<Feedback>> Create(Guid rideId, [FromBody] FeedbackDTO feedbackDTO)
         {
-            throw new NotImplementedException();
+            Feedback? feedback = await _feedbackService.Create(rideId, feedbackDTO);
+
+            if (feedback == null)
+                return BadRequest();
+
+            return Ok(feedback);
         }
 
         /// <summary>
@@ -42,9 +56,14 @@ namespace EVS.Api.Controllers
         /// </summary>
         /// <param name="id">Identifiant du feedback</param>
         [HttpPut("/feedback/{id}")]
-        public ActionResult<Feedback> Update(Guid id)
+        public async Task<ActionResult<Feedback>> Update(Guid id, [FromBody] FeedbackDTO feedbackDTO)
         {
-            throw new NotImplementedException();
+            Feedback? feedback = await _feedbackService.Update(id, feedbackDTO);
+
+            if (feedback == null)
+                return NotFound();
+
+            return Ok(feedback);
         }
     }
 }

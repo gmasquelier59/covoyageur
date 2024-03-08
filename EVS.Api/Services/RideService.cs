@@ -1,6 +1,5 @@
 ﻿using EVS.Core.Models;
 using EVS.Api.Repositories;
-using EVS.Api.Services;
 
 namespace EVS.Api.Services
 {
