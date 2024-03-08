@@ -94,7 +94,7 @@ code {
         outline: none;
     }
 
-/*.filled input {
+.filled input {
     background-color: #f8f9fa;
 }
 
@@ -118,8 +118,8 @@ code {
     padding: 20px;
     margin: auto;
     width: 80%;
-    max-width: 600px;*/ /* Ajustez la largeur maximale selon vos besoins */
-/*}
+    max-width: 600px;  Ajustez 
+}
 
 .full-field {
     margin-bottom: 16px;
@@ -138,9 +138,9 @@ code {
 
 .counter-value {
     font-size: 25px;
-    margin: 0 10px;*/ /* Ajoute une marge autour de la valeur du compteur */
-/*}
+    margin: 0 10px;  
+}
 
 .mud-button.ml-auto {
-    margin-left: auto;*/ /* Aligne le bouton "Créer votre trajet" à droite */
-/*}*/
+    margin-left: auto;   
+}
