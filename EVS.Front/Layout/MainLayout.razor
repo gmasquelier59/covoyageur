@@ -32,14 +32,13 @@
 
     <footer>
 
-        @* <MudContainer Fixed="true" Height="200px" Square="true" Class="mud-theme-primary" style="color:#054752; margin-top: 5em" FullWidth="true"> *@
-        <MudGrid Spacing="0" Class="mud-theme-primary" Style="margin-top: 5em; padding: 2em 5em 0 5em">
+           <MudGrid Spacing="0" Class="mud-theme-primary" Style="margin-top: 5em; padding: 2em 5em 0 5em">
 
                 <MudItem sm="4">
                     <MudText Typo="Typo.h5" Style="margin-bottom: 1em;">Voyagez avec nous</MudText>
 
 
-                    <MudSwitch @bind-Value="@this.darkModeActive" Color="Color.Primary" T="bool" Label="Mode sombre" onclick="@ToggleDarkMode" />
+                <MudSwitch @bind-Value="@this.darkModeActive" Color="Color.Secondary" T="bool" Label="Mode sombre" onclick="@ToggleDarkMode" />
                     <p>
                         <audio id="sound" src="/Sounds/Klaxon.mp3" />
                         <button onclick="document.getElementById('sound').play()"> <img src="/Volant.png" style="height:35px" /></button>
@@ -68,9 +67,9 @@
                     </p>
                 </MudItem>
             </MudGrid>
-        @* </MudContainer> *@
 
-        <MudAppBar Bottom="true" Fixed="false" Color="Color.Tertiary">
+
+        <MudAppBar Bottom="true" Fixed="false" Color="Color.Info">
             <MudButton Variant="Variant.Text">
                 Transparence des plateformes
 
@@ -78,20 +77,17 @@
             <MudButton Variant="Variant.Text">Informations légales</MudButton>
             <MudButton Variant="Variant.Text">Paramètres des cookies</MudButton>
             <MudSpacer />
-            <MudImage Src="images/EVStext.png" Alt="Simone" style="height: 100%" />
+            @if (this.darkModeActive)
+            {
+                <MudImage Src="images/logoERS.svg" Alt="Simone" style="height: 100%" />
+            }
+            else
+            {
+                <MudImage Src="images/logoEVSalt.svg" Alt="Simone" style="height: 100%" />
+            }
         </MudAppBar>
 
-        <!--
-        <a style="display: flex; align-items: center; justify-content: space-between; height">
-            <div>
-
-
-
-
-            </div>
-            
-        </a>
-        -->
+ 
     </footer>
 </MudLayout>
 
@@ -116,22 +112,30 @@
             Palette = new PaletteLight
             {
                 Primary = "#3b8382", //vert
-                Secondary = "#CC755E",
-                Tertiary = "#ffffff",
-                Dark = "#000000",
+                Secondary = "#CC755E", // Rouge
+                Tertiary = "#ffffff", // Blanc
+                Info = "#ffffff",
+                Dark = "#000000", // noir
+                Background = "#ffffff", // blanc
+                Surface = "#ffffff", // Blanc
+                TextPrimary = "#000000", // noir
+           
             }
         };
     private static MudTheme darkTheme = new()
         {
             Palette = new Palette
             {
-                Primary = "#445A6E",
-                Secondary = "#FEE97E",
-                Tertiary = "#929292",
-                Dark = "#ffffff",
-                Black = "#FEE97E",
-                Background = "#1B2C3C",
-                BackgroundGrey = "#1B2C3C"
+                Primary = "#445A6E", //Bleu
+                Secondary = "#FEE97E", // Jaune
+                Tertiary = "#929292", // gris
+                Dark = "#ffffff", // Blacnc
+                Black = "#FEE97E", //jaune
+                Info = "1B2C3C",
+                Background = "#1B2C3C", // gris
+                               BackgroundGrey = "#1B2C3C", // gris
+                Surface = "#263849", // bleu nuit
+                TextPrimary = "#ffffff"
             }
         };
 }

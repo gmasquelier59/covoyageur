@@ -8,14 +8,15 @@
 @inherits LayoutComponentBase
 
 
-<a style="display: flex; justify-content: center; align-items: center; ">
-    <MudGrid>
-		<MudItem xs="5"  Style="margin-left:5%">
-			<MudText Typo="Typo.h2" Color="Color.Primary" Style="margin:2em; margin-left:0em">Creation de votre compte En voiture Simone !</MudText>
-        </MudItem>
-        
+
+<MudGrid Spacing="0">
 	<MudItem xs="5">
-		<MudPaper Class="pa-4">
+		<MudText Typo="Typo.h2" Color="Color.Primary" Style="margin:2em 0 0 3em;">Creation de votre compte En voiture Simone !</MudText>
+	</MudItem>
+
+	<MudItem xs="7">
+		<MudPaper Style="padding: 1em; margin-top:3em">
+
 			<MudForm @ref="form" @bind-IsValid="@success" @bind-Errors="@errors">
 				<MudTextField T="string" Label="Nom" Required="true" RequiredError="Votre nom nous est nécessaire!" />
 				<MudTextField T="string" Label="Prenom" Required="true" RequiredError="Votre prenom nous est nécessaire!" />
@@ -34,23 +35,23 @@
 							  Validation="@(new Func<string, string>(PasswordMatch))" />
 
 				<a style="margin:2em">
-				<MudFileUpload Style="margin:1em" T="IBrowserFile" For="@(() => model.File)" @bind-Files="model.File" OnFilesChanged="UploadFiles" Accept=".png, .jpg" SuppressOnChangeWhenInvalid="SuppressOnChangeWhenInvalid">
-					<ButtonTemplate>
-						<MudButton HtmlTag="label"
-								   Variant="Variant.Filled"
-								   Color="Color.Primary"
-								   StartIcon="@Icons.Material.Filled.CloudUpload"
-								   for="@context.Id">
-							Enregistrer votre photo
-						</MudButton>
-						<MudButton OnClick="@context.Actions.ClearAsync"
-								   Variant="Variant.Filled"
-								   Color="Color.Primary"
-								   StartIcon="@Icons.Material.Filled.Clear">
-							Supprimer votre photo
-						</MudButton>
-					</ButtonTemplate>
-				</MudFileUpload>
+					<MudFileUpload Style="margin:1em" T="IBrowserFile" For="@(() => model.File)" @bind-Files="model.File" OnFilesChanged="UploadFiles" Accept=".png, .jpg" SuppressOnChangeWhenInvalid="SuppressOnChangeWhenInvalid">
+						<ButtonTemplate>
+							<MudButton HtmlTag="label"
+									   Variant="Variant.Filled"
+									   Color="Color.Primary"
+									   StartIcon="@Icons.Material.Filled.CloudUpload"
+									   for="@context.Id">
+								Enregistrer votre photo
+							</MudButton>
+							<MudButton OnClick="@context.Actions.ClearAsync"
+									   Variant="Variant.Filled"
+									   Color="Color.Primary"
+									   StartIcon="@Icons.Material.Filled.Clear">
+								Supprimer votre photo
+							</MudButton>
+						</ButtonTemplate>
+					</MudFileUpload>
 				</a>
 
 				<a>
@@ -62,7 +63,7 @@
 				</a>
 
 				<a class="d-flex align-center justify-space-between" style="margin:2em">
-						<MudButton Variant="Variant.Text" OnClick="@ToggleOpen">J'accepte les conditons d'utilisation de EnVoitureSimone!</MudButton><MudCheckBox T="bool" Required="true" Style="margin:1em" />
+					<MudButton Variant="Variant.Text" OnClick="@ToggleOpen">J'accepte les conditons d'utilisation de EnVoitureSimone!</MudButton><MudCheckBox T="bool" Required="true" Style="margin:1em" />
 
 					<MudPopover Open="@_isOpen" Fixed="true" Class="px-8 pt-8">
 						<div class="d-flex flex-column">
@@ -72,16 +73,16 @@
 							<MudButton OnClick="@ToggleOpen" Variant="Variant.Filled" Class="ml-auto mr-n3 mb-1" Color="Color.Primary">J'ai lu!</MudButton>
 						</div>
 					</MudPopover>
-                    </a>
-					<MudCardActions>
-						<MudButton Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto" OnClick="@(async () => await Submit())">Creer votre compte</MudButton>
-					</MudCardActions>
-				
+				</a>
+				<MudCardActions>
+					<MudButton Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto" OnClick="@(async () => await Submit())">Creer votre compte</MudButton>
+				</MudCardActions>
+
 			</MudForm>
 		</MudPaper>
 	</MudItem>
 </MudGrid>
-</a>
+
 
 
 

@@ -11,81 +11,67 @@
 
 
 
-<MudGrid>
-	<MudItem xs="4" Style="margin-top:10% ">
-		<MudText Typo="Typo.h2" Color="Color.Primary" Style="width:auto; margin-left:3em">Votre Trajet</MudText>
+<MudGrid Spacing="0">
+	<MudItem xs="5">
+		<MudText Typo="Typo.h2" Color="Color.Primary" Style="margin:2em 0 0 3em;">Proposez votre Trajet</MudText>
 
 	</MudItem>
 
-	<MudPaper Style="max-width:40%; margin-top:5%" Elevation="3">
-		<MudItem xs="8" Style="max-width:100%">
-
-			<MudItem xs="8" Style="margin:auto; width:100%;" Outlined="true">
-
-				<MudForm Style="margin:auto; width:80%;">
-					<div>
-						<MudText Style="width:100%; margin-bottom:1em" Typo="Typo.h5" class="form-label" Color="Color.Primary">D'où partez vous?</MudText>
-
-						<div class="mud-field filled">
-							<label class="full">
-								<input id="ship-address"
-									   name="ship"
-									   required
-									   autocomplete="off" />
-							</label>
-						</div>
 
 
-						<MudText Style="width:100%; margin-bottom:1em" Typo="Typo.h5" class="form-label" Color="Color.Primary">Où allez vous?</MudText>
-						<div class="">
-							<label class="">
-
-								<input 
-									   
-									   required
-									   autocomplete="off" />
-							</label>
-						</div>
+	<MudItem xs="7" Style="max-width:100%">
+		<MudPaper Style="padding: 1em; margin-top:3em">
+			<MudForm>
 
 
-					</div>
+				<MudText Style=" margin:2em 0 1em 0;" Typo="Typo.h5" class="form-label" Color="Color.Primary">D'où partez vous?</MudText>
 
-					<MudText Style="width:100%; margin-bottom:1em" Typo="Typo.h5" class="form-label" Color="Color.Primary">Combien de passagers souaitez-vous emmener ?</MudText>
-					<MudGrid class="counter">
-
-						<MudItem xs="9" Style="width:100%;">
-
-							<MudSlider TickMarks="true" Color="Color.Secondary" @bind-Value="@NumberPassager" TickMarkLabels="@labels" Step="1" Max="5" Min="1" />
-						</MudItem>
-						<MudItem xs="3" Style="width:100%;">
-							<span class="counter-value">@NumberPassager </span>
-						</MudItem>
-					</MudGrid>
-
-					<MudText Style="width:100%; margin-bottom:1em; margin-top:1em" Typo="Typo.h5" class="form-label" Color="Color.Primary">Quel est le prix de chaque place ?</MudText>
-
-					<MudGrid class="counter">
-
-						<MudItem xs="9" Style="width:100%;">
-							<MudSlider TickMarks="true" Color="Color.Secondary" @bind-Value="@NumberPrice" Step="1" Max="99" Min="1" />
-						</MudItem>
-						<MudItem xs="3" Style="width:100%;">
-							<span class="counter-value">@NumberPrice €</span>
-						</MudItem>
-
-					</MudGrid>
-
-					<MudCardActions>
-						<MudButton Variant="Variant.Filled" Style="margin-top:2em" Color="Color.Primary" Class="ml-auto" OnClick="@(async () => await Submit())" >Creer votre trajet</MudButton>
-					</MudCardActions>
+				<MudTextField T="string" data-google-autocomplete="true" data-value-field="city_from_selectedValue" Placeholder="Ville de départ" Adornment="Adornment.Start" AdornmentColor="Color.Primary" AdornmentIcon="@Icons.Material.Filled.Start" />
+				<input type="hidden" name="city_from_selectedValue" value="" />
 
 
-				</MudForm>
+				<MudText Style=" margin:2em 0 1em 0;" Typo="Typo.h5" class="form-label" Color="Color.Primary">Où allez vous?</MudText>
 
-				@* </form> *@
-			</MudItem>
-		</MudItem>
-	</MudPaper>
+				<MudTextField T="string" data-google-autocomplete="true" data-value-field="city_to_selectedValue" Placeholder="Ville d'arrivée" Adornment="Adornment.Start" AdornmentColor="Color.Primary" AdornmentIcon="@Icons.Material.Filled.KeyboardTab" />
+				<input type="hidden" name="city_to_selectedValue" value="" />
+
+				<MudText Style=" margin:2em 0 1em 0;" Typo="Typo.h5" class="form-label" Color="Color.Primary">Quand souhaitez vous prendre la route?</MudText>
+				<MudDatePicker @bind-Date="date" MinDate="DateTime.Today" Adornment="Adornment.Start" AdornmentColor="Color.Primary" />
+
+				<MudText Style="margin:2em 0 1em 0;" Typo="Typo.h5" class="form-label" Color="Color.Primary">Combien de passagers souaitez-vous emmener ?</MudText>
+				<MudGrid Spacing="0" class="counter">
+
+					<MudItem xs="9">
+
+						<MudSlider TickMarks="true" Color="Color.Secondary" @bind-Value="@NumberPassager" TickMarkLabels="@labels" Step="1" Max="5" Min="1" />
+					</MudItem>
+					<MudItem xs="3">
+						<MudText Typo="Typo.h4" Color="Color.Secondary" Style="margin-left:1em">@NumberPassager </MudText>
+					</MudItem>
+				</MudGrid>
+
+				<MudText Style=" margin:2em 0 1em 0;" Typo="Typo.h5" class="form-label" Color="Color.Primary">Quel est le prix de chaque place ?</MudText>
+
+				<MudGrid Spacing="0" class="counter">
+
+					<MudItem xs="9">
+						<MudSlider TickMarks="true" Color="Color.Secondary" @bind-Value="@NumberPrice" Step="1" Max="99" Min="1" />
+					</MudItem>
+					<MudItem xs="3">
+						<MudText Typo="Typo.h4" Color="Color.Secondary" Style="margin-left:1em">@NumberPrice €</MudText>
+					</MudItem>
+
+				</MudGrid>
+
+				<MudCardActions>
+					<MudButton Variant="Variant.Filled" Style="margin:2em 0;" Color="Color.Primary" Class="ml-auto" OnClick="@(async () => await Submit())">Creer votre trajet</MudButton>
+				</MudCardActions>
+
+
+			</MudForm>
+		</MudPaper>
+	</MudItem>
+
 </MudGrid>
 
 
@@ -98,7 +84,7 @@
 
 	MudTextField<string> pwField1;
 	MudForm form;
-
+	DateTime? date = DateTime.Today;
 
 	private async Task Submit()
 	{
