@@ -3,6 +3,189 @@
 @inherits LayoutComponentBase
 
 
+<MudGrid Spacing="0" Style="margin-top:2em">
+	<MudItem xs="2" Class="d-flex justify-center">
+		<MudImage Src="Images/testprofil.jpg" Alt="Gerard" ObjectPosition="ObjectPosition.Center" Class="rounded-lg" Width="150"></MudImage>
+	</MudItem>
+	<MudItem xs="10">
+		<MudText Typo="Typo.h2 " Align="Align.Justify">Camille Dupont</MudText>
+	</MudItem>
+</MudGrid>
+
+<MudGrid Spacing="0" Style=" margin-top:2em">
+
+	<MudItem xs="2" Class="d-flex justify-center">
+		<MudPaper Class="pa-8 ma-1 mud-theme-primary">
+			<MudItem Style="margin-top:2em">
+				<MudAvatar Image="Images/Icone/FoodNo.png"></MudAvatar>
+
+				<MudAvatar Image="Images/Icone/Music.png"></MudAvatar>
+
+				<MudAvatar Image="Images/Icone/PetNo.png"></MudAvatar>
+
+				<MudAvatar Image="Images/Icone/Talk.png"></MudAvatar>
+			</MudItem>
+
+			<MudItem Style="margin-top:2em">
+				<MudRating SelectedValue="4" ReadOnly="true" />
+			</MudItem>
+
+			<MudItem Style="margin-top:2em">
+				<MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="@ToggleOpen">Avis</MudButton>
+
+			
+
+			</MudItem>
+		</MudPaper>
+	</MudItem>
+	<MudItem xs="5" Class="d-flex justify-center">
+		<MudPaper Class="pa-8 ma-1">
+			<MudText Typo="Typo.h4">Informations détaillées</MudText>
+			<MudText Typo="Typo.h6"> Prenom et Nom</MudText>
+			<MudText Typo="Typo.subtitle1">Gerard Dupont</MudText>
+			<MudText Typo="Typo.h6">Date de naissance</MudText>
+			<MudText Typo="Typo.subtitle1">02 fevrier 1995</MudText>
+			<MudText Typo="Typo.h6">Numéro de téléphone</MudText>
+			<MudText Typo="Typo.subtitle1">060504030201</MudText>
+			<MudText Typo="Typo.h6">Description de votre voiture</MudText>
+			<MudText Typo="Typo.subtitle1">subtitle1. Lorem ipsum dolor sit amet</MudText>
+		</MudPaper>
+	</MudItem>
+	<MudItem xs="5" Class="d-flex justify-center">
+		<MudPaper Class="pa-8 ma-1">
+			<MudText Typo="Typo.h4">Mes trajets</MudText>
+		</MudPaper>
+	</MudItem>
+</MudGrid>
+
+<MudPopover Open="@_isOpen" Fixed="true" Class="px-4 pt-4" AnchorOrigin="Origin.CenterCenter" TransformOrigin="Origin.CenterCenter">
+	<div class="d-flex flex-column">
+		<MudGrid Spacing="0">
+			<MudItem xs="2">
+				<MudText Typo="Typo.h5" Color="Color.Secondary" Style="margin-left:1em">4/5</MudText>
+			</MudItem>
+			<MudItem xs="9">
+				<MudText Typo="Typo.subtitle1" Style="margin-left:1em">Lorem Ipsum Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Ameno, ameno dorimen! Lorem ipsum dolor sit amet</MudText>
+			</MudItem>
+		</MudGrid>
+		<MudDivider DividerType="DividerType.Middle" Class="my-6" />
+		<MudGrid Spacing="0">
+			<MudItem xs="2">
+				<MudText Typo="Typo.h5" Color="Color.Secondary" Style="margin-left:1em">5/5</MudText>
+			</MudItem>
+			<MudItem xs="9">
+				<MudText Typo="Typo.subtitle1" Style="margin-left:1em">Lorem Ipsum Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Ameno, ameno dorimen! Lorem ipsum dolor sit amet Lorem Ipsum Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Ameno, ameno dorimen! Lorem ipsum dolor sit amet Lorem Ipsum Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Ameno, ameno dorimen! Lorem ipsum dolor sit amet</MudText>
+			</MudItem>
+		</MudGrid>
+		<MudDivider DividerType="DividerType.Middle" Class="my-6" />
+		<MudGrid Spacing="0">
+			<MudItem xs="2">
+				<MudText Typo="Typo.h5" Color="Color.Secondary" Style="margin-left:1em">2/5</MudText>
+			</MudItem>
+			<MudItem xs="9">
+				<MudText Typo="Typo.subtitle1" Style="margin-left:1em">Lorem Ipsum Lorem ipsum dolor sit amet Lorem ipsum </MudText>
+			</MudItem>
+		</MudGrid>
+		<MudGrid Spacing="0">
+			<MudItem xs="2">
+				<MudText Typo="Typo.h5" Color="Color.Secondary" Style="margin-left:1em">4/5</MudText>
+			</MudItem>
+			<MudItem xs="9">
+				<MudText Typo="Typo.subtitle1" Style="margin-left:1em">Lorem Ipsum Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Ameno, ameno dorimen! Lorem ipsum dolor sit amet</MudText>
+			</MudItem>
+		</MudGrid>
+		<MudDivider DividerType="DividerType.Middle" Class="my-6" />
+		<MudGrid Spacing="0">
+			<MudItem xs="2">
+				<MudText Typo="Typo.h5" Color="Color.Secondary" Style="margin-left:1em">5/5</MudText>
+			</MudItem>
+			<MudItem xs="9">
+				<MudText Typo="Typo.subtitle1" Style="margin-left:1em">Lorem Ipsum Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Ameno, ameno dorimen! Lorem ipsum dolor sit amet Lorem Ipsum Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Ameno, ameno dorimen! Lorem ipsum dolor sit amet Lorem Ipsum Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Ameno, ameno dorimen! Lorem ipsum dolor sit amet</MudText>
+			</MudItem>
+		</MudGrid>
+		<MudDivider DividerType="DividerType.Middle" Class="my-6" />
+		<MudGrid Spacing="0">
+			<MudItem xs="2">
+				<MudText Typo="Typo.h5" Color="Color.Secondary" Style="margin-left:1em">2/5</MudText>
+			</MudItem>
+			<MudItem xs="9">
+				<MudText Typo="Typo.subtitle1" Style="margin-left:1em">Lorem Ipsum Lorem ipsum dolor sit amet Lorem ipsum </MudText>
+			</MudItem>
+		</MudGrid>
+		<MudGrid Spacing="0">
+			<MudItem xs="2">
+				<MudText Typo="Typo.h5" Color="Color.Secondary" Style="margin-left:1em">4/5</MudText>
+			</MudItem>
+			<MudItem xs="9">
+				<MudText Typo="Typo.subtitle1" Style="margin-left:1em">Lorem Ipsum Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Ameno, ameno dorimen! Lorem ipsum dolor sit amet</MudText>
+			</MudItem>
+		</MudGrid>
+		<MudDivider DividerType="DividerType.Middle" Class="my-6" />
+		<MudGrid Spacing="0">
+			<MudItem xs="2">
+				<MudText Typo="Typo.h5" Color="Color.Secondary" Style="margin-left:1em">5/5</MudText>
+			</MudItem>
+			<MudItem xs="9">
+				<MudText Typo="Typo.subtitle1" Style="margin-left:1em">Lorem Ipsum Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Ameno, ameno dorimen! Lorem ipsum dolor sit amet Lorem Ipsum Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Ameno, ameno dorimen! Lorem ipsum dolor sit amet Lorem Ipsum Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Ameno, ameno dorimen! Lorem ipsum dolor sit amet</MudText>
+			</MudItem>
+		</MudGrid>
+		<MudDivider DividerType="DividerType.Middle" Class="my-6" />
+		<MudGrid Spacing="0">
+			<MudItem xs="2">
+				<MudText Typo="Typo.h5" Color="Color.Secondary" Style="margin-left:1em">2/5</MudText>
+			</MudItem>
+			<MudItem xs="9">
+				<MudText Typo="Typo.subtitle1" Style="margin-left:1em">Lorem Ipsum Lorem ipsum dolor sit amet Lorem ipsum </MudText>
+			</MudItem>
+		</MudGrid><MudGrid Spacing="0">
+			<MudItem xs="2">
+				<MudText Typo="Typo.h5" Color="Color.Secondary" Style="margin-left:1em">4/5</MudText>
+			</MudItem>
+			<MudItem xs="9">
+				<MudText Typo="Typo.subtitle1" Style="margin-left:1em">Lorem Ipsum Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Ameno, ameno dorimen! Lorem ipsum dolor sit amet</MudText>
+			</MudItem>
+		</MudGrid>
+		<MudDivider DividerType="DividerType.Middle" Class="my-6" />
+		<MudGrid Spacing="0">
+			<MudItem xs="2">
+				<MudText Typo="Typo.h5" Color="Color.Secondary" Style="margin-left:1em">5/5</MudText>
+			</MudItem>
+			<MudItem xs="9">
+				<MudText Typo="Typo.subtitle1" Style="margin-left:1em">Lorem Ipsum Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Ameno, ameno dorimen! Lorem ipsum dolor sit amet Lorem Ipsum Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Ameno, ameno dorimen! Lorem ipsum dolor sit amet Lorem Ipsum Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Ameno, ameno dorimen! Lorem ipsum dolor sit amet</MudText>
+			</MudItem>
+		</MudGrid>
+		<MudDivider DividerType="DividerType.Middle" Class="my-6" />
+		<MudGrid Spacing="0">
+			<MudItem xs="2">
+				<MudText Typo="Typo.h5" Color="Color.Secondary" Style="margin-left:1em">2/5</MudText>
+			</MudItem>
+			<MudItem xs="9">
+				<MudText Typo="Typo.subtitle1" Style="margin-left:1em">Lorem Ipsum Lorem ipsum dolor sit amet Lorem ipsum </MudText>
+			</MudItem>
+		</MudGrid><MudGrid Spacing="0">
+			<MudItem xs="2">
+				<MudText Typo="Typo.h5" Color="Color.Secondary" Style="margin-left:1em">4/5</MudText>
+			</MudItem>
+			<MudItem xs="9">
+				<MudText Typo="Typo.subtitle1" Style="margin-left:1em">Lorem Ipsum Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Ameno, ameno dorimen! Lorem ipsum dolor sit amet</MudText>
+			</MudItem>
+		</MudGrid>
+
+		<MudButton OnClick="@ToggleOpen" Class="ml-auto mr-n3 mb-1" Style="margin-top:1em" Color="Color.Secondary">Fermer les avis</MudButton>
+	</div>
+</MudPopover>
+
+
 @code {
-   
+
+	bool _isOpen;
+
+	public void ToggleOpen()
+	{
+		if (_isOpen)
+			_isOpen = false;
+		else
+			_isOpen = true;
+	}
+
 }
