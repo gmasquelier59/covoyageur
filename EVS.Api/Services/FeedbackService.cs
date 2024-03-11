@@ -54,7 +54,7 @@ namespace EVS.Api.Services
                 return null;
 
             feedback.Note = feedbackDTO.Note;
-            feedback.Comments = feedback.Comments;            
+            feedback.Comments = feedbackDTO.Comments;            
 
             return await _feedbackRepository.Update(feedback);
         }

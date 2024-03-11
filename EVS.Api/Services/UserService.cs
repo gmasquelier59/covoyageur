@@ -1,51 +1,74 @@
-﻿// UserService.cs
-
+﻿using EVS.Api.DTOs;
+using EVS.Api.Repositories;
 using EVS.Core.Models;
-using System;
-using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
 namespace EVS.Api.Services
 {
     public class UserService : IUserService
     {
-        public List<User> GetAllUsers()
+        private readonly IRepository<User> _userRepository;
+
+        public UserService(IRepository<User> userRepository)
         {
-            // Logique pour récupérer tous les utilisateurs depuis la base de données, par exemple
+            _userRepository = userRepository;
+        }
+        public async Task<List<User>> GetAll()
+        {
+            return await _userRepository.GetAll();
+        }
+
+        public async Task<User?> GetById(Guid id)
+        {
+            return await _userRepository.GetById(id);
+        }
+
+        public async Task<User?> Get()
+        {
             throw new NotImplementedException();
         }
 
-        public User GetUserById(Guid userId)
+        public async Task<User?> Create(User user)
         {
-            // Logique pour récupérer un utilisateur par son identifiant depuis la base de données, par exemple
-            throw new NotImplementedException();
+            return await _userRepository.Add(user);
         }
 
-        public void AddUser(User user)
+        public Task<User?> Login(string email, string password)
         {
-            // Logique pour ajouter un nouvel utilisateur dans la base de données, par exemple
             throw new NotImplementedException();
         }
-
-        public void UpdateUser(User user)
+        public async Task<User?> Update(Guid id, UserDTO userDTO)
         {
-            // Logique pour mettre à jour les informations d'un utilisateur existant dans la base de données, par exemple
-            throw new NotImplementedException();
+            User? user = await _userRepository.GetById(id);
+
+            if (user == null)
+                return null;
+
+            user.LastName = userDTO.LastName;
+            user.FirstName = userDTO.FirstName;
+            user.Pseudo = userDTO.Pseudo;
+            user.Email = userDTO.Email;
+            user.Password = userDTO.Password;
+            user.PhoneNumber = userDTO.PhoneNumber;
+            user.Birthday = userDTO.Birthday;
+            user.Photo = userDTO.Photo;
+            user.CarDescription = userDTO.CarDescription;            
+            user.AcceptSmoker = userDTO.AcceptSmoker;
+            user.AcceptPet = userDTO.AcceptPet;
+            user.AcceptSmallTalk = userDTO.AcceptSmallTalk;
+            user.AcceptMusic = userDTO.AcceptMusic;
+            user.AcceptFood = userDTO.AcceptFood;
+
+            return await _userRepository.Update(user);
         }
 
-        public void DeleteUser(Guid userId)
+        public async Task<bool> Delete(Guid id)
         {
-            // Logique pour supprimer un utilisateur de la base de données, par exemple
-            throw new NotImplementedException();
+            return await _userRepository.Delete(id);
         }
-
-       public User GetConnectedUser(Guid userId)
-        { throw new NotImplementedException(); }
-
-       public User UpdatedConnectedUser(Guid userId)
-        { throw new NotImplementedException(); }
     }
 }
-
 
 /*
 

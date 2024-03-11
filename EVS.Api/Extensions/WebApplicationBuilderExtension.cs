@@ -21,6 +21,7 @@ namespace EVS.Api.Extensions
             builder.Services.AddScoped<IReservationService, ReservationService>();
             builder.Services.AddScoped<IRideService, RideService>();
             builder.Services.AddScoped<IFeedbackService, FeedbackService>();
+            builder.Services.AddScoped<IUserService, UserService>();
         }
 
         public static void AddDatabase(this WebApplicationBuilder builder)
