@@ -41,7 +41,7 @@ namespace EVS.Api.Data.Seeds
                     EndCity = "Paris",
                     EndLatitude = parisLatitude,
                     EndLongitude = parisLongitude,
-                    Departure = DateTime.Today.AddDays(5),
+                    Departure = DateTime.Today.AddDays(5).AddHours(7),
                     Seats = 3,
                     Price = 20,
                     Distance = distanceLilleParis
@@ -57,7 +57,7 @@ namespace EVS.Api.Data.Seeds
                     EndCity = "Paris",
                     EndLatitude = parisLatitude,
                     EndLongitude = parisLongitude,
-                    Departure = DateTime.Today.AddDays(6),
+                    Departure = DateTime.Today.AddDays(6).AddHours(11),
                     Seats = 2,
                     Price = 18,
                     Distance = distanceLilleParis
@@ -73,7 +73,7 @@ namespace EVS.Api.Data.Seeds
                     EndCity = "Lille",
                     EndLatitude = lilleLatitude,
                     EndLongitude = lilleLongitude,
-                    Departure = DateTime.Today.AddDays(10),
+                    Departure = DateTime.Today.AddDays(10).AddHours(17),
                     Seats = 4,
                     Price = 23,
                     Distance = distanceLilleParis
@@ -89,7 +89,7 @@ namespace EVS.Api.Data.Seeds
                     EndCity = "Marseille",
                     EndLatitude = marseilleLatitude,
                     EndLongitude = marseilleLongitude,
-                    Departure = DateTime.Today.AddDays(17),
+                    Departure = DateTime.Today.AddDays(17).AddHours(5),
                     Seats = 1,
                     Price = 39,
                     Distance = distanceParisMarseille
@@ -105,7 +105,7 @@ namespace EVS.Api.Data.Seeds
                     EndCity = "Bordeaux",
                     EndLatitude = bordeauxLatitude,
                     EndLongitude = bordeauxLongitude,
-                    Departure = DateTime.Today.AddDays(9),
+                    Departure = DateTime.Today.AddDays(9).AddHours(4),
                     Seats = 3,
                     Price = 46,
                     Distance = distanceLyonBordeaux
@@ -121,7 +121,7 @@ namespace EVS.Api.Data.Seeds
                     EndCity = "Lille",
                     EndLatitude = lilleLatitude,
                     EndLongitude = lilleLatitude,
-                    Departure = DateTime.Today.AddDays(-4),
+                    Departure = DateTime.Today.AddDays(-4).AddHours(8),
                     Seats = 2,
                     Price = 52,
                     Distance = distanceLilleBordeaux
