@@ -1,4 +1,5 @@
-﻿using EVS.Core.Models;
+﻿using EVS.Api.Data.Seeds;
+using EVS.Core.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace EVS.Api.Data
@@ -22,23 +23,13 @@ namespace EVS.Api.Data
                 .WithOne(e => e.User)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            Guid adminGuid = Guid.NewGuid();
+            List<User> users = UserSeed.Seed(modelBuilder);
 
-            modelBuilder.Entity<User>().HasData(
-                new User()
-                {
-                    Id = adminGuid,
-                    IsAdmin = true,
-                    FirstName = "Admin",
-                    LastName = "Admin",
-                    Pseudo = "admin",
-                    Birthday = DateTime.Now,
-                    CarDescription = "",
-                    PhoneNumber = "0102030405",
-                    Email = "admin@envoituresimone.com",
-                    Password = "123456789" // TODO : Faire le hash du password une fois JWT en place
-                }
-            );
+            List<Ride> rides = RideSeed.Seed(modelBuilder, users);
+
+            List<Reservation> reservations = ReservationSeed.Seed(modelBuilder, users, rides);
+
+            List<Feedback> feedbacks = FeedbackSeed.Seed(modelBuilder, users, rides);
         }
     }
 }
