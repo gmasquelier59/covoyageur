@@ -6,24 +6,12 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EVS.Core", "EVS.Core\EVS.Core.csproj", "{45888A36-20F2-4127-8B6C-98BC42F7B8DA}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EVS.Api", "EVS.Api\EVS.Api.csproj", "{55D1B77F-B35B-42CC-935A-CC0E50C3AE47}"
-	ProjectSection(ProjectDependencies) = postProject
-		{45888A36-20F2-4127-8B6C-98BC42F7B8DA} = {45888A36-20F2-4127-8B6C-98BC42F7B8DA}
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EVS.Front", "EVS.Front\EVS.Front.csproj", "{2BF7C1D9-6C7D-4C90-B78E-D392ADB2EE1F}"
-	ProjectSection(ProjectDependencies) = postProject
-		{45888A36-20F2-4127-8B6C-98BC42F7B8DA} = {45888A36-20F2-4127-8B6C-98BC42F7B8DA}
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Éléments de solution", "Éléments de solution", "{02648A14-87EF-4A39-B4B9-FD4C1BF0E388}"
-	ProjectSection(SolutionItems) = preProject
-		.gitignore = .gitignore
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EVS.Tests", "EVS.Tests\EVS.Tests.csproj", "{14373D38-6BAD-4C9C-87EB-6AEA706E867E}"
-	ProjectSection(ProjectDependencies) = postProject
-		{55D1B77F-B35B-42CC-935A-CC0E50C3AE47} = {55D1B77F-B35B-42CC-935A-CC0E50C3AE47}
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
