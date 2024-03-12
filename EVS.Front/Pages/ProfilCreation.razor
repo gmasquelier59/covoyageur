@@ -36,27 +36,34 @@
 				<MudTextField T="string"
 							  Label="Password" HelperText="Repeat the password" InputType="InputType.Password"
 							  Validation="@(new Func<string, string>(PasswordMatch))" />
-				<MudTextField @bind-Value="user.Photo" T="string" Label="photo" Required="true" RequiredError="Une photo nous est nécessaire!" />
-				@* 				<a style="margin:2em">
-				<MudFileUpload Style="margin:1em" T="IBrowserFile" For="@(() => model.File)" @bind-Files="model.File" OnFilesChanged="UploadFiles" Accept=".png, .jpg">
-				<ButtonTemplate>
-				<MudButton HtmlTag="label"
-				Variant="Variant.Filled"
-				Color="Color.Primary"
-				StartIcon="@Icons.Material.Filled.CloudUpload"
-				for="@context.Id">
-				Enregistrer votre photo
-				</MudButton>
-				<MudButton OnClick="@context.Actions.ClearAsync"
-				Variant="Variant.Filled"
-				Color="Color.Primary"
-				StartIcon="@Icons.Material.Filled.Clear">
-				Supprimer votre photo
-				</MudButton>
-				</ButtonTemplate>
-				</MudFileUpload>
+				
+
+						
+				<a style="margin:2em">
+					<MudTextField @bind-Value="user.Photo"
+								  For="@(() => user.Photo)"
+                          Immediate="true"
+                          Label="Votre photo de profil" />
+            <MudFileUpload T="IBrowserFile" For="@(() => model.File)" @bind-Files="model.File" OnFilesChanged="UploadFiles" >
+                <ButtonTemplate>
+                    <MudButton HtmlTag="label"
+                               Variant="Variant.Filled"
+                               Color="Color.Primary"
+                               StartIcon="@Icons.Material.Filled.CloudUpload"
+                               for="@context.Id">
+                       Enregistrer
+                    </MudButton>
+                    <MudButton OnClick="@context.Actions.ClearAsync"
+                               Variant="Variant.Filled"
+                               Color="Color.Primary"
+                               StartIcon="@Icons.Material.Filled.Clear">
+                        Supprimer
+                    </MudButton>
+					</ButtonTemplate>
+            </MudFileUpload>
+   
 				</a>
-				*@
+				
 				<a>
 					<MudSwitch T="bool" @bind-Value="user.AcceptSmallTalk" Color="Color.Primary" UnCheckedColor="Color.Secondary" >
 						 <MudText>
@@ -89,14 +96,7 @@
 				<a class="d-flex align-center justify-space-between" style="margin:2em">
 					<MudButton Variant="Variant.Text" OnClick="@ToggleOpen">J'accepte les conditons d'utilisation de EnVoitureSimone!</MudButton><MudCheckBox T="bool" Required="true" Style="margin:1em" />
 
-					<MudPopover Open="@_isOpen" Fixed="true" Class="px-8 pt-8">
-						<div class="d-flex flex-column">
-							<MudText>
-								Les utilisateurs doivent être âgés d'au moins 18 ans et posséder un permis de conduire valide. Ils doivent également accepter de partager les frais de voyage de manière équitable. Les conducteurs doivent être assurés et enregistrés auprès des autorités compétentes. Les passagers doivent respecter les règles de sécurité et de courtoisie. Le site n'est pas responsable des accidents ou des dommages. Les utilisateurs doivent respecter les lois locales et les droits d'auteur.
-							</MudText>
-							<MudButton OnClick="@ToggleOpen" Variant="Variant.Filled" Class="ml-auto mr-n3 mb-1" Color="Color.Primary">J'ai lu!</MudButton>
-						</div>
-					</MudPopover>
+					
 				</a>
 			</MudForm>
 			<MudCardActions>
@@ -108,13 +108,17 @@
 	</MudItem>
 </MudGrid>
 
-
-
+<MudPopover Open="@_isOpen" Fixed="true" Class="px-8 pt-8" AnchorOrigin="Origin.CenterCenter" TransformOrigin="Origin.CenterCenter">
+	<div class="d-flex flex-column">
+		<MudText>
+			Les utilisateurs doivent être âgés d'au moins 18 ans et posséder un permis de conduire valide. Ils doivent également accepter de partager les frais de voyage de manière équitable. Les conducteurs doivent être assurés et enregistrés auprès des autorités compétentes. Les passagers doivent respecter les règles de sécurité et de courtoisie. Le site n'est pas responsable des accidents ou des dommages. Les utilisateurs doivent respecter les lois locales et les droits d'auteur.
+		</MudText>
+		<MudButton OnClick="@ToggleOpen" Variant="Variant.Filled" Class="ml-auto mr-n3 mb-1" Color="Color.Primary">J'ai lu!</MudButton>
+	</div>
+</MudPopover>
 
 
 @code {
-
-
 	bool success;
 	string[] errors = { };
 	MudTextField<string> pwField1;
@@ -146,6 +150,7 @@
 		if (success)
 		{
 			var createdUser = userService.Create(user);
+
 		}
 	}
 
@@ -185,7 +190,6 @@
 	}
 
 
-
 	private FileModel model = new();
 	private FileModelFluentValidator ValidationRules = new();
 	private bool SuppressOnChangeWhenInvalid;
@@ -209,13 +213,11 @@
 		}
 	}
 
-
 	public class FileModel
 	{
 		public string Name { get; set; }
 		public IBrowserFile File { get; set; }
 	}
-
 
 	public class FileModelFluentValidator : AbstractValidator<FileModel>
 	{
