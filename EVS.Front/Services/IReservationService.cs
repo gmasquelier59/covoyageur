@@ -3,7 +3,7 @@ using EVS.Core.Models;
 
 namespace EVS.Front.Services
 {
-	public class IReservationService
+	public interface IReservationService
 	{
 		public Task<List<Reservation>> GetAllByRideId(Guid rideId);
 

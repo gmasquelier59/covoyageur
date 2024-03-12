@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\EVS.Api\EVS.Api.csproj" />
     <ProjectReference Include="..\EVS.Core\EVS.Core.csproj" />
   </ItemGroup>
 

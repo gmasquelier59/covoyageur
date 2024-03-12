@@ -2,7 +2,7 @@
 
 namespace EVS.Front.Services
 {
-	public class IRideService
+	public interface IRideService
 	{
 		public Task<Ride?> Create(Ride ride);
 		public Task<bool> Delete(Guid id);

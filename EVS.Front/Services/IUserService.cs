@@ -2,7 +2,7 @@
 
 namespace EVS.Front.Services
 {
-	public class IUserService
+	public interface IUserService
 	{
 		public Task<List<User>> GetAll();
 		public Task<User?> GetById(Guid id);

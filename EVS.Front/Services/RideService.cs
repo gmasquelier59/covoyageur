@@ -39,6 +39,7 @@ namespace EVS.Front.Services
 			return response ?? new List<Ride>();
 		}
 
+
 		public async Task<List<Ride>> GetAll(string startCity, DateTime departure)
 		{
 			var response = await _httpClient.GetFromJsonAsync<List<Ride>>(

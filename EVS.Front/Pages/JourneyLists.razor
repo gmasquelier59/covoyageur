@@ -1,4 +1,6 @@
 ﻿@page "/journeylists"
+@using EVS.Core.Models
+@using EVS.Front.Services
 @using MudBlazor
 
 @inherits LayoutComponentBase
@@ -58,5 +60,11 @@
 @code {
 	DateTime? date = DateTime.Today;
 
-	//List<Ride> rides;
+	List<Ride> Rides;
+
+	protected override async Task OnInitializedAsync()
+	{
+		Rides = RideService.GetAll();
+	}
+
 }
