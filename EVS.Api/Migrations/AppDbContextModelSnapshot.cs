@@ -58,27 +58,27 @@ namespace EVS.Api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("214e5f7f-482b-44b3-9fd3-94d8d21dced3"),
+                            Id = new Guid("ceb2dd01-4944-44d3-b4db-99a4b6fb032d"),
                             Comments = "J'ai pris un EVS à cause de la grève sncf. Au bout de dix minutes de discussion, il y a un passager qui dit \"Eh ca vous dis pas un covoiturage où tout le monde ferme sa gueule ?\"\r\nGrand silence depuis, plus personne ose parler.",
                             Note = 4,
-                            RideId = new Guid("67a94c3d-f0d2-483a-ac9b-d140c5d28cd8"),
-                            UserId = new Guid("7db3addc-9bc1-4b11-96e8-c6863c4dfb7b")
+                            RideId = new Guid("3742a581-a8a9-4dca-b95e-8f1b9391e436"),
+                            UserId = new Guid("8b2d4c69-f3d5-4d00-b02b-103bd26dd550")
                         },
                         new
                         {
-                            Id = new Guid("69ec4c86-8d1d-45c7-87f4-35f96c3480e1"),
+                            Id = new Guid("799c85fa-a3ec-4ee5-8e2c-fec660893ba7"),
                             Comments = "En Voiture Simone qui m'envoie une notif pour me dire que je suis éligible à la prime de l'Etat de 100€ pour encourager le convoiturage mdrrr ok il me manque juste le permis mais sinon ok je suis éligible 😭",
                             Note = 5,
-                            RideId = new Guid("67a94c3d-f0d2-483a-ac9b-d140c5d28cd8"),
-                            UserId = new Guid("3ed49088-8824-47c8-9005-5f7526e92099")
+                            RideId = new Guid("3742a581-a8a9-4dca-b95e-8f1b9391e436"),
+                            UserId = new Guid("b897d47e-7b3b-4dc0-a028-05d8e2c69659")
                         },
                         new
                         {
-                            Id = new Guid("935d27c5-0a28-4b8d-bcb8-a90b4d56ccdc"),
+                            Id = new Guid("44e9f84d-5933-481e-97fe-15e1b967855e"),
                             Comments = "suis dans mon EVS il a fermé les fenetres j’ose pas dire que j’ai des cheveux coincés dedans je peux pas bouger omg",
                             Note = 3,
-                            RideId = new Guid("67a94c3d-f0d2-483a-ac9b-d140c5d28cd8"),
-                            UserId = new Guid("1a284bf2-84bd-48da-89b4-ceaff5540001")
+                            RideId = new Guid("3742a581-a8a9-4dca-b95e-8f1b9391e436"),
+                            UserId = new Guid("485e4e29-6217-415c-b438-3d4f114f24d6")
                         });
                 });
 
@@ -116,27 +116,27 @@ namespace EVS.Api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("579f0bfa-f54c-42da-92c5-84c18654392a"),
+                            Id = new Guid("bea20ab2-b7d9-46d4-bfb7-611035e3ae82"),
+                            ReservationDate = new DateTime(2024, 3, 11, 0, 0, 0, 0, DateTimeKind.Local),
+                            RideId = new Guid("57ab4f5a-31e4-44a4-bd92-b664136b65be"),
+                            Status = 1,
+                            UserId = new Guid("485e4e29-6217-415c-b438-3d4f114f24d6")
+                        },
+                        new
+                        {
+                            Id = new Guid("804dd9b0-0361-4a40-880a-5d6c5f2e1364"),
                             ReservationDate = new DateTime(2024, 3, 10, 0, 0, 0, 0, DateTimeKind.Local),
-                            RideId = new Guid("fd77fe65-b625-4a38-bdac-da1735c726c7"),
-                            Status = 1,
-                            UserId = new Guid("1a284bf2-84bd-48da-89b4-ceaff5540001")
-                        },
-                        new
-                        {
-                            Id = new Guid("32cc63f8-d43f-49c2-b72e-263bb5ebc379"),
-                            ReservationDate = new DateTime(2024, 3, 9, 0, 0, 0, 0, DateTimeKind.Local),
-                            RideId = new Guid("b75690bc-d5bd-4b8f-923d-5c434355b34f"),
+                            RideId = new Guid("7d712d7e-f6f8-47b7-9176-8145b4480159"),
                             Status = 2,
-                            UserId = new Guid("76b74fd2-186a-4fc2-a4e3-00995f5adb4a")
+                            UserId = new Guid("24c952e2-dd86-4ca5-9308-771f2ab597fd")
                         },
                         new
                         {
-                            Id = new Guid("6211ca80-cdc4-4bf5-b67a-3c9ea0bd3540"),
-                            ReservationDate = new DateTime(2024, 3, 8, 0, 0, 0, 0, DateTimeKind.Local),
-                            RideId = new Guid("fd77fe65-b625-4a38-bdac-da1735c726c7"),
+                            Id = new Guid("ad65bde4-5b18-4dbc-bd85-2c09b669ab8b"),
+                            ReservationDate = new DateTime(2024, 3, 9, 0, 0, 0, 0, DateTimeKind.Local),
+                            RideId = new Guid("57ab4f5a-31e4-44a4-bd92-b664136b65be"),
                             Status = 1,
-                            UserId = new Guid("9b2e221b-c01a-405d-84b5-5f38fbe956b2")
+                            UserId = new Guid("2c08f978-5efd-4471-b487-6df11f5ebd37")
                         });
                 });
 
@@ -204,8 +204,8 @@ namespace EVS.Api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("906a4c29-eccf-4f68-abb4-65a3d1307662"),
-                            Departure = new DateTime(2024, 3, 16, 7, 0, 0, 0, DateTimeKind.Local),
+                            Id = new Guid("2810f5bb-cddf-4f72-854d-4b84a2cf8e02"),
+                            Departure = new DateTime(2024, 3, 17, 7, 0, 0, 0, DateTimeKind.Local),
                             Distance = 204,
                             EndCity = "Paris",
                             EndLatitude = 48.858825500000002,
@@ -215,12 +215,12 @@ namespace EVS.Api.Migrations
                             StartCity = "Lille",
                             StartLatitude = 50.631073299999997,
                             StartLongitude = 3.0056983000000002,
-                            UserId = new Guid("7db3addc-9bc1-4b11-96e8-c6863c4dfb7b")
+                            UserId = new Guid("8b2d4c69-f3d5-4d00-b02b-103bd26dd550")
                         },
                         new
                         {
-                            Id = new Guid("fd77fe65-b625-4a38-bdac-da1735c726c7"),
-                            Departure = new DateTime(2024, 3, 17, 11, 0, 0, 0, DateTimeKind.Local),
+                            Id = new Guid("57ab4f5a-31e4-44a4-bd92-b664136b65be"),
+                            Departure = new DateTime(2024, 3, 18, 11, 0, 0, 0, DateTimeKind.Local),
                             Distance = 204,
                             EndCity = "Paris",
                             EndLatitude = 48.858825500000002,
@@ -230,12 +230,12 @@ namespace EVS.Api.Migrations
                             StartCity = "Lille",
                             StartLatitude = 50.631073299999997,
                             StartLongitude = 3.0056983000000002,
-                            UserId = new Guid("9b2e221b-c01a-405d-84b5-5f38fbe956b2")
+                            UserId = new Guid("2c08f978-5efd-4471-b487-6df11f5ebd37")
                         },
                         new
                         {
-                            Id = new Guid("b75690bc-d5bd-4b8f-923d-5c434355b34f"),
-                            Departure = new DateTime(2024, 3, 21, 17, 0, 0, 0, DateTimeKind.Local),
+                            Id = new Guid("7d712d7e-f6f8-47b7-9176-8145b4480159"),
+                            Departure = new DateTime(2024, 3, 22, 17, 0, 0, 0, DateTimeKind.Local),
                             Distance = 204,
                             EndCity = "Lille",
                             EndLatitude = 50.631073299999997,
@@ -245,12 +245,12 @@ namespace EVS.Api.Migrations
                             StartCity = "Paris",
                             StartLatitude = 48.858825500000002,
                             StartLongitude = 2.2646343999999998,
-                            UserId = new Guid("3ed49088-8824-47c8-9005-5f7526e92099")
+                            UserId = new Guid("b897d47e-7b3b-4dc0-a028-05d8e2c69659")
                         },
                         new
                         {
-                            Id = new Guid("3996f952-72ba-46c3-9818-beee4257f3a1"),
-                            Departure = new DateTime(2024, 3, 28, 5, 0, 0, 0, DateTimeKind.Local),
+                            Id = new Guid("4fd3c98e-f891-44be-a932-8b8ab1f07c72"),
+                            Departure = new DateTime(2024, 3, 29, 5, 0, 0, 0, DateTimeKind.Local),
                             Distance = 660,
                             EndCity = "Marseille",
                             EndLatitude = 43.280226999999996,
@@ -260,12 +260,12 @@ namespace EVS.Api.Migrations
                             StartCity = "Paris",
                             StartLatitude = 48.858825500000002,
                             StartLongitude = 2.2646343999999998,
-                            UserId = new Guid("76b74fd2-186a-4fc2-a4e3-00995f5adb4a")
+                            UserId = new Guid("24c952e2-dd86-4ca5-9308-771f2ab597fd")
                         },
                         new
                         {
-                            Id = new Guid("97bf8059-5dd3-47aa-b4b2-122030dd08fd"),
-                            Departure = new DateTime(2024, 3, 20, 4, 0, 0, 0, DateTimeKind.Local),
+                            Id = new Guid("19c699fd-f005-415f-b655-3e8edc9fa9e4"),
+                            Departure = new DateTime(2024, 3, 21, 4, 0, 0, 0, DateTimeKind.Local),
                             Distance = 435,
                             EndCity = "Bordeaux",
                             EndLatitude = 44.841225000000001,
@@ -275,12 +275,12 @@ namespace EVS.Api.Migrations
                             StartCity = "Lyon",
                             StartLatitude = 45.757814000000003,
                             StartLongitude = 4.8320109999999996,
-                            UserId = new Guid("76b74fd2-186a-4fc2-a4e3-00995f5adb4a")
+                            UserId = new Guid("24c952e2-dd86-4ca5-9308-771f2ab597fd")
                         },
                         new
                         {
-                            Id = new Guid("67a94c3d-f0d2-483a-ac9b-d140c5d28cd8"),
-                            Departure = new DateTime(2024, 3, 7, 8, 0, 0, 0, DateTimeKind.Local),
+                            Id = new Guid("3742a581-a8a9-4dca-b95e-8f1b9391e436"),
+                            Departure = new DateTime(2024, 3, 8, 8, 0, 0, 0, DateTimeKind.Local),
                             Distance = 699,
                             EndCity = "Lille",
                             EndLatitude = 50.631073299999997,
@@ -290,7 +290,7 @@ namespace EVS.Api.Migrations
                             StartCity = "Bordeaux",
                             StartLatitude = 44.841225000000001,
                             StartLongitude = -0.580036,
-                            UserId = new Guid("76b74fd2-186a-4fc2-a4e3-00995f5adb4a")
+                            UserId = new Guid("24c952e2-dd86-4ca5-9308-771f2ab597fd")
                         });
                 });
 
@@ -300,6 +300,26 @@ namespace EVS.Api.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("id");
+
+                    b.Property<bool>("AcceptFood")
+                        .HasColumnType("bit")
+                        .HasColumnName("accept_food");
+
+                    b.Property<bool>("AcceptMusic")
+                        .HasColumnType("bit")
+                        .HasColumnName("accept_music");
+
+                    b.Property<bool>("AcceptPet")
+                        .HasColumnType("bit")
+                        .HasColumnName("accept_pet");
+
+                    b.Property<bool>("AcceptSmallTalk")
+                        .HasColumnType("bit")
+                        .HasColumnName("accept_talk");
+
+                    b.Property<bool>("AcceptSmoker")
+                        .HasColumnType("bit")
+                        .HasColumnName("accept_smoker");
 
                     b.Property<DateTime?>("Birthday")
                         .IsRequired()
@@ -323,6 +343,10 @@ namespace EVS.Api.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
                         .HasColumnName("firstname");
+
+                    b.Property<bool>("IsAdmin")
+                        .HasColumnType("bit")
+                        .HasColumnName("is_admin");
 
                     b.Property<string>("LastName")
                         .IsRequired()
@@ -367,11 +391,17 @@ namespace EVS.Api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("1ecfb3f3-cbd1-4645-a9c4-786545285bec"),
-                            Birthday = new DateTime(2024, 3, 11, 15, 17, 23, 206, DateTimeKind.Local).AddTicks(3130),
+                            Id = new Guid("dca01717-e66d-4aaf-9d66-e4e32847b4b9"),
+                            AcceptFood = false,
+                            AcceptMusic = false,
+                            AcceptPet = false,
+                            AcceptSmallTalk = false,
+                            AcceptSmoker = false,
+                            Birthday = new DateTime(2024, 3, 12, 11, 2, 35, 171, DateTimeKind.Local).AddTicks(8029),
                             CarDescription = "",
                             Email = "admin@envoituresimone.com",
                             FirstName = "Admin",
+                            IsAdmin = true,
                             LastName = "Admin",
                             Password = "admin",
                             PhoneNumber = "0102030405",
@@ -380,11 +410,17 @@ namespace EVS.Api.Migrations
                         },
                         new
                         {
-                            Id = new Guid("7db3addc-9bc1-4b11-96e8-c6863c4dfb7b"),
+                            Id = new Guid("8b2d4c69-f3d5-4d00-b02b-103bd26dd550"),
+                            AcceptFood = false,
+                            AcceptMusic = false,
+                            AcceptPet = false,
+                            AcceptSmallTalk = false,
+                            AcceptSmoker = false,
                             Birthday = new DateTime(1998, 12, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CarDescription = "Daewoo",
                             Email = "naldren0@webeden.co.uk",
                             FirstName = "Amye",
+                            IsAdmin = false,
                             LastName = "Colchett",
                             Password = "aB0.oB?iBy\\",
                             PhoneNumber = "0337862430",
@@ -393,11 +429,17 @@ namespace EVS.Api.Migrations
                         },
                         new
                         {
-                            Id = new Guid("3ed49088-8824-47c8-9005-5f7526e92099"),
+                            Id = new Guid("b897d47e-7b3b-4dc0-a028-05d8e2c69659"),
+                            AcceptFood = false,
+                            AcceptMusic = false,
+                            AcceptPet = false,
+                            AcceptSmallTalk = false,
+                            AcceptSmoker = false,
                             Birthday = new DateTime(1974, 8, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CarDescription = "Lexus",
                             Email = "ddroogan1@thetimes.co.uk",
                             FirstName = "Nap",
+                            IsAdmin = false,
                             LastName = "Droogan",
                             Password = "tH0)I/Mt<xZwz2",
                             PhoneNumber = "0322458382",
@@ -406,11 +448,17 @@ namespace EVS.Api.Migrations
                         },
                         new
                         {
-                            Id = new Guid("9b2e221b-c01a-405d-84b5-5f38fbe956b2"),
+                            Id = new Guid("2c08f978-5efd-4471-b487-6df11f5ebd37"),
+                            AcceptFood = false,
+                            AcceptMusic = false,
+                            AcceptPet = false,
+                            AcceptSmallTalk = false,
+                            AcceptSmoker = false,
                             Birthday = new DateTime(1988, 5, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CarDescription = "Jeep",
                             Email = "kpedwell2@icq.com",
                             FirstName = "Kordula",
+                            IsAdmin = false,
                             LastName = "Pedwell",
                             Password = "pH3+&{WpvdT",
                             PhoneNumber = "0903434966",
@@ -419,11 +467,17 @@ namespace EVS.Api.Migrations
                         },
                         new
                         {
-                            Id = new Guid("1a284bf2-84bd-48da-89b4-ceaff5540001"),
+                            Id = new Guid("485e4e29-6217-415c-b438-3d4f114f24d6"),
+                            AcceptFood = false,
+                            AcceptMusic = false,
+                            AcceptPet = false,
+                            AcceptSmallTalk = false,
+                            AcceptSmoker = false,
                             Birthday = new DateTime(1984, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CarDescription = "Austin",
                             Email = "lhair3@wikipedia.org",
                             FirstName = "Lindsey",
+                            IsAdmin = false,
                             LastName = "Hair",
                             Password = "eE0'6STA~9O#Suj{",
                             PhoneNumber = "0162842195",
@@ -432,11 +486,17 @@ namespace EVS.Api.Migrations
                         },
                         new
                         {
-                            Id = new Guid("76b74fd2-186a-4fc2-a4e3-00995f5adb4a"),
+                            Id = new Guid("24c952e2-dd86-4ca5-9308-771f2ab597fd"),
+                            AcceptFood = false,
+                            AcceptMusic = false,
+                            AcceptPet = false,
+                            AcceptSmallTalk = false,
+                            AcceptSmoker = false,
                             Birthday = new DateTime(1997, 8, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CarDescription = "BMW",
                             Email = "cgrigorkin4@theatlantic.com",
                             FirstName = "Carlota",
+                            IsAdmin = false,
                             LastName = "Grigorkin",
                             Password = "tZ9\\4s(DQvnvE",
                             PhoneNumber = "0494223557",

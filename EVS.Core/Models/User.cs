@@ -40,22 +40,22 @@ namespace EVS.Core.Models
         public string CarDescription { get; set; } = string.Empty;
 
         [Required, Column("is_admin")]
-        public Boolean IsAdmin = false;
+        public bool IsAdmin { get; set; } = false;
 
         [Required, Column("accept_smoker")]
-        public Boolean AcceptSmoker =false;
+        public bool AcceptSmoker { get; set; } = false;
 
         [Required, Column("accept_pet")]
-        public Boolean AcceptPet = false;
+        public bool AcceptPet { get; set; } = false;
 
         [Required, Column("accept_talk")]
-        public Boolean AcceptSmallTalk = false;
+        public bool AcceptSmallTalk { get; set; } = false;
 
         [Required, Column("accept_music")]
-        public Boolean AcceptMusic = true;
+        public bool AcceptMusic { get; set; } = false;
 
         [Required, Column("accept_food")]
-        public Boolean AcceptFood = false;
+        public bool AcceptFood { get; set; } = false;
 
         public List<Ride> Rides { get; } = new List<Ride>();
 
