@@ -11,7 +11,6 @@ namespace EVS.Front.Services
 		public RideService(HttpClient httpClient, IConfiguration configuration)
 		{
 			_httpClient = httpClient;
-			_baseApiRoute = configuration["http://localhost:7014/"] + "/ride";
 		}
 
 		public async Task<Ride?> Create(Ride ride)
@@ -35,7 +34,7 @@ namespace EVS.Front.Services
 
 		public async Task<List<Ride>> GetAll()
 		{
-			var response = await _httpClient.GetFromJsonAsync<List<Ride>>(_baseApiRoute);
+			var response = await _httpClient.GetFromJsonAsync<List<Ride>>("/rides");
 			return response ?? new List<Ride>();
 		}
 

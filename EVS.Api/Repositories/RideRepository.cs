@@ -17,7 +17,7 @@ namespace EVS.Api.Repositories
 
         public async Task<List<Ride>> GetAll()
         {
-            return await _context.Rides.ToListAsync<Ride>();
+            return await _context.Rides.Include(u => u.User).ToListAsync<Ride>();
         }
 
         public async Task<List<Ride>> GetAll(Expression<Func<Ride, bool>> predicate)
