@@ -26,9 +26,9 @@ namespace EVS.Front.Services
 			return response ?? new List<Feedback>();
 		}
 
-		public async Task<Feedback?> Create(Guid rideId, Feedback feedback)
+		public async Task<Feedback?> Create(Guid rideId, Feedback feedbackDTO)
 		{
-			var response = await _httpClient.PostAsJsonAsync($"{_baseApiRoute}/ride/{rideId}", feedback);
+			var response = await _httpClient.PostAsJsonAsync($"{_baseApiRoute}/ride/{rideId}", feedbackDTO);
 			if (response.IsSuccessStatusCode)
 			{
 				return await response.Content.ReadFromJsonAsync<Feedback>();
@@ -39,9 +39,9 @@ namespace EVS.Front.Services
 			}
 		}
 
-		public async Task<Feedback?> Update(Guid id, Feedback feedback)
+		public async Task<Feedback?> Update(Guid id, Feedback feedbackDTO)
 		{
-			var response = await _httpClient.PutAsJsonAsync($"{_baseApiRoute}/{id}", feedback);
+			var response = await _httpClient.PutAsJsonAsync($"{_baseApiRoute}/{id}", feedbackDTO);
 			if (response.IsSuccessStatusCode)
 			{
 				return await response.Content.ReadFromJsonAsync<Feedback>();

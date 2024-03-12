@@ -8,7 +8,7 @@ namespace EVS.Front.Services
 	{
 		public Task<List<Feedback>> GetAllByRideId(Guid rideId); //async
 		public Task<List<Feedback>> GetAllByUserId(Guid userId);
-		public Task<Feedback?> Create(Guid rideId, FeedbackDTO feedbackDTO);
-		public Task<Feedback?> Update(Guid id, FeedbackDTO feedbackDTO);
+		public Task<Feedback?> Create(Guid rideId, Feedback feedbackDTO); //DTO ?!
+        public Task<Feedback?> Update(Guid id, Feedback feedbackDTO);
 	}
 }

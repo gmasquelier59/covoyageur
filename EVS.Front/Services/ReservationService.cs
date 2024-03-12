@@ -36,7 +36,7 @@ namespace EVS.Front.Services
 
 		public async Task<Reservation?> UpdateStatus(Guid id, ReservationStatus newStatus)
 		{
-			var response = await _httpClient.PutAsJsonAsync($"{_baseApiRoute}/{id}/status/{newStatus}", null);
+			var response = await _httpClient.PutAsJsonAsync<Reservation>($"{_baseApiRoute}/{id}/status/{newStatus}", null);
 			if (response.IsSuccessStatusCode)
 			{
 				return await response.Content.ReadFromJsonAsync<Reservation>();

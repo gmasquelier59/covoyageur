@@ -35,7 +35,7 @@
 		<MudGrid Style="align-items:center;">
 			<MudItem><MudAvatar Size="Size.Medium" Image="Images/testprofil.jpg"></MudAvatar></MudItem>
 			<MudItem><MudText Typo="Typo.body2" Style="margin-left:1em">Jeanchuel</MudText></MudItem>
-			
+
 
 			<MudItem>
 				<MudAvatar Size="Size.Small" Image="Images/Icone/FoodNo.png"></MudAvatar>
@@ -48,7 +48,7 @@
 			</MudItem>
 			<MudSpacer />
 			<MudItem>
-			<MudButton Variant="Variant.Filled" Color="Color.Primary" Style="margin:1em">Reserver</MudButton>
+				<MudButton Variant="Variant.Filled" Color="Color.Primary" Style="margin:1em">Reserver</MudButton>
 			</MudItem>
 		</MudGrid>
 	</MudPaper>
@@ -62,9 +62,9 @@
 
 	List<Ride> Rides;
 
-	protected override async Task OnInitializedAsync()
-	{
-		Rides = RideService.GetAll();
-	}
+	// protected override async Task OnInitializedAsync()
+	// {
+	// 	Rides = RideService.GetAll();
+	// }
 
 }
