@@ -126,12 +126,12 @@ namespace EVS.Api.Migrations
                 columns: new[] { "id", "accept_food", "accept_music", "accept_pet", "accept_talk", "accept_smoker", "birthday", "car_description", "email", "firstname", "is_admin", "lastname", "password", "phone_number", "photo", "pseudo" },
                 values: new object[,]
                 {
-                    { new Guid("24c952e2-dd86-4ca5-9308-771f2ab597fd"), false, false, false, false, false, new DateTime(1997, 8, 24, 0, 0, 0, 0, DateTimeKind.Unspecified), "BMW", "cgrigorkin4@theatlantic.com", "Carlota", false, "Grigorkin", "tZ9\\4s(DQvnvE", "0494223557", "https://thispersondoesnotexist.com/", "cgrigorkin4" },
-                    { new Guid("2c08f978-5efd-4471-b487-6df11f5ebd37"), false, false, false, false, false, new DateTime(1988, 5, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), "Jeep", "kpedwell2@icq.com", "Kordula", false, "Pedwell", "pH3+&{WpvdT", "0903434966", "https://thispersondoesnotexist.com/", "kpedwell2" },
-                    { new Guid("485e4e29-6217-415c-b438-3d4f114f24d6"), false, false, false, false, false, new DateTime(1984, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), "Austin", "lhair3@wikipedia.org", "Lindsey", false, "Hair", "eE0'6STA~9O#Suj{", "0162842195", "https://thispersondoesnotexist.com/", "lhair3" },
-                    { new Guid("8b2d4c69-f3d5-4d00-b02b-103bd26dd550"), false, false, false, false, false, new DateTime(1998, 12, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), "Daewoo", "naldren0@webeden.co.uk", "Amye", false, "Colchett", "aB0.oB?iBy\\", "0337862430", "https://thispersondoesnotexist.com/", "acolchett0" },
-                    { new Guid("b897d47e-7b3b-4dc0-a028-05d8e2c69659"), false, false, false, false, false, new DateTime(1974, 8, 30, 0, 0, 0, 0, DateTimeKind.Unspecified), "Lexus", "ddroogan1@thetimes.co.uk", "Nap", false, "Droogan", "tH0)I/Mt<xZwz2", "0322458382", "https://thispersondoesnotexist.com/", "ddroogan1" },
-                    { new Guid("dca01717-e66d-4aaf-9d66-e4e32847b4b9"), false, false, false, false, false, new DateTime(2024, 3, 12, 11, 2, 35, 171, DateTimeKind.Local).AddTicks(8029), "", "admin@envoituresimone.com", "Admin", true, "Admin", "admin", "0102030405", "https://thispersondoesnotexist.com/", "admin" }
+                    { new Guid("4e199bcf-cd69-4f29-8dff-9222388e9988"), false, false, false, false, false, new DateTime(2024, 3, 12, 11, 18, 54, 980, DateTimeKind.Local).AddTicks(9306), "", "admin@envoituresimone.com", "Admin", true, "Admin", "admin", "0102030405", "https://this-person-does-not-exist.com/img/avatar-gen485cbb48758f0bbe06ed361e18f34d9c.jpg", "admin" },
+                    { new Guid("588adbff-9da6-4230-8eaf-ffea4582a67e"), false, true, true, false, false, new DateTime(1988, 5, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), "Jeep", "kpedwell2@icq.com", "Kordula", false, "Pedwell", "pH3+&{WpvdT", "0903434966", "https://this-person-does-not-exist.com/img/avatar-gen7b7dfa2a253e45ffa4925acc349ffcdc.jpg", "kpedwell2" },
+                    { new Guid("80bcd0ab-ed65-4e39-8c51-b5a16b0cda77"), false, true, false, true, true, new DateTime(1974, 8, 30, 0, 0, 0, 0, DateTimeKind.Unspecified), "Lexus", "ddroogan1@thetimes.co.uk", "Nap", false, "Droogan", "tH0)I/Mt<xZwz2", "0322458382", "https://this-person-does-not-exist.com/img/avatar-genc4f3be92e510666c0f16aeee2435ed90.jpg", "ddroogan1" },
+                    { new Guid("9ce2d194-ea60-4af0-a7dc-4498d6b049ef"), true, true, false, false, false, new DateTime(1998, 12, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), "Daewoo", "naldren0@webeden.co.uk", "Amye", false, "Colchett", "aB0.oB?iBy\\", "0337862430", "https://this-person-does-not-exist.com/img/avatar-gen1175da31458c1a38f5c53205c1d40c49.jpg", "acolchett0" },
+                    { new Guid("bc98b4a9-afa0-49c1-9fc6-8457af77758a"), true, true, false, false, false, new DateTime(1984, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), "Austin", "lhair3@wikipedia.org", "Lindsey", false, "Hair", "eE0'6STA~9O#Suj{", "0162842195", "https://this-person-does-not-exist.com/img/avatar-gen1131946bc643d6ef1643496115dade90.jpg", "lhair3" },
+                    { new Guid("c9469a26-87f5-4019-9d8f-9fa7de4e8050"), true, false, false, false, false, new DateTime(1997, 8, 24, 0, 0, 0, 0, DateTimeKind.Unspecified), "BMW", "cgrigorkin4@theatlantic.com", "Carlota", false, "Grigorkin", "tZ9\\4s(DQvnvE", "0494223557", "https://this-person-does-not-exist.com/img/avatar-gen376a50c7287a78e549d58d13a864d15f.jpg", "cgrigorkin4" }
                 });
 
             migrationBuilder.InsertData(
@@ -139,12 +139,12 @@ namespace EVS.Api.Migrations
                 columns: new[] { "id", "departure", "distance", "end_city", "end_latitude", "end_longitude", "price", "seats", "start_city", "start_latitude", "start_longitude", "user_id" },
                 values: new object[,]
                 {
-                    { new Guid("19c699fd-f005-415f-b655-3e8edc9fa9e4"), new DateTime(2024, 3, 21, 4, 0, 0, 0, DateTimeKind.Local), 435, "Bordeaux", 44.841225000000001, -0.580036, 46.0, 3, "Lyon", 45.757814000000003, 4.8320109999999996, new Guid("24c952e2-dd86-4ca5-9308-771f2ab597fd") },
-                    { new Guid("2810f5bb-cddf-4f72-854d-4b84a2cf8e02"), new DateTime(2024, 3, 17, 7, 0, 0, 0, DateTimeKind.Local), 204, "Paris", 48.858825500000002, 2.2646343999999998, 20.0, 3, "Lille", 50.631073299999997, 3.0056983000000002, new Guid("8b2d4c69-f3d5-4d00-b02b-103bd26dd550") },
-                    { new Guid("3742a581-a8a9-4dca-b95e-8f1b9391e436"), new DateTime(2024, 3, 8, 8, 0, 0, 0, DateTimeKind.Local), 699, "Lille", 50.631073299999997, 50.631073299999997, 52.0, 2, "Bordeaux", 44.841225000000001, -0.580036, new Guid("24c952e2-dd86-4ca5-9308-771f2ab597fd") },
-                    { new Guid("4fd3c98e-f891-44be-a932-8b8ab1f07c72"), new DateTime(2024, 3, 29, 5, 0, 0, 0, DateTimeKind.Local), 660, "Marseille", 43.280226999999996, 5.2158397000000001, 39.0, 1, "Paris", 48.858825500000002, 2.2646343999999998, new Guid("24c952e2-dd86-4ca5-9308-771f2ab597fd") },
-                    { new Guid("57ab4f5a-31e4-44a4-bd92-b664136b65be"), new DateTime(2024, 3, 18, 11, 0, 0, 0, DateTimeKind.Local), 204, "Paris", 48.858825500000002, 2.2646343999999998, 18.0, 2, "Lille", 50.631073299999997, 3.0056983000000002, new Guid("2c08f978-5efd-4471-b487-6df11f5ebd37") },
-                    { new Guid("7d712d7e-f6f8-47b7-9176-8145b4480159"), new DateTime(2024, 3, 22, 17, 0, 0, 0, DateTimeKind.Local), 204, "Lille", 50.631073299999997, 3.0056983000000002, 23.0, 4, "Paris", 48.858825500000002, 2.2646343999999998, new Guid("b897d47e-7b3b-4dc0-a028-05d8e2c69659") }
+                    { new Guid("716016f8-a49d-483e-a219-1c530091ecf8"), new DateTime(2024, 3, 8, 8, 0, 0, 0, DateTimeKind.Local), 699, "Lille", 50.631073299999997, 50.631073299999997, 52.0, 2, "Bordeaux", 44.841225000000001, -0.580036, new Guid("c9469a26-87f5-4019-9d8f-9fa7de4e8050") },
+                    { new Guid("78602c13-f524-4a98-8f29-1dcf7c112796"), new DateTime(2024, 3, 29, 5, 0, 0, 0, DateTimeKind.Local), 660, "Marseille", 43.280226999999996, 5.2158397000000001, 39.0, 1, "Paris", 48.858825500000002, 2.2646343999999998, new Guid("c9469a26-87f5-4019-9d8f-9fa7de4e8050") },
+                    { new Guid("8d4a638d-13b6-4cc3-ab3c-58af25cd208f"), new DateTime(2024, 3, 18, 11, 0, 0, 0, DateTimeKind.Local), 204, "Paris", 48.858825500000002, 2.2646343999999998, 18.0, 2, "Lille", 50.631073299999997, 3.0056983000000002, new Guid("588adbff-9da6-4230-8eaf-ffea4582a67e") },
+                    { new Guid("b2d8e9b1-2e72-40ee-9d07-a1478b743dc0"), new DateTime(2024, 3, 21, 4, 0, 0, 0, DateTimeKind.Local), 435, "Bordeaux", 44.841225000000001, -0.580036, 46.0, 3, "Lyon", 45.757814000000003, 4.8320109999999996, new Guid("c9469a26-87f5-4019-9d8f-9fa7de4e8050") },
+                    { new Guid("be408512-a07c-4c8e-818e-78b2e6ae4da4"), new DateTime(2024, 3, 22, 17, 0, 0, 0, DateTimeKind.Local), 204, "Lille", 50.631073299999997, 3.0056983000000002, 23.0, 4, "Paris", 48.858825500000002, 2.2646343999999998, new Guid("80bcd0ab-ed65-4e39-8c51-b5a16b0cda77") },
+                    { new Guid("d95ee668-9841-4875-8f66-b2489ba6557b"), new DateTime(2024, 3, 17, 7, 0, 0, 0, DateTimeKind.Local), 204, "Paris", 48.858825500000002, 2.2646343999999998, 20.0, 3, "Lille", 50.631073299999997, 3.0056983000000002, new Guid("9ce2d194-ea60-4af0-a7dc-4498d6b049ef") }
                 });
 
             migrationBuilder.InsertData(
@@ -152,9 +152,9 @@ namespace EVS.Api.Migrations
                 columns: new[] { "id", "comments", "note", "ride_id", "user_id" },
                 values: new object[,]
                 {
-                    { new Guid("44e9f84d-5933-481e-97fe-15e1b967855e"), "suis dans mon EVS il a fermé les fenetres j’ose pas dire que j’ai des cheveux coincés dedans je peux pas bouger omg", 3, new Guid("3742a581-a8a9-4dca-b95e-8f1b9391e436"), new Guid("485e4e29-6217-415c-b438-3d4f114f24d6") },
-                    { new Guid("799c85fa-a3ec-4ee5-8e2c-fec660893ba7"), "En Voiture Simone qui m'envoie une notif pour me dire que je suis éligible à la prime de l'Etat de 100€ pour encourager le convoiturage mdrrr ok il me manque juste le permis mais sinon ok je suis éligible 😭", 5, new Guid("3742a581-a8a9-4dca-b95e-8f1b9391e436"), new Guid("b897d47e-7b3b-4dc0-a028-05d8e2c69659") },
-                    { new Guid("ceb2dd01-4944-44d3-b4db-99a4b6fb032d"), "J'ai pris un EVS à cause de la grève sncf. Au bout de dix minutes de discussion, il y a un passager qui dit \"Eh ca vous dis pas un covoiturage où tout le monde ferme sa gueule ?\"\r\nGrand silence depuis, plus personne ose parler.", 4, new Guid("3742a581-a8a9-4dca-b95e-8f1b9391e436"), new Guid("8b2d4c69-f3d5-4d00-b02b-103bd26dd550") }
+                    { new Guid("21830793-ab65-4f07-a76c-b0980ef81c0a"), "En Voiture Simone qui m'envoie une notif pour me dire que je suis éligible à la prime de l'Etat de 100€ pour encourager le convoiturage mdrrr ok il me manque juste le permis mais sinon ok je suis éligible 😭", 5, new Guid("716016f8-a49d-483e-a219-1c530091ecf8"), new Guid("80bcd0ab-ed65-4e39-8c51-b5a16b0cda77") },
+                    { new Guid("af3bd3d6-9216-4989-b22f-0941d3452045"), "suis dans mon EVS il a fermé les fenetres j’ose pas dire que j’ai des cheveux coincés dedans je peux pas bouger omg", 3, new Guid("716016f8-a49d-483e-a219-1c530091ecf8"), new Guid("bc98b4a9-afa0-49c1-9fc6-8457af77758a") },
+                    { new Guid("cc6f01f8-10f2-483d-8c7d-e0766a11ab06"), "J'ai pris un EVS à cause de la grève sncf. Au bout de dix minutes de discussion, il y a un passager qui dit \"Eh ca vous dis pas un covoiturage où tout le monde ferme sa gueule ?\"\r\nGrand silence depuis, plus personne ose parler.", 4, new Guid("716016f8-a49d-483e-a219-1c530091ecf8"), new Guid("9ce2d194-ea60-4af0-a7dc-4498d6b049ef") }
                 });
 
             migrationBuilder.InsertData(
@@ -162,9 +162,9 @@ namespace EVS.Api.Migrations
                 columns: new[] { "id", "reservation_date", "ride_id", "status", "user_id" },
                 values: new object[,]
                 {
-                    { new Guid("804dd9b0-0361-4a40-880a-5d6c5f2e1364"), new DateTime(2024, 3, 10, 0, 0, 0, 0, DateTimeKind.Local), new Guid("7d712d7e-f6f8-47b7-9176-8145b4480159"), 2, new Guid("24c952e2-dd86-4ca5-9308-771f2ab597fd") },
-                    { new Guid("ad65bde4-5b18-4dbc-bd85-2c09b669ab8b"), new DateTime(2024, 3, 9, 0, 0, 0, 0, DateTimeKind.Local), new Guid("57ab4f5a-31e4-44a4-bd92-b664136b65be"), 1, new Guid("2c08f978-5efd-4471-b487-6df11f5ebd37") },
-                    { new Guid("bea20ab2-b7d9-46d4-bfb7-611035e3ae82"), new DateTime(2024, 3, 11, 0, 0, 0, 0, DateTimeKind.Local), new Guid("57ab4f5a-31e4-44a4-bd92-b664136b65be"), 1, new Guid("485e4e29-6217-415c-b438-3d4f114f24d6") }
+                    { new Guid("27c76aec-4ea1-4f87-89fa-25590edd9b0f"), new DateTime(2024, 3, 10, 0, 0, 0, 0, DateTimeKind.Local), new Guid("be408512-a07c-4c8e-818e-78b2e6ae4da4"), 2, new Guid("c9469a26-87f5-4019-9d8f-9fa7de4e8050") },
+                    { new Guid("8cebb3e5-88ac-46d2-95e0-c4aeeebc26c9"), new DateTime(2024, 3, 11, 0, 0, 0, 0, DateTimeKind.Local), new Guid("8d4a638d-13b6-4cc3-ab3c-58af25cd208f"), 1, new Guid("bc98b4a9-afa0-49c1-9fc6-8457af77758a") },
+                    { new Guid("aa6e4a82-e796-4361-9416-e2d92cc07c79"), new DateTime(2024, 3, 9, 0, 0, 0, 0, DateTimeKind.Local), new Guid("8d4a638d-13b6-4cc3-ab3c-58af25cd208f"), 1, new Guid("588adbff-9da6-4230-8eaf-ffea4582a67e") }
                 });
 
             migrationBuilder.CreateIndex(
