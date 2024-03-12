@@ -57,6 +57,9 @@ namespace EVS.Core.Models
         [Required, Column("accept_food")]
         public bool AcceptFood { get; set; } = false;
 
+        [NotMapped]
+        public int Rating { get; set; } = 0;
+
         public List<Ride> Rides { get; } = new List<Ride>();
 
         public List<Reservation> Reservations { get; } = new List<Reservation>();
