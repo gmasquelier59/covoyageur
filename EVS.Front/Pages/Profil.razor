@@ -5,84 +5,102 @@
 @using System.Net.Http.Json
 @inherits LayoutComponentBase
 
+@if (user == null)
+{
+	<div style="width: 100%; margin: 50px; text-align: center">
+		<MudProgressCircular Color="Color.Default" Indeterminate="true" />
+	</div>
+}
+else
+{
+	<MudGrid Spacing="0" Style="margin-top:2em">
+		<MudItem xs="2" Class="d-flex justify-center">
+			<MudImage Src="@user.Photo" Alt="Gerard" ObjectPosition="ObjectPosition.Center" Class="rounded-lg" Width="150"></MudImage>
+		</MudItem>
+		<MudItem xs="10">
+			<MudText Typo="Typo.h2 " Align="Align.Justify">@user.FirstName @user.LastName.ToUpper()</MudText>
+		</MudItem>
+	</MudGrid>
 
-<MudGrid Spacing="0" Style="margin-top:2em">
-	<MudItem xs="2" Class="d-flex justify-center">
-		<MudImage Src="Images/testprofil.jpg" Alt="Gerard" ObjectPosition="ObjectPosition.Center" Class="rounded-lg" Width="150"></MudImage>
-	</MudItem>
-	<MudItem xs="10">
-		<MudText Typo="Typo.h2 " Align="Align.Justify">Camille Dupont</MudText>
-	</MudItem>
-</MudGrid>
-
-<MudGrid Spacing="0" Style=" margin-top:2em">
-
-	<MudItem xs="2" Class="d-flex justify-center">
-		<MudPaper Class="pa-8 ma-1 mud-theme-primary">
-			<MudItem Style="margin-top:2em">
-				<MudAvatar Image="Images/Icone/FoodNo.png"></MudAvatar>
-
-				<MudAvatar Image="Images/Icone/Music.png"></MudAvatar>
-
-				<MudAvatar Image="Images/Icone/PetNo.png"></MudAvatar>
-
-				<MudAvatar Image="Images/Icone/Talk.png"></MudAvatar>
-			</MudItem>
-
-			<MudItem Style="margin-top:2em">
-				<MudRating SelectedValue="4" ReadOnly="true" />
-			</MudItem>
-
-			<MudItem Style="margin-top:2em">
-				<MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="@ToggleOpen">Avis</MudButton>
-
-			
-
-			</MudItem>
-		</MudPaper>
-	</MudItem>
-	<MudItem xs="5" Class="d-flex justify-center">
-		<MudPaper Class="pa-8 ma-1">
-			<MudText Typo="Typo.h4">Informations détaillées</MudText>
-			<MudText Typo="Typo.h6"> Prenom et Nom</MudText>
-			<MudText Typo="Typo.subtitle1">Gerard Dupont</MudText>
-			<MudText Typo="Typo.h6">Date de naissance</MudText>
-			<MudText Typo="Typo.subtitle1">02 fevrier 1995</MudText>
-			<MudText Typo="Typo.h6">Numéro de téléphone</MudText>
-			<MudText Typo="Typo.subtitle1">060504030201</MudText>
-			<MudText Typo="Typo.h6">Description de votre voiture</MudText>
-			<MudText Typo="Typo.subtitle1">subtitle1. Lorem ipsum dolor sit amet</MudText>
-		</MudPaper>
-	</MudItem>
-	<MudItem xs="5" Class="d-flex justify-center">
-		<MudPaper Class="pa-8 ma-1">
-			<MudText Typo="Typo.h4">Mes trajets</MudText>
-		</MudPaper>
-	</MudItem>
-</MudGrid>
+	<MudGrid Spacing="0" Style=" margin-top:2em">
+		<MudItem xs="2" Class="d-flex justify-center">
+			<MudPaper Class="pa-8 ma-1 mud-theme-primary">
+				<MudItem Style="margin-top:2em">
+					<MudAvatar Size="Size.Small" Title="@(user.AcceptSmoker ? "Accepte les fumeurs" : "Refuse les fumeurs")" Image="@(user.AcceptSmoker ? "Images/Icone/Smoke.png" : "Images/Icone/SmokeNo.png")"></MudAvatar>
+					<MudAvatar Size="Size.Small" Title="@(user.AcceptFood ? "On peut manger à bord" : "Refuse qu'on mange à bord'")" Image="@(user.AcceptFood ? "Images/Icone/Food.png" : "Images/Icone/FoodNo.png")"></MudAvatar>
+					<MudAvatar Size="Size.Small" Title="@(user.AcceptMusic ? "Ecoute de la musique" : "N'écoute pas de musique'")" Image="@(user.AcceptMusic ? "Images/Icone/Music.png" : "Images/Icone/MusicNo.png")"></MudAvatar>
+					<MudAvatar Size="Size.Small" Title="@(user.AcceptPet ? "Accepte les animaux de compagnie" : "Refuse les animaux de compagnie")" Image="@(user.AcceptPet ? "Images/Icone/Pet.png" : "Images/Icone/PetNo.png")"></MudAvatar>
+					<MudAvatar Size="Size.Small" Title="@(user.AcceptSmallTalk ? "Aime discuter" : "Préfère le calme")" Image="@(user.AcceptSmallTalk ? "Images/Icone/Talk.png" : "Images/Icone/TalkNo.png")"></MudAvatar>
+				</MudItem>
+				@if (user.Rating > 0)
+				{
+					<MudItem Style="margin-top:2em">
+						<MudRating SelectedValue="@user.Rating" title="@("Noté(e) " + @user.Rating + "/5 par vos passagers")" ReadOnly="true" />
+					</MudItem>
+					<MudItem Style="margin-top:2em; text-align: center">
+						<MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="@ToggleOpen">Avis de mes passagers</MudButton>
+					</MudItem>
+				}
+			</MudPaper>
+		</MudItem>
+		<MudItem xs="5" Class="d-flex justify-center">
+			<MudPaper Class="pa-8 ma-1">
+				<MudText Typo="Typo.h4">Informations détaillées</MudText>
+				<MudText Typo="Typo.h6">Prenom et Nom</MudText>
+				<MudText Typo="Typo.subtitle1">@user.FirstName @user.LastName.ToUpper()</MudText>
+				<MudText Typo="Typo.h6">Date de naissance</MudText>
+				<MudText Typo="Typo.subtitle1">@user.Birthday.Value.ToString("dd/MM/yyyy")</MudText>
+				<MudText Typo="Typo.h6">Numéro de téléphone</MudText>
+				<MudText Typo="Typo.subtitle1">@user.PhoneNumber</MudText>
+				<MudText Typo="Typo.h6">Description de votre voiture</MudText>
+				<MudText Typo="Typo.subtitle1">
+					@if (String.IsNullOrWhiteSpace(user.CarDescription))
+					{
+						<small><i>Vous n'avez pas encore décrit votre voiture</i></small>
+					}
+					else
+					{
+						@user.CarDescription
+					}
+					</MudText>
+			</MudPaper>
+		</MudItem>
+		<MudItem xs="5" Class="d-flex justify-center">
+			<MudPaper Class="pa-8 ma-1">
+				<MudText Typo="Typo.h4">Mes trajets</MudText>
+				<small><i>Vous n'avez pas encore proposé de trajet, pourquoi ne pas commencer maintenant ?</i></small>
+			</MudPaper>
+		</MudItem>
+	</MudGrid>
+}
 
 <MudPopover Open="@_isOpen" Fixed="true" Class="px-4 pt-4" RowsPerPage="2" AnchorOrigin="Origin.CenterCenter" TransformOrigin="Origin.CenterCenter">
 	<MudTable @ref="@_table" Items="@_feedbacks" RowsPerPage="2" Hover="true" Breakpoint="Breakpoint.Sm" LoadingProgressColor="Color.Info">
-    <HeaderContent>
-		<MudTh>Note</MudTh>
-        <MudTh>Commentaires</MudTh>
-    </HeaderContent>
-    <RowTemplate>
-		<MudTd DataLabel="Note">@context.Note /5</MudTd>
-		<MudTd DataLabel="Comments">@context.Comments</MudTd>
-    </RowTemplate>
-    <PagerContent>
-        <MudPagination SelectedChanged="PageChanged" Count="@((_table.GetFilteredItemsCount() + _table.RowsPerPage - 1) / _table.RowsPerPage)" Class="pa-4"/>
-    </PagerContent>
-</MudTable>
+		<HeaderContent>
+			<MudTh>Note</MudTh>
+			<MudTh>Commentaires</MudTh>
+		</HeaderContent>
+		<RowTemplate>
+			<MudTd DataLabel="Note">@context.Note /5</MudTd>
+			<MudTd DataLabel="Comments">@context.Comments</MudTd>
+		</RowTemplate>
+		<PagerContent>
+			<MudPagination SelectedChanged="PageChanged" Count="@((_table.GetFilteredItemsCount() + _table.RowsPerPage - 1) / _table.RowsPerPage)" Class="pa-4"/>
+		</PagerContent>
+	</MudTable>
+</MudPopover>
 
 @code {
+	private User user = null;
+
     private MudTable<Feedback> _table;
     private IEnumerable<Feedback> _feedbacks = new List<Feedback>();
 
     protected override async Task OnInitializedAsync()
     {
-		_feedbacks = await httpClient.GetFromJsonAsync<List<Feedback>>("https://localhost:7014/feedbacks/ride/67a94c3d-f0d2-483a-ac9b-d140c5d28cd8");
+		_feedbacks = await httpClient.GetFromJsonAsync<List<Feedback>>("/feedbacks/ride/67a94c3d-f0d2-483a-ac9b-d140c5d28cd8");
+
+		user = await httpClient.GetFromJsonAsync<User>("/user/c9469a26-87f5-4019-9d8f-9fa7de4e8050");
     }
 
     private void PageChanged(int i)
@@ -91,128 +109,11 @@
     }
 }
 
-	@* <div class="d-flex flex-column">
-		<MudPagination Variant="Variant.Filled" Count="4"/>
-		<MudGrid Spacing="0">
-			<MudItem xs="2">
-				<MudText Typo="Typo.h5" Color="Color.Secondary" Style="margin-left:1em">4/5</MudText>
-			</MudItem>
-			<MudItem xs="9">
-				<MudText Typo="Typo.subtitle1" Style="margin-left:1em">Lorem Ipsum Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Ameno, ameno dorimen! Lorem ipsum dolor sit amet</MudText>
-			</MudItem>
-		</MudGrid>
-		<MudDivider DividerType="DividerType.Middle" Class="my-6" />
-		<MudGrid Spacing="0">
-			<MudItem xs="2">
-				<MudText Typo="Typo.h5" Color="Color.Secondary" Style="margin-left:1em">5/5</MudText>
-			</MudItem>
-			<MudItem xs="9">
-				<MudText Typo="Typo.subtitle1" Style="margin-left:1em">Lorem Ipsum Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Ameno, ameno dorimen! Lorem ipsum dolor sit amet Lorem Ipsum Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Ameno, ameno dorimen! Lorem ipsum dolor sit amet Lorem Ipsum Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Ameno, ameno dorimen! Lorem ipsum dolor sit amet</MudText>
-			</MudItem>
-		</MudGrid>
-		<MudDivider DividerType="DividerType.Middle" Class="my-6" />
-		<MudGrid Spacing="0">
-			<MudItem xs="2">
-				<MudText Typo="Typo.h5" Color="Color.Secondary" Style="margin-left:1em">2/5</MudText>
-			</MudItem>
-			<MudItem xs="9">
-				<MudText Typo="Typo.subtitle1" Style="margin-left:1em">Lorem Ipsum Lorem ipsum dolor sit amet Lorem ipsum </MudText>
-			</MudItem>
-		</MudGrid>
-		<MudGrid Spacing="0">
-			<MudItem xs="2">
-				<MudText Typo="Typo.h5" Color="Color.Secondary" Style="margin-left:1em">4/5</MudText>
-			</MudItem>
-			<MudItem xs="9">
-				<MudText Typo="Typo.subtitle1" Style="margin-left:1em">Lorem Ipsum Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Ameno, ameno dorimen! Lorem ipsum dolor sit amet</MudText>
-			</MudItem>
-		</MudGrid>
-		<MudDivider DividerType="DividerType.Middle" Class="my-6" />
-		<MudGrid Spacing="0">
-			<MudItem xs="2">
-				<MudText Typo="Typo.h5" Color="Color.Secondary" Style="margin-left:1em">5/5</MudText>
-			</MudItem>
-			<MudItem xs="9">
-				<MudText Typo="Typo.subtitle1" Style="margin-left:1em">Lorem Ipsum Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Ameno, ameno dorimen! Lorem ipsum dolor sit amet Lorem Ipsum Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Ameno, ameno dorimen! Lorem ipsum dolor sit amet Lorem Ipsum Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Ameno, ameno dorimen! Lorem ipsum dolor sit amet</MudText>
-			</MudItem>
-		</MudGrid>
-		<MudDivider DividerType="DividerType.Middle" Class="my-6" />
-		<MudGrid Spacing="0">
-			<MudItem xs="2">
-				<MudText Typo="Typo.h5" Color="Color.Secondary" Style="margin-left:1em">2/5</MudText>
-			</MudItem>
-			<MudItem xs="9">
-				<MudText Typo="Typo.subtitle1" Style="margin-left:1em">Lorem Ipsum Lorem ipsum dolor sit amet Lorem ipsum </MudText>
-			</MudItem>
-		</MudGrid>
-		<MudGrid Spacing="0">
-			<MudItem xs="2">
-				<MudText Typo="Typo.h5" Color="Color.Secondary" Style="margin-left:1em">4/5</MudText>
-			</MudItem>
-			<MudItem xs="9">
-				<MudText Typo="Typo.subtitle1" Style="margin-left:1em">Lorem Ipsum Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Ameno, ameno dorimen! Lorem ipsum dolor sit amet</MudText>
-			</MudItem>
-		</MudGrid>
-		<MudDivider DividerType="DividerType.Middle" Class="my-6" />
-		<MudGrid Spacing="0">
-			<MudItem xs="2">
-				<MudText Typo="Typo.h5" Color="Color.Secondary" Style="margin-left:1em">5/5</MudText>
-			</MudItem>
-			<MudItem xs="9">
-				<MudText Typo="Typo.subtitle1" Style="margin-left:1em">Lorem Ipsum Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Ameno, ameno dorimen! Lorem ipsum dolor sit amet Lorem Ipsum Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Ameno, ameno dorimen! Lorem ipsum dolor sit amet Lorem Ipsum Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Ameno, ameno dorimen! Lorem ipsum dolor sit amet</MudText>
-			</MudItem>
-		</MudGrid>
-		<MudDivider DividerType="DividerType.Middle" Class="my-6" />
-		<MudGrid Spacing="0">
-			<MudItem xs="2">
-				<MudText Typo="Typo.h5" Color="Color.Secondary" Style="margin-left:1em">2/5</MudText>
-			</MudItem>
-			<MudItem xs="9">
-				<MudText Typo="Typo.subtitle1" Style="margin-left:1em">Lorem Ipsum Lorem ipsum dolor sit amet Lorem ipsum </MudText>
-			</MudItem>
-		</MudGrid><MudGrid Spacing="0">
-			<MudItem xs="2">
-				<MudText Typo="Typo.h5" Color="Color.Secondary" Style="margin-left:1em">4/5</MudText>
-			</MudItem>
-			<MudItem xs="9">
-				<MudText Typo="Typo.subtitle1" Style="margin-left:1em">Lorem Ipsum Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Ameno, ameno dorimen! Lorem ipsum dolor sit amet</MudText>
-			</MudItem>
-		</MudGrid>
-		<MudDivider DividerType="DividerType.Middle" Class="my-6" />
-		<MudGrid Spacing="0">
-			<MudItem xs="2">
-				<MudText Typo="Typo.h5" Color="Color.Secondary" Style="margin-left:1em">5/5</MudText>
-			</MudItem>
-			<MudItem xs="9">
-				<MudText Typo="Typo.subtitle1" Style="margin-left:1em">Lorem Ipsum Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Ameno, ameno dorimen! Lorem ipsum dolor sit amet Lorem Ipsum Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Ameno, ameno dorimen! Lorem ipsum dolor sit amet Lorem Ipsum Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Ameno, ameno dorimen! Lorem ipsum dolor sit amet</MudText>
-			</MudItem>
-		</MudGrid>
-		<MudDivider DividerType="DividerType.Middle" Class="my-6" />
-		<MudGrid Spacing="0">
-			<MudItem xs="2">
-				<MudText Typo="Typo.h5" Color="Color.Secondary" Style="margin-left:1em">2/5</MudText>
-			</MudItem>
-			<MudItem xs="9">
-				<MudText Typo="Typo.subtitle1" Style="margin-left:1em">Lorem Ipsum Lorem ipsum dolor sit amet Lorem ipsum </MudText>
-			</MudItem>
-		</MudGrid><MudGrid Spacing="0">
-			<MudItem xs="2">
-				<MudText Typo="Typo.h5" Color="Color.Secondary" Style="margin-left:1em">4/5</MudText>
-			</MudItem>
-			<MudItem xs="9">
-				<MudText Typo="Typo.subtitle1" Style="margin-left:1em">Lorem Ipsum Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Ameno, ameno dorimen! Lorem ipsum dolor sit amet</MudText>
-			</MudItem>
-		</MudGrid>
-		<MudButton OnClick="@ToggleOpen" Class="ml-auto mr-n3 mb-1" Style="margin-top:1em" Color="Color.Secondary">Fermer les avis</MudButton>
-	</div> *@
-</MudPopover>
-
 @code {
 
 	bool _isOpen;
 
 	public void ToggleOpen()
-
 	{
 		if (_isOpen)
 			_isOpen = false;

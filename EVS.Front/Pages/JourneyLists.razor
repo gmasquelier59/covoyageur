@@ -34,15 +34,11 @@
 				<MudItem><MudAvatar Size="Size.Medium" Image="@ride.User.Photo"></MudAvatar></MudItem>
 				<MudItem><MudText Typo="Typo.body2" Style="margin-left:1em">@ride.User.Pseudo</MudText></MudItem>
 				<MudItem>
-					<MudAvatar Size="Size.Small" Image="@(ride.User.AcceptSmoker ? "Images/Icone/Smoke.png" : "Images/Icone/SmokeNo.png")"></MudAvatar>
-
-					<MudAvatar Size="Size.Small" Image="@(ride.User.AcceptFood ? "Images/Icone/Food.png" : "Images/Icone/FoodNo.png")"></MudAvatar>
-
-					<MudAvatar Size="Size.Small" Image="@(ride.User.AcceptFood ? "Images/Icone/Music.png" : "Images/Icone/MusicNo.png")"></MudAvatar>
-
-					<MudAvatar Size="Size.Small" Image="@(ride.User.AcceptFood ? "Images/Icone/Pet.png" : "Images/Icone/PetNo.png")"></MudAvatar>
-
-					<MudAvatar Size="Size.Small" Image="@(ride.User.AcceptFood ? "Images/Icone/Talk.png" : "Images/Icone/TalkNo.png")"></MudAvatar>
+					<MudAvatar Size="Size.Small" Title="@(ride.User.AcceptSmoker ? "Accepte les fumeurs" : "Refuse les fumeurs")" Image="@(ride.User.AcceptSmoker ? "Images/Icone/Smoke.png" : "Images/Icone/SmokeNo.png")"></MudAvatar>
+					<MudAvatar Size="Size.Small" Title="@(ride.User.AcceptFood ? "On peut manger à bord" : "Refuse qu'on mange à bord'")" Image="@(ride.User.AcceptFood ? "Images/Icone/Food.png" : "Images/Icone/FoodNo.png")"></MudAvatar>
+					<MudAvatar Size="Size.Small" Title="@(ride.User.AcceptMusic ? "Ecoute de la musique" : "N'écoute pas de musique'")" Image="@(ride.User.AcceptMusic ? "Images/Icone/Music.png" : "Images/Icone/MusicNo.png")"></MudAvatar>
+					<MudAvatar Size="Size.Small" Title="@(ride.User.AcceptPet ? "Accepte les animaux de compagnie" : "Refuse les animaux de compagnie")" Image="@(ride.User.AcceptPet ? "Images/Icone/Pet.png" : "Images/Icone/PetNo.png")"></MudAvatar>
+					<MudAvatar Size="Size.Small" Title="@(ride.User.AcceptSmallTalk ? "Aime discuter" : "Préfère le calme")" Image="@(ride.User.AcceptSmallTalk ? "Images/Icone/Talk.png" : "Images/Icone/TalkNo.png")"></MudAvatar>
 				</MudItem>
 				<MudSpacer />
 				<MudItem>

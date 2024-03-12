@@ -8,7 +8,7 @@ namespace EVS.Front.Services
 		private readonly HttpClient _httpClient;
 		private readonly string _baseApiRoute;
 
-		public RideService(HttpClient httpClient, IConfiguration configuration)
+		public RideService(HttpClient httpClient)
 		{
 			_httpClient = httpClient;
 		}
