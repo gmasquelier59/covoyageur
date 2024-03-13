@@ -18,5 +18,8 @@ builder.Services.AddScoped(sp => new HttpClient
     BaseAddress = new Uri("https://localhost:7014")
 });
 builder.Services.AddScoped<IRideService, RideService>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IReservationService, ReservationService>();
+builder.Services.AddScoped<IFeedbackService, FeedbackService>();
 
 await builder.Build().RunAsync();

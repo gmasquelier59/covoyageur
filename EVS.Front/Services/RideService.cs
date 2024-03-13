@@ -15,7 +15,7 @@ namespace EVS.Front.Services
 
 		public async Task<Ride?> Create(Ride ride)
 		{
-			var response = await _httpClient.PostAsJsonAsync(_baseApiRoute, ride);
+			var response = await _httpClient.PostAsJsonAsync("/create", ride);
 			if (response.IsSuccessStatusCode)
 			{
 				return await response.Content.ReadFromJsonAsync<Ride>();

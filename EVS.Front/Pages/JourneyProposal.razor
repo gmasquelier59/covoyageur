@@ -1,4 +1,6 @@
 ﻿@page "/journeyproposal"
+@using EVS.Core.Models
+@using EVS.Front.Services
 @using MudBlazor
 @inherits LayoutComponentBase
 @inject IJSRuntime JSRuntime
@@ -8,6 +10,7 @@
 @using FluentValidation
 @using Severity = MudBlazor.Severity
 @inject ISnackbar Snackbar
+@inject IRideService rideService;
 
 
 
@@ -17,36 +20,34 @@
 
 	</MudItem>
 
-
-
-	<MudItem xs="7" Style="max-width:100%">
+		<MudItem xs="7" Style="max-width:100%">
 		<MudPaper Style="padding: 1em; margin-top:3em">
-			<MudForm>
 
+			<MudForm @ref="form" @bind-IsValid="@success" Model="ride" @bind-Errors="@errors">
 
 				<MudText Style=" margin:2em 0 1em 0;" Typo="Typo.h5" class="form-label" Color="Color.Primary">D'où partez vous?</MudText>
 
-				<MudTextField T="string" data-google-autocomplete="true" data-value-field="city_from_selectedValue" Placeholder="Ville de départ" Adornment="Adornment.Start" AdornmentColor="Color.Primary" AdornmentIcon="@Icons.Material.Filled.Start" />
+				<MudTextField @bind-Value="ride.StartCity" T="string" data-google-autocomplete="true" data-value-field="city_from_selectedValue" Placeholder="Ville de départ" Adornment="Adornment.Start" AdornmentColor="Color.Primary" AdornmentIcon="@Icons.Material.Filled.Start" />
 				<input type="hidden" name="city_from_selectedValue" value="" />
 
 
 				<MudText Style=" margin:2em 0 1em 0;" Typo="Typo.h5" class="form-label" Color="Color.Primary">Où allez vous?</MudText>
 
-				<MudTextField T="string" data-google-autocomplete="true" data-value-field="city_to_selectedValue" Placeholder="Ville d'arrivée" Adornment="Adornment.Start" AdornmentColor="Color.Primary" AdornmentIcon="@Icons.Material.Filled.KeyboardTab" />
+				<MudTextField @bind-Value="ride.EndCity" T="string" data-google-autocomplete="true" data-value-field="city_to_selectedValue" Placeholder="Ville d'arrivée" Adornment="Adornment.Start" AdornmentColor="Color.Primary" AdornmentIcon="@Icons.Material.Filled.KeyboardTab" />
 				<input type="hidden" name="city_to_selectedValue" value="" />
 
 				<MudText Style=" margin:2em 0 1em 0;" Typo="Typo.h5" class="form-label" Color="Color.Primary">Quand souhaitez vous prendre la route?</MudText>
-				<MudDatePicker @bind-Date="date" MinDate="DateTime.Today" Adornment="Adornment.Start" AdornmentColor="Color.Primary" />
+				<MudDatePicker @bind-Date="date" @bind-Value="@ride.Departure" MinDate="DateTime.Today" Adornment="Adornment.Start" AdornmentColor="Color.Primary" />
 
 				<MudText Style="margin:2em 0 1em 0;" Typo="Typo.h5" class="form-label" Color="Color.Primary">Combien de passagers souaitez-vous emmener ?</MudText>
 				<MudGrid Spacing="0" class="counter">
 
 					<MudItem xs="9">
 
-						<MudSlider TickMarks="true" Color="Color.Secondary" @bind-Value="@NumberPassager" TickMarkLabels="@labels" Step="1" Max="5" Min="1" />
+						<MudSlider TickMarks="true" Color="Color.Secondary" @bind-Value="@ride.Seats" TickMarkLabels="@labels" Step="1" Max="5" Min="1" />
 					</MudItem>
 					<MudItem xs="3">
-						<MudText Typo="Typo.h4" Color="Color.Secondary" Style="margin-left:1em">@NumberPassager</MudText>
+						<MudText Typo="Typo.h4" Color="Color.Secondary" Style="margin-left:1em">@ride.Seats</MudText>
 					</MudItem>
 				</MudGrid>
 
@@ -55,16 +56,16 @@
 				<MudGrid Spacing="0" class="counter">
 
 					<MudItem xs="9">
-						<MudSlider TickMarks="true" Color="Color.Secondary" @bind-Value="@NumberPrice" Step="1" Max="99" Min="1" />
+						<MudSlider TickMarks="true" Color="Color.Secondary" @bind-Value="@ride.Price" Step="1" Max="99" Min="1" />
 					</MudItem>
 					<MudItem xs="3">
-						<MudText Typo="Typo.h4" Color="Color.Secondary" Style="margin-left:1em">@NumberPrice €</MudText>
+						<MudText Typo="Typo.h4" Color="Color.Secondary" Style="margin-left:1em">@ride.Price €</MudText>
 					</MudItem>
 
 				</MudGrid>
 
 				<MudCardActions>
-					<MudButton Variant="Variant.Filled" Style="margin:2em 0;" Color="Color.Primary" Class="ml-auto" OnClick="@(async () => await Submit())">Creer votre trajet</MudButton>
+					<MudButton Variant="Variant.Filled" Style="margin:2em 0;" Color="Color.Primary" Class="ml-auto" OnClick="Confirm">Creer votre trajet</MudButton>
 				</MudCardActions>
 
 
@@ -77,7 +78,30 @@
 
 
 
-@functions {
+@code {
+	[Parameter]
+	public Ride ride { get; set; } = new()
+	{
+		StartCity = "Monsby-Sur-Saone",
+		EndCity = "Gennelon-Surlapatate",
+			Departure = DateTime.Today,
+			Seats = 2,
+			Price = 50
+
+	};
+	bool success;
+	string[] errors = { };
+
+	private void Confirm()
+	{
+		form.Validate();
+		if (success)
+		{
+			var createdUser = rideService.Create(ride);
+
+		}
+	}
+
 	int NumberPrice = 15;
 	int NumberPassager;
 	string[] labels = new string[] { "1", "2", "3", "4", "5" };
@@ -96,14 +120,11 @@
 		}
 	}
 
-
-
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
 		if (firstRender)
 		{
 			await JSRuntime.InvokeVoidAsync("initAutocomplete");
-
 		}
 	}
 
@@ -120,7 +141,6 @@
 
 	private void IncrementCounterVoyager()
 	{
-
 		counterValueVoyager++;
 	}
 
@@ -134,7 +154,6 @@
 
 	private void IncrementCounterEuro()
 	{
-
 		counterValueEuro++;
 	}
 }

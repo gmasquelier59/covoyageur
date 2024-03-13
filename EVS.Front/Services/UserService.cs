@@ -8,10 +8,10 @@ namespace EVS.Front.Services
 		private readonly HttpClient _httpClient;
 		private readonly string _baseApiRoute;
 
-		public UserService(HttpClient httpClient, IConfiguration configuration)
+		public UserService(HttpClient httpClient)
 		{
 			_httpClient = httpClient;
-			_baseApiRoute = configuration["http://localhost14/"] + "/user";
+		
 		}
 
 		public async Task<List<User>> GetAll()
@@ -34,7 +34,7 @@ namespace EVS.Front.Services
 
 		public async Task<User?> Create(User user)
 		{
-			var response = await _httpClient.PostAsJsonAsync(_baseApiRoute, user);
+			var response = await _httpClient.PostAsJsonAsync("/register", user);
 			if (response.IsSuccessStatusCode)
 			{
 				return await response.Content.ReadFromJsonAsync<User>();
@@ -44,6 +44,8 @@ namespace EVS.Front.Services
 				return null;
 			}
 		}
+
+
 
 		public async Task<User?> Login(string email, string password)
 		{
