@@ -14,7 +14,7 @@ namespace EVS.Api.Services
 
         public async Task<List<Ride>> GetAll()
         {
-            return await _rideRepository.GetAll();
+            return await _rideRepository.GetAll(r => r.Departure.Date >= DateTime.Today);
         }
 
         public async Task<List<Ride>> GetAll(string startCity, string endCity, DateTime departure, int seats)
