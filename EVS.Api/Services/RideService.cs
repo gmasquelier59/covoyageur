@@ -39,6 +39,7 @@ namespace EVS.Api.Services
 
         public async Task<Ride?> Create(Ride ride)
         {
+            
             return await _rideRepository.Add(ride);
         }
 

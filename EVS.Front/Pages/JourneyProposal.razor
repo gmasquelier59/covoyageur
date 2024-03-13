@@ -28,9 +28,6 @@
 
 				<MudText Style=" margin:2em 0 1em 0;" Typo="Typo.h5" class="form-label" Color="Color.Primary">D'où partez vous?</MudText>
 
-@* 				<MudTextField @bind-Value="ride.StartCity" T="string" data-google-autocomplete="true" data-value-field="city_from_selectedValue" Placeholder="Ville de départ" Adornment="Adornment.Start" AdornmentColor="Color.Primary" AdornmentIcon="@Icons.Material.Filled.Start" />
-				<input type="hidden" name="city_from_selectedValue" value="" /> *@
-
 				<MudGooglePlacesAutocomplete T="string"
 											 Placeholder="Ville de départ"
 											 OnPlaceChanged="StartChanged"
@@ -38,7 +35,6 @@
 											 AdornmentIcon="@Icons.Material.Filled.Start"
 											 ApiKey="AIzaSyDfY1D6Gea4uKJ51ppPxwQsyxcjj3An98E" 
 											 @bind-Value="ride.StartCity" />
-
 
 				<MudText Style=" margin:2em 0 1em 0;" Typo="Typo.h5" class="form-label" Color="Color.Primary">Où allez vous?</MudText>
 
@@ -49,12 +45,6 @@
 											 AdornmentIcon="@Icons.Material.Filled.KeyboardTab"
 											 ApiKey="AIzaSyDfY1D6Gea4uKJ51ppPxwQsyxcjj3An98E"
 											 @bind-Value="ride.EndCity" />
-
-
-
-
-			@* 	<MudTextField @bind-Value="ride.EndCity" T="string" data-google-autocomplete="true" data-value-field="city_to_selectedValue" Placeholder="Ville d'arrivée" Adornment="Adornment.Start" AdornmentColor="Color.Primary" AdornmentIcon="@Icons.Material.Filled.KeyboardTab" />
-				<input type="hidden" name="city_to_selectedValue" value="" /> *@
 
 				<MudText Style=" margin:2em 0 1em 0;" Typo="Typo.h5" class="form-label" Color="Color.Primary">Quand souhaitez vous prendre la route?</MudText>
 				<MudDatePicker  MinDate="DateTime.Today" Adornment="Adornment.Start" AdornmentColor="Color.Primary" />
@@ -84,7 +74,7 @@
 				</MudGrid>
 
 				<MudCardActions>
-					<MudButton Variant="Variant.Filled" Style="margin:2em 0;" Color="Color.Primary" Class="ml-auto" OnClick="Confirm">Creer votre trajet</MudButton>
+					<MudButton Variant="Variant.Filled" Style="margin:2em 0;" Color="Color.Primary" Class="ml-auto" OnClick="ActionContext">Creer votre trajet</MudButton>
 				</MudCardActions>
 
 
@@ -94,7 +84,14 @@
 
 </MudGrid>
 
-
+<MudPopover Open="@_isOpen" Fixed="true" Class="px-8 pt-8" AnchorOrigin="Origin.CenterCenter" TransformOrigin="Origin.CenterCenter">
+	<div class="d-flex flex-column">
+		<MudText>
+	 Votre trajet a bien été créé !
+		</MudText>
+		<MudButton Href="/JourneyLists/" Variant="Variant.Filled" Class="ml-auto mr-n3 mb-1 .mud-elevation-24" Color="Color.Primary">Continer sur le site</MudButton>
+	</div>
+</MudPopover>
 
 
 
@@ -102,22 +99,21 @@
 
 	private DateTime? criteriaDeparture = DateTime.Today.AddDays(1);
 
-	
+
 
 	[Parameter]
 	public Ride ride { get; set; } = new()
 	{
 			UserId = Guid.Parse("c9469a26-87f5-4019-9d8f-9fa7de4e8050"),
-		 StartCity = "Monsby-Sur-Saone",
-		EndCity = "Gennelon-Surlapatate",
-			Departure = DateTime.Today.AddDays(1),
+
+			Departure = DateTime.Today.AddDays(5),
 			Seats = 2,
 			Price = 50
 	};
 
 	private GooglePlace criteraStart = null;
 	private GooglePlace criteraEnd = null;
-	
+
 
 	private void StartChanged(GooglePlace place)
 	{
@@ -133,14 +129,32 @@
 	string[] errors = { };
 
 
+	public void ActionContext()
+	{
+		ToggleOpen();
+		Confirm();
+	}
+
+	public void ToggleOpen()
+	{
+		form.Validate();
+		if (success)
+		{
+			if (_isOpen)
+				_isOpen = false;
+			else
+				_isOpen = true;
+		}
+	}
+
 	private async void Confirm()
 	{
 		form.Validate();
 		if (success)
 		{
 			Ride? createdRide = await rideService.Create(ride);
-			Guid newId = createdRide.Id;
-			NavigationManager.NavigateTo("/JourneyLists/");
+			// Guid newId = createdRide.Id;
+			// NavigationManager.NavigateTo("/JourneyLists/");
 		}
 	}
 
@@ -200,4 +214,9 @@
 	{
 		counterValueEuro++;
 	}
+
+
+	public bool _isOpen;
+
+	
 }
