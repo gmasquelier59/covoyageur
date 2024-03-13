@@ -22,7 +22,7 @@ namespace EVS.Api.Repositories
 
         public async Task<List<Ride>> GetAll(Expression<Func<Ride, bool>> predicate)
         {
-            return await _context.Rides.Where(predicate).ToListAsync<Ride>();
+            return await _context.Rides.Where(predicate).Include(u => u.User).ToListAsync<Ride>();
         }
 
         public async Task<Ride?> GetById(Guid id)

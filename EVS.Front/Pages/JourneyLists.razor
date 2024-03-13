@@ -1,4 +1,6 @@
 ﻿@page "/journeylists"
+@page "/journeylists/start/{startCity}/end/{endCity}/seats/{seats:int}/departure/{departure}"
+@page "/journeylists/start/{startCity}/seats/{seats:int}/departure/{departure}"
 @using EVS.Core.Models
 @using EVS.Front.Services
 @using MudBlazor
@@ -7,59 +9,82 @@
 
 @inherits LayoutComponentBase
 
-<MudStack Style="margin-top:2em">
-
-	@foreach (Ride ride in rides)
+@if(rides == null)
+{
+	<div style="width: 100%; margin: 50px; text-align: center">
+		<MudProgressCircular Color="Color.Default" Indeterminate="true" />
+	</div>
+}
+else
+{
+	@if (rides.Count == 0)
 	{
-		<MudPaper Class="pa-3 mud-width-full" Style="max-width:50%">
-			<MudGrid>
-				<MudItem><MudText Typo="Typo.body2">@ride.Departure.ToString("dddd dd MMMM yyyy")</MudText></MudItem>
-
-
-			</MudGrid>
-			<MudGrid Style="align-items:center;">
-				<MudItem> <MudText Typo="Typo.h6">@ride.StartCity</MudText></MudItem>
-				<MudItem><MudIcon Icon="@Icons.Material.Filled.HorizontalRule" Style="font-size: 4rem;" Color="Color.Primary" /></MudItem>
-				<MudItem><MudText Typo="Typo.body2" Style="margin-left:1em">@ride.Distance km</MudText></MudItem>
-				<MudItem> <MudIcon Icon="@Icons.Material.Filled.ArrowRightAlt" Style="font-size: 4rem;" Color="Color.Primary" /></MudItem>
-				<MudItem><MudText Typo="Typo.h6">@ride.EndCity</MudText></MudItem>
-				<MudItem><MudText Typo="Typo.h4" Color="Color.Secondary" Style="margin-left:1em">@ride.Price €</MudText></MudItem>
-				<MudSpacer />
-				<MudItem>
-					<MudText Typo="Typo.h5" Color="Color.Secondary" Style="margin-left:1em">@ride.Seats<MudIcon Icon="@Icons.Material.Filled.AirlineSeatReclineNormal" Size="Size.Large" Color="Color.Primary" /></MudText>
-				</MudItem>
-			</MudGrid>
-
-			<MudGrid Style="align-items:center;">
-				<MudItem><MudAvatar Size="Size.Medium" Image="@ride.User.Photo"></MudAvatar></MudItem>
-				<MudItem><MudText Typo="Typo.body2" Style="margin-left:1em">@ride.User.Pseudo</MudText></MudItem>
-				<MudItem>
-					<MudAvatar Size="Size.Small" Title="@(ride.User.AcceptSmoker ? "Accepte les fumeurs" : "Refuse les fumeurs")" Image="@(ride.User.AcceptSmoker ? "Images/Icone/Smoke.png" : "Images/Icone/SmokeNo.png")"></MudAvatar>
-					<MudAvatar Size="Size.Small" Title="@(ride.User.AcceptFood ? "On peut manger à bord" : "Refuse qu'on mange à bord'")" Image="@(ride.User.AcceptFood ? "Images/Icone/Food.png" : "Images/Icone/FoodNo.png")"></MudAvatar>
-					<MudAvatar Size="Size.Small" Title="@(ride.User.AcceptMusic ? "Ecoute de la musique" : "N'écoute pas de musique'")" Image="@(ride.User.AcceptMusic ? "Images/Icone/Music.png" : "Images/Icone/MusicNo.png")"></MudAvatar>
-					<MudAvatar Size="Size.Small" Title="@(ride.User.AcceptPet ? "Accepte les animaux de compagnie" : "Refuse les animaux de compagnie")" Image="@(ride.User.AcceptPet ? "Images/Icone/Pet.png" : "Images/Icone/PetNo.png")"></MudAvatar>
-					<MudAvatar Size="Size.Small" Title="@(ride.User.AcceptSmallTalk ? "Aime discuter" : "Préfère le calme")" Image="@(ride.User.AcceptSmallTalk ? "Images/Icone/Talk.png" : "Images/Icone/TalkNo.png")"></MudAvatar>
-				</MudItem>
-				<MudSpacer />
-				<MudItem>
-					<MudButton Variant="Variant.Filled" Color="Color.Primary" Style="margin:1em">Reserver</MudButton>
-				</MudItem>
-			</MudGrid>
-		</MudPaper>
+		<MudAlert Severity="Severity.Warning">Aucun trajet ne répond actuellement à vos critères de recherche</MudAlert>
 	}
-</MudStack>
+	else
+	{
+		<MudStack Style="margin-top:2em">
 
+			@foreach (Ride ride in rides)
+			{
+				<MudPaper Class="pa-3 mud-width-full" Style="max-width:50%">
+					<MudGrid>
+						<MudItem><MudText Typo="Typo.body2">@ride.Departure.ToString("dddd dd MMMM yyyy")</MudText></MudItem>
+					</MudGrid>
+					<MudGrid Style="align-items:center;">
+						<MudItem> <MudText Typo="Typo.h6">@ride.StartCity</MudText></MudItem>
+						<MudItem><MudIcon Icon="@Icons.Material.Filled.HorizontalRule" Style="font-size: 4rem;" Color="Color.Primary" /></MudItem>
+						<MudItem><MudText Typo="Typo.body2" Style="margin-left:1em">@ride.Distance km</MudText></MudItem>
+						<MudItem> <MudIcon Icon="@Icons.Material.Filled.ArrowRightAlt" Style="font-size: 4rem;" Color="Color.Primary" /></MudItem>
+						<MudItem><MudText Typo="Typo.h6">@ride.EndCity</MudText></MudItem>
+						<MudItem><MudText Typo="Typo.h4" Color="Color.Secondary" Style="margin-left:1em">@ride.Price €</MudText></MudItem>
+						<MudSpacer />
+						<MudItem>
+							<MudText Typo="Typo.h5" Color="Color.Secondary" Style="margin-left:1em">@ride.Seats<MudIcon Icon="@Icons.Material.Filled.AirlineSeatReclineNormal" Size="Size.Large" Color="Color.Primary" /></MudText>
+						</MudItem>
+					</MudGrid>
+
+					<MudGrid Style="align-items:center;">
+						<MudItem><MudAvatar Size="Size.Medium" Image="@ride.User.Photo"></MudAvatar></MudItem>
+						<MudItem><MudText Typo="Typo.body2" Style="margin-left:1em">@ride.User.Pseudo</MudText></MudItem>
+						<MudItem>
+							<MudAvatar Size="Size.Small" Title="@(ride.User.AcceptSmoker ? "Accepte les fumeurs" : "Refuse les fumeurs")" Image="@(ride.User.AcceptSmoker ? "Images/Icone/Smoke.png" : "Images/Icone/SmokeNo.png")"></MudAvatar>
+							<MudAvatar Size="Size.Small" Title="@(ride.User.AcceptFood ? "On peut manger à bord" : "Refuse qu'on mange à bord'")" Image="@(ride.User.AcceptFood ? "Images/Icone/Food.png" : "Images/Icone/FoodNo.png")"></MudAvatar>
+							<MudAvatar Size="Size.Small" Title="@(ride.User.AcceptMusic ? "Ecoute de la musique" : "N'écoute pas de musique'")" Image="@(ride.User.AcceptMusic ? "Images/Icone/Music.png" : "Images/Icone/MusicNo.png")"></MudAvatar>
+							<MudAvatar Size="Size.Small" Title="@(ride.User.AcceptPet ? "Accepte les animaux de compagnie" : "Refuse les animaux de compagnie")" Image="@(ride.User.AcceptPet ? "Images/Icone/Pet.png" : "Images/Icone/PetNo.png")"></MudAvatar>
+							<MudAvatar Size="Size.Small" Title="@(ride.User.AcceptSmallTalk ? "Aime discuter" : "Préfère le calme")" Image="@(ride.User.AcceptSmallTalk ? "Images/Icone/Talk.png" : "Images/Icone/TalkNo.png")"></MudAvatar>
+						</MudItem>
+						<MudSpacer />
+						<MudItem>
+							<MudButton Variant="Variant.Filled" Color="Color.Primary" Style="margin:1em">Reserver</MudButton>
+						</MudItem>
+					</MudGrid>
+				</MudPaper>
+			}
+		</MudStack>
+	}
+}
 
 
 
 @code {
-	DateTime? date = DateTime.Today;
+	[Parameter]
+	public string startCity { get; set; } = "";
 
-	List<Ride> rides = new List<Ride>();
+	[Parameter]
+	public string endCity { get; set; } = "";
+
+	[Parameter]
+	public int seats { get; set; } = 0;
+
+	[Parameter]
+	public string departure { get; set; } = "";
+
+	List<Ride> rides = null;
 
 	protected override async Task OnInitializedAsync()
 	{
-		rides = await rideService.GetAll();
+		rides = await rideService.GetAll(startCity, endCity, DateTime.Parse(departure));
 	}
 
 }

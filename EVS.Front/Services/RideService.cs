@@ -42,14 +42,14 @@ namespace EVS.Front.Services
 		public async Task<List<Ride>> GetAll(string startCity, DateTime departure)
 		{
 			var response = await _httpClient.GetFromJsonAsync<List<Ride>>(
-				$"{_baseApiRoute}?startCity={startCity}&departure={departure.ToString("yyyy-MM-dd")}");
+				$"/rides/{startCity}/{departure.ToString("yyyy-MM-dd")}");
 			return response ?? new List<Ride>();
 		}
 
 		public async Task<List<Ride>> GetAll(string startCity, string endCity, DateTime departure)
 		{
 			var response = await _httpClient.GetFromJsonAsync<List<Ride>>(
-				$"{_baseApiRoute}?startCity={startCity}&endCity={endCity}&departure={departure.ToString("yyyy-MM-dd")}");
+				$"/rides/{startCity}/{endCity}/{departure.ToString("yyyy-MM-dd")}");
 			return response ?? new List<Ride>();
 		}
 

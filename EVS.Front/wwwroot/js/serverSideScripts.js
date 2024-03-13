@@ -17,8 +17,10 @@
             const latitude = place.geometry.location.lat();
             const longitude = place.geometry.location.lng();
             const fieldValue = city + "|" + latitude + "|" + longitude
-            const hiddenhtmlField = document.querySelector("[name=\"" + autocomplete.htmlField.getAttribute("data-value-field") + "\"]");
+            const hiddenhtmlField = document.querySelector("." + autocomplete.htmlField.getAttribute("data-value-field") + " input");
             hiddenhtmlField.value = fieldValue;
+            var event = new Event('input');
+            hiddenhtmlField.dispatchEvent(event);
         });
     });
 }

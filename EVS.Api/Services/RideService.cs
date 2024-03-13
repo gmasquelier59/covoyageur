@@ -19,12 +19,12 @@ namespace EVS.Api.Services
 
         public async Task<List<Ride>> GetAll(string startCity, string endCity, DateTime departure)
         {
-            return await _rideRepository.GetAll(r => r.StartCity == startCity && r.EndCity == endCity && r.Departure == departure);
+            return await _rideRepository.GetAll(r => r.StartCity == startCity && r.EndCity == endCity && r.Departure.Date == departure);
         }
 
         public async Task<List<Ride>> GetAll(string startCity, DateTime departure)
         {
-            return await _rideRepository.GetAll(r => r.StartCity == startCity && r.Departure == departure);
+            return await _rideRepository.GetAll(r => r.StartCity == startCity && r.Departure.Date == departure);
         }
 
         public async Task<List<Ride>> GetAll(Guid userId)

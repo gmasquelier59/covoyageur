@@ -1,7 +1,11 @@
 ﻿@page "/"
 @using MudBlazor
+@using System.Text;
+@using System.Web;
 @inherits LayoutComponentBase
 @inject IJSRuntime JS
+@inject IGooglePlacesService _googlePlacesService
+@inject NavigationManager NavigationManager
 
 <MudLayout>
 
@@ -14,16 +18,37 @@
 		<MudImage Src="images/BanniereLight.png" style="width: 100%; height: auto; object-fit: cover; padding: 0; margin: 0;" />
 	}
 
+ 
+
 	<MudPaper Elevation="0" Width="75%" MaxWidth="inherit" Style="margin-top: 50px">
-		<MudGrid Spacing="0" Justify="Justify.SpaceAround" Class="gap-4 m-2">
-			<MudTextField T="string" data-google-autocomplete="true" data-value-field="city_from_selectedValue" Placeholder="Ville de départ" Adornment="Adornment.Start" AdornmentColor="Color.Primary" AdornmentIcon="@Icons.Material.Filled.Start" />
-			<input type="hidden" name="city_from_selectedValue" value="" />
-			<MudTextField T="string" data-google-autocomplete="true" data-value-field="city_to_selectedValue" Placeholder="Ville d'arrivée" Adornment="Adornment.Start" AdornmentColor="Color.Primary" AdornmentIcon="@Icons.Material.Filled.KeyboardTab" />
-			<input type="hidden" name="city_to_selectedValue" value="" />
-			<MudDatePicker @bind-Date="date" MinDate="DateTime.Today" />
-			<MudNumericField @bind-Value="IntValue" style="width: 100px" Min="1" Max="5" Adornment="Adornment.Start" AdornmentColor="Color.Primary" AdornmentIcon="@Icons.Material.Filled.AirlineSeatReclineNormal" Color="Color.Primary" />
-			<MudButton Variant="Variant.Filled" Color="Color.Primary">Rechercher</MudButton>
-		</MudGrid>
+		<MudForm @ref="searchForm" @bind-IsValid="@searchFormIsValid">
+			<MudGrid Spacing="0" Justify="Justify.SpaceAround" Class="gap-4 m-2">
+				@* <MudTextField T="string" data-google-autocomplete="true" data-value-field="city_from_selectedValue" Placeholder="Ville de départ" Adornment="Adornment.Start" AdornmentColor="Color.Primary" AdornmentIcon="@Icons.Material.Filled.Start" />
+				<div style="display: block">
+					<MudTextField T="string" @bind-Value="criteraStartElements" Class="city_from_selectedValue" />
+				</div>
+				<MudTextField T="string" data-google-autocomplete="true" data-value-field="city_to_selectedValue" Placeholder="Ville d'arrivée" Adornment="Adornment.Start" AdornmentColor="Color.Primary" AdornmentIcon="@Icons.Material.Filled.KeyboardTab" />
+				<div style="display: block"><MudTextField T="string" @bind-Value="criteraEndElements" Class="city_to_selectedValue" /></div> *@
+
+				<MudGooglePlacesAutocomplete T="string"
+											 Placeholder="Ville de départ"
+											 OnPlaceChanged="StartChanged"
+											 Adornment="Adornment.Start"
+											 AdornmentIcon="@Icons.Material.Filled.Start"
+											 ApiKey="AIzaSyDfY1D6Gea4uKJ51ppPxwQsyxcjj3An98E" />
+
+				<MudGooglePlacesAutocomplete T="string"
+											 Placeholder="Ville d'arrivée"
+											 OnPlaceChanged="EndChanged"
+											 Adornment="Adornment.Start"
+											 AdornmentIcon="@Icons.Material.Filled.KeyboardTab"
+											 ApiKey="AIzaSyDfY1D6Gea4uKJ51ppPxwQsyxcjj3An98E" />
+
+				<MudDatePicker @bind-Date="criteriaDeparture" MinDate="DateTime.Today" />
+				<MudNumericField @bind-Value="criteriaSeats" style="width: 100px" Min="1" Max="5" Adornment="Adornment.Start" AdornmentColor="Color.Primary" AdornmentIcon="@Icons.Material.Filled.AirlineSeatReclineNormal" Color="Color.Primary" />
+				<MudButton Variant="Variant.Filled" OnClick="SearchRides" Color="Color.Primary">Rechercher</MudButton>
+			</MudGrid>
+		</MudForm>
 	</MudPaper>
 
 	<MudGrid Spacing="0" Justify="Justify.Center" Style="margin-top:5%">
@@ -83,53 +108,51 @@
 	[CascadingParameter]
 	protected bool darkModeActive { get; set; }
 
-	public int IntValue { get; set; }
-	DateTime? date = DateTime.Today;
+	private MudForm searchForm;
+	private bool searchFormIsValid = false;
 
+	private string _text;
 
-	bool _drawerOpen = true;
+	private GooglePlace criteraStart = null;
+	private GooglePlace criteraEnd = null;
+	private DateTime? criteriaDeparture = DateTime.Today.AddDays(1);
+	private int criteriaSeats = 1;
 
-	protected override async Task OnAfterRenderAsync(bool firstRender)
+	// protected override async Task OnAfterRenderAsync(bool firstRender)
+	// {
+	// 	await JS.InvokeVoidAsync("initAutocomplete");
+	// }
+
+	private void StartChanged(GooglePlace place)
 	{
-		await JS.InvokeVoidAsync("initAutocomplete");
+		criteraStart = place;
+	}
+
+	private void EndChanged(GooglePlace place)
+	{
+		criteraEnd = place;
+	}
+
+	private async void SearchRides()
+	{
+		await searchForm.Validate();
+		if (searchForm.IsValid && criteraStart != null)
+		{
+			string criteriaStartCity = criteraStart.AddressComponents[0].ShortName;
+
+			StringBuilder url = new StringBuilder();
+			url.Append("/journeylists");
+			url.Append("/start/" + HttpUtility.UrlEncode(criteriaStartCity));
+
+			if (criteraEnd != null)
+			{
+				string criteriaEndCity = criteraEnd.AddressComponents[0].ShortName;
+				url.Append("/end/" + HttpUtility.UrlEncode(criteriaEndCity));
+			}
+
+			url.Append("/seats/" + criteriaSeats);
+			url.Append("/departure/" + criteriaDeparture.Value.ToString("yyyy-MM-dd"));
+			NavigationManager.NavigateTo(url.ToString());
+		}
 	}
 }
-
-
-
-@* 
- @code {
-	private bool resetValueOnEmptyText;
-	private bool coerceText;
-	private bool coerceValue;
-	private string value1, value2;
-	private string[] states =
-	{
-		"Paris", "Marseille", "Lyon", "Toulouse", "Nice",
-	"Nantes", "Strasbourg", "Montpellier", "Bordeaux", "Lille",
-	"Rennes", "Reims", "Le Havre", "Cergy", "Saint-Étienne",
-	"Toulon", "Angers", "Grenoble", "Dijon", "Nîmes",
-	"Calais", "Boulogne-sur-Mer", "Arras", "Dunkerque",
-	"Lens", "Douai", "Valenciennes", "Tourcoing", "Roubaix",
-	"Béthune", "Cambrai", "Saint-Omer", "Maubeuge", "Gravelines",
-	"Hazebrouck", "Avesnes-sur-Helpe", "Saint-Amand-les-Eaux", "Armentières", "Bruay-la-Buissière", "villeneuve d'ascq"
-	};
-
-	private async Task<IEnumerable<string>> Search1(string value)
-	{
-		await Task.Delay(5);
-
-		if (string.IsNullOrEmpty(value))
-			return states;
-		return states.Where(x => x.Contains(value, StringComparison.InvariantCultureIgnoreCase));
-	}
-
-	private async Task<IEnumerable<string>> Search2(string value)
-	{
-		await Task.Delay(5);
-
-		if (string.IsNullOrEmpty(value))
-			return new string[0];
-		return states.Where(x => x.Contains(value, StringComparison.InvariantCultureIgnoreCase));
-	}
-            } *@
