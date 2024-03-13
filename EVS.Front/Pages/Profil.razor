@@ -99,9 +99,9 @@ else
 
 	protected override async Task OnInitializedAsync()
 	{
-		_feedbacks = await httpClient.GetFromJsonAsync<List<Feedback>>("/feedbacks/ride/67a94c3d-f0d2-483a-ac9b-d140c5d28cd8");
+		_feedbacks = await httpClient.GetFromJsonAsync<List<Feedback>>("/feedbacks/ride/4061b41d-8da6-4eb0-949c-aa249e98f764");
 
-		user = await httpClient.GetFromJsonAsync<User>("/user/c9469a26-87f5-4019-9d8f-9fa7de4e8050");
+		user = await httpClient.GetFromJsonAsync<User>("/user/5f429d6d-238a-42ed-865c-7d9b5974e2e2");
 	}
 
 	private void PageChanged(int i)
