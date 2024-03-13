@@ -6,6 +6,7 @@
 @using MudBlazor
 @using FluentValidation
 @using Severity = MudBlazor.Severity
+@inject NavigationManager NavigationManager
 @inject ISnackbar Snackbar
 @inject IUserService userService;
 @inherits LayoutComponentBase
@@ -24,7 +25,7 @@
 				<MudTextField @bind-Value="user.LastName" T="string" Label="Nom" Required="true" RequiredError="Votre nom nous est nécessaire!" />
 				<MudTextField @bind-Value="user.FirstName" T="string" Label="Prenom" Required="true" RequiredError="Votre prenom nous est nécessaire!" />
 				<MudTextField @bind-Value="user.PhoneNumber" T="string" Label="Numéro de Téléphone" Required="true" RequiredError="Votre numéro nous est nécessaire!" />
-				<MudDatePicker Label="Date" For="@(() => user.Birthday)" Required="true" RequiredError="Nous avons besoin de votre date de naissance!" />
+				<MudDatePicker Label="Date de naissance" For="@(() => user.Birthday)" Required="true" RequiredError="Nous avons besoin de votre date de naissance!" />
 				<MudTextField @bind-Value="user.Pseudo" T="string" Label="Pseudonyme" Required="true" RequiredError="Un pseudo nous est nécessaire!" />
 				<MudTextField @bind-Value="user.Email" T="string" Label="Email" Required="true" RequiredError="Votre email nous est nécessaire!"
 							  Validation="@(new EmailAddressAttribute() {ErrorMessage = "The email address is invalid"})" />
@@ -36,56 +37,56 @@
 				<MudTextField T="string"
 							  Label="Password" HelperText="Repeat the password" InputType="InputType.Password"
 							  Validation="@(new Func<string, string>(PasswordMatch))" />
-				
 
-						
+
+
 				<a style="margin:2em">
 					<MudTextField @bind-Value="user.Photo"
 								  For="@(() => user.Photo)"
-                          Immediate="true"
-                          Label="Votre photo de profil" />
-            <MudFileUpload T="IBrowserFile" For="@(() => model.File)" @bind-Files="model.File" OnFilesChanged="UploadFiles" >
-                <ButtonTemplate>
-                    <MudButton HtmlTag="label"
-                               Variant="Variant.Filled"
-                               Color="Color.Primary"
-                               StartIcon="@Icons.Material.Filled.CloudUpload"
-                               for="@context.Id">
-                       Enregistrer
-                    </MudButton>
-                    <MudButton OnClick="@context.Actions.ClearAsync"
-                               Variant="Variant.Filled"
-                               Color="Color.Primary"
-                               StartIcon="@Icons.Material.Filled.Clear">
-                        Supprimer
-                    </MudButton>
-					</ButtonTemplate>
-            </MudFileUpload>
-   
+								  Immediate="true"
+								  Label="Votre photo de profil" />
+					<MudFileUpload T="IBrowserFile" For="@(() => model.File)" @bind-Files="model.File" OnFilesChanged="UploadFiles">
+						<ButtonTemplate>
+							<MudButton HtmlTag="label"
+									   Variant="Variant.Filled"
+									   Color="Color.Primary"
+									   StartIcon="@Icons.Material.Filled.CloudUpload"
+									   for="@context.Id">
+								Enregistrer
+							</MudButton>
+							<MudButton OnClick="@context.Actions.ClearAsync"
+									   Variant="Variant.Filled"
+									   Color="Color.Primary"
+									   StartIcon="@Icons.Material.Filled.Clear">
+								Supprimer
+							</MudButton>
+						</ButtonTemplate>
+					</MudFileUpload>
+
 				</a>
-				
+
 				<a>
-					<MudSwitch T="bool" @bind-Value="user.AcceptSmallTalk" Color="Color.Primary" UnCheckedColor="Color.Secondary" >
-						 <MudText>
-							@((user.AcceptSmallTalk == true) ? "J'aime discuter!" : "Je suis très discret" )
-						</MudText>						
-					</MudSwitch>
-					<MudSwitch T="bool" @bind-Value="user.AcceptMusic" Color="Color.Primary" UnCheckedColor="Color.Secondary" >
+					<MudSwitch T="bool" @bind-Value="user.AcceptSmallTalk" Color="Color.Primary" UnCheckedColor="Color.Secondary">
 						<MudText>
-							@((user.AcceptMusic == true) ? "J'aime écouter de la musique!" :"Je préfère le silence." )
+							@((user.AcceptSmallTalk == true) ? "J'aime discuter!" : "Je suis très discret")
+						</MudText>
+					</MudSwitch>
+					<MudSwitch T="bool" @bind-Value="user.AcceptMusic" Color="Color.Primary" UnCheckedColor="Color.Secondary">
+						<MudText>
+							@((user.AcceptMusic == true) ? "J'aime écouter de la musique!" : "Je préfère le silence.")
 						</MudText>
 					</MudSwitch>
 					<MudSwitch T="bool" @bind-Value="user.AcceptFood" Color="Color.Primary" UnCheckedColor="Color.Secondary">
 						<MudText>
 							@((user.AcceptFood == true) ? "J'aime manger en voyageant!" : "Je préfère manger à une table.")
-						</MudText>	
+						</MudText>
 					</MudSwitch>
-					<MudSwitch T="bool" @bind-Value="user.AcceptPet" Color="Color.Primary" UnCheckedColor="Color.Secondary" >
+					<MudSwitch T="bool" @bind-Value="user.AcceptPet" Color="Color.Primary" UnCheckedColor="Color.Secondary">
 						<MudText>
 							@((user.AcceptPet == true) ? "J'aime beaucoup les animaux!" : "Je préfère voyager sans animaux.")
 						</MudText>
 					</MudSwitch>
-					<MudSwitch T="bool" @bind-Value="user.AcceptSmoker" Color="Color.Primary" UnCheckedColor="Color.Secondary" >
+					<MudSwitch T="bool" @bind-Value="user.AcceptSmoker" Color="Color.Primary" UnCheckedColor="Color.Secondary">
 						<MudText>
 							@((user.AcceptSmoker == true) ? "Avec moi tu peux fumer sans problème!" : "Je n'aime pas la fumée!")
 						</MudText>
@@ -96,7 +97,7 @@
 				<a class="d-flex align-center justify-space-between" style="margin:2em">
 					<MudButton Variant="Variant.Text" OnClick="@ToggleOpen">J'accepte les conditons d'utilisation de EnVoitureSimone!</MudButton><MudCheckBox T="bool" Required="true" Style="margin:1em" />
 
-					
+
 				</a>
 			</MudForm>
 			<MudCardActions>
@@ -120,6 +121,8 @@
 
 @code {
 	bool success;
+	private bool check = false;
+
 	string[] errors = { };
 	MudTextField<string> pwField1;
 	MudForm form;
@@ -140,19 +143,21 @@
 			Password = "Azerty1234?",
 			PhoneNumber = "0606060606",
 			Pseudo = "jo",
-			Photo = "jo.png",
+			Photo = "/Images/userNoPic.png",
 
 		};
 
-	private void Confirm()
+	private async void  Confirm()
 	{
 		form.Validate();
 		if (success)
 		{
-			var createdUser = userService.Create(user);
-
+			User? createdUser = await userService.Create(user);
+			Guid newId = createdUser.Id;
+			NavigationManager.NavigateTo("/profilbyid/" + newId );
 		}
 	}
+
 
 
 	private IEnumerable<string> PasswordStrength(string pw)

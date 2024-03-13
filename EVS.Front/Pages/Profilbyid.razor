@@ -1,9 +1,12 @@
-﻿@page "/profil"
+﻿@page "/profilbyid/{newId}"
+@page "/profilbyid"
 @using MudBlazor
 @using EVS.Core.Models;
 @inject HttpClient httpClient
 @using System.Net.Http.Json
 @inherits LayoutComponentBase
+@inject NavigationManager NavigationManager
+
 
 @if (user == null)
 {
@@ -91,7 +94,11 @@ else
 	</MudTable>
 </MudPopover>
 
+
 @code {
+	[Parameter]
+	public string newId { get; set; }
+
 	private User user = null;
 
 	private MudTable<Feedback> _table;
@@ -101,7 +108,7 @@ else
 	{
 		_feedbacks = await httpClient.GetFromJsonAsync<List<Feedback>>("/feedbacks/ride/67a94c3d-f0d2-483a-ac9b-d140c5d28cd8");
 
-		user = await httpClient.GetFromJsonAsync<User>("/user/c9469a26-87f5-4019-9d8f-9fa7de4e8050");
+		user = await httpClient.GetFromJsonAsync<User>("/user/" + newId);
 	}
 
 	private void PageChanged(int i)
