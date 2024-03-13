@@ -11,6 +11,7 @@
 @using Severity = MudBlazor.Severity
 @inject ISnackbar Snackbar
 @inject IRideService rideService;
+@inject NavigationManager NavigationManager
 
 
 
@@ -27,18 +28,36 @@
 
 				<MudText Style=" margin:2em 0 1em 0;" Typo="Typo.h5" class="form-label" Color="Color.Primary">D'où partez vous?</MudText>
 
-				<MudTextField @bind-Value="ride.StartCity" T="string" data-google-autocomplete="true" data-value-field="city_from_selectedValue" Placeholder="Ville de départ" Adornment="Adornment.Start" AdornmentColor="Color.Primary" AdornmentIcon="@Icons.Material.Filled.Start" />
-				<input type="hidden" name="city_from_selectedValue" value="" />
+@* 				<MudTextField @bind-Value="ride.StartCity" T="string" data-google-autocomplete="true" data-value-field="city_from_selectedValue" Placeholder="Ville de départ" Adornment="Adornment.Start" AdornmentColor="Color.Primary" AdornmentIcon="@Icons.Material.Filled.Start" />
+				<input type="hidden" name="city_from_selectedValue" value="" /> *@
+
+				<MudGooglePlacesAutocomplete T="string"
+											 Placeholder="Ville de départ"
+											 OnPlaceChanged="StartChanged"
+											 Adornment="Adornment.Start"
+											 AdornmentIcon="@Icons.Material.Filled.Start"
+											 ApiKey="AIzaSyDfY1D6Gea4uKJ51ppPxwQsyxcjj3An98E" 
+											 @bind-Value="ride.StartCity" />
 
 
 				<MudText Style=" margin:2em 0 1em 0;" Typo="Typo.h5" class="form-label" Color="Color.Primary">Où allez vous?</MudText>
 
-				<MudTextField @bind-Value="ride.EndCity" T="string" data-google-autocomplete="true" data-value-field="city_to_selectedValue" Placeholder="Ville d'arrivée" Adornment="Adornment.Start" AdornmentColor="Color.Primary" AdornmentIcon="@Icons.Material.Filled.KeyboardTab" />
-				<input type="hidden" name="city_to_selectedValue" value="" />
+				<MudGooglePlacesAutocomplete T="string"
+											 Placeholder="Ville d'arrivée"
+											 OnPlaceChanged="EndChanged"
+											 Adornment="Adornment.Start"
+											 AdornmentIcon="@Icons.Material.Filled.KeyboardTab"
+											 ApiKey="AIzaSyDfY1D6Gea4uKJ51ppPxwQsyxcjj3An98E"
+											 @bind-Value="ride.EndCity" />
+
+
+
+
+			@* 	<MudTextField @bind-Value="ride.EndCity" T="string" data-google-autocomplete="true" data-value-field="city_to_selectedValue" Placeholder="Ville d'arrivée" Adornment="Adornment.Start" AdornmentColor="Color.Primary" AdornmentIcon="@Icons.Material.Filled.KeyboardTab" />
+				<input type="hidden" name="city_to_selectedValue" value="" /> *@
 
 				<MudText Style=" margin:2em 0 1em 0;" Typo="Typo.h5" class="form-label" Color="Color.Primary">Quand souhaitez vous prendre la route?</MudText>
-				<MudDatePicker @bind-Date="date" @bind-Value="@ride.Departure" MinDate="DateTime.Today" Adornment="Adornment.Start" AdornmentColor="Color.Primary" />
-
+				<MudDatePicker  MinDate="DateTime.Today" Adornment="Adornment.Start" AdornmentColor="Color.Primary" />
 				<MudText Style="margin:2em 0 1em 0;" Typo="Typo.h5" class="form-label" Color="Color.Primary">Combien de passagers souaitez-vous emmener ?</MudText>
 				<MudGrid Spacing="0" class="counter">
 
@@ -78,29 +97,54 @@
 
 
 
+
 @code {
+
+	private DateTime? criteriaDeparture = DateTime.Today.AddDays(1);
+
+	
+
 	[Parameter]
 	public Ride ride { get; set; } = new()
 	{
-		StartCity = "Monsby-Sur-Saone",
+			UserId = Guid.Parse("c9469a26-87f5-4019-9d8f-9fa7de4e8050"),
+		 StartCity = "Monsby-Sur-Saone",
 		EndCity = "Gennelon-Surlapatate",
-			Departure = DateTime.Today,
+			Departure = DateTime.Today.AddDays(1),
 			Seats = 2,
 			Price = 50
-
 	};
+
+	private GooglePlace criteraStart = null;
+	private GooglePlace criteraEnd = null;
+	
+
+	private void StartChanged(GooglePlace place)
+	{
+		criteraStart = place;
+	}
+
+	private void EndChanged(GooglePlace place)
+	{
+		criteraEnd = place;
+	}
+
 	bool success;
 	string[] errors = { };
 
-	private void Confirm()
+
+	private async void Confirm()
 	{
 		form.Validate();
 		if (success)
 		{
-			var createdUser = rideService.Create(ride);
-
+			Ride? createdRide = await rideService.Create(ride);
+			Guid newId = createdRide.Id;
+			NavigationManager.NavigateTo("/JourneyLists/" + newId);
 		}
 	}
+
+
 
 	int NumberPrice = 15;
 	int NumberPassager;
