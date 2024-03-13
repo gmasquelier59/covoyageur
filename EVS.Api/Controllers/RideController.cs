@@ -16,27 +16,29 @@ namespace EVS.Api.Controllers
         }
 
         /// <summary>
-        /// Retourne la liste des trajets correspondants aux 3 critères
+        /// Retourne la liste des trajets correspondants aux 4 critères
         /// </summary>
         /// <param name="startCity">Nom de la ville de départ</param>
         /// <param name="endCity">Nom de la ville de d'arrivée</param>
         /// <param name="departure">Date de départ</param>
-        [HttpGet("/rides/{startCity}/{endCity}/{departure}")]
-        public async Task<ActionResult<List<Ride>>> AllWithEndCity(string startCity, string endCity, DateTime departure)
+        /// <param name="seats">Nombre de sièges</param>
+        [HttpGet("/rides/{startCity}/{endCity}/{departure}/{seats}")]
+        public async Task<ActionResult<List<Ride>>> AllWithEndCity(string startCity, string endCity, DateTime departure, int seats)
         {
-            List<Ride> rides = await _rideService.GetAll(startCity, endCity, departure);
+            List<Ride> rides = await _rideService.GetAll(startCity, endCity, departure, seats);
             return Ok(rides);
         }
 
-        /// <summary>
-        /// Retourne la liste des trajets correspondants aux critères départ/date sans destination précise
-        /// </summary>
-        /// <param name="startCity">Nom de la ville de départ</param>        
-        /// <param name="departure">Date de départ</param>
-        [HttpGet("/rides/{startCity}/{departure}")]
-        public async Task<ActionResult<List<Ride>>> AllWithoutEndCity(string startCity, DateTime departure)
+		/// <summary>
+		/// Retourne la liste des trajets correspondants aux critères départ/date sans destination précise
+		/// </summary>
+		/// <param name="startCity">Nom de la ville de départ</param>        
+		/// <param name="departure">Date de départ</param>
+		/// /// <param name="seats">Nombre de sièges</param>
+		[HttpGet("/rides/{startCity}/{departure}/{seats}")]
+        public async Task<ActionResult<List<Ride>>> AllWithoutEndCity(string startCity, DateTime departure, int seats)
         {
-            List<Ride> rides = await _rideService.GetAll(startCity, departure);
+            List<Ride> rides = await _rideService.GetAll(startCity, departure, seats);
             return Ok(rides);
         }
 

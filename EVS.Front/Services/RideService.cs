@@ -39,17 +39,17 @@ namespace EVS.Front.Services
 		}
 
 
-		public async Task<List<Ride>> GetAll(string startCity, DateTime departure)
+		public async Task<List<Ride>> GetAll(string startCity, DateTime departure, int seats)
 		{
 			var response = await _httpClient.GetFromJsonAsync<List<Ride>>(
-				$"/rides/{startCity}/{departure.ToString("yyyy-MM-dd")}");
+				$"/rides/{startCity}/{departure.ToString("yyyy-MM-dd")}/{seats}");
 			return response ?? new List<Ride>();
 		}
 
-		public async Task<List<Ride>> GetAll(string startCity, string endCity, DateTime departure)
+		public async Task<List<Ride>> GetAll(string startCity, string endCity, DateTime departure, int seats)
 		{
 			var response = await _httpClient.GetFromJsonAsync<List<Ride>>(
-				$"/rides/{startCity}/{endCity}/{departure.ToString("yyyy-MM-dd")}");
+				$"/rides/{startCity}/{endCity}/{departure.ToString("yyyy-MM-dd")}/{seats}");
 			return response ?? new List<Ride>();
 		}
 
