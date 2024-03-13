@@ -27,8 +27,9 @@ namespace EVS.Api.Data.Seeds
             int distanceParisMarseille = 660;
             int distanceLyonBordeaux = 435;
             int distanceLilleBordeaux = 699;
+			int distanceBordeauxMarseille = 646;
 
-            List<Ride> rides = new()
+			List<Ride> rides = new()
             {
                 //  Lille -> Paris
                 new Ride()
@@ -125,8 +126,24 @@ namespace EVS.Api.Data.Seeds
                     Seats = 2,
                     Price = 52,
                     Distance = distanceLilleBordeaux
-                }
-            };
+                },
+                // Marseille -> Bordeaux
+                new Ride()
+				{
+					Id = Guid.NewGuid(),
+					UserId = users[2].Id,
+					StartCity = "Marseille",
+					StartLatitude = marseilleLatitude,
+					StartLongitude = marseilleLongitude,
+					EndCity = "Bordeaux",
+					EndLatitude = bordeauxLatitude,
+					EndLongitude = bordeauxLongitude,
+					Departure = DateTime.Today.AddDays(18).AddHours(8),
+					Seats = 5,
+					Price = 45,
+					Distance = distanceBordeauxMarseille
+				}
+			};
 
             foreach (Ride ride in rides)
                 modelBuilder.Entity<Ride>().HasData(ride);
