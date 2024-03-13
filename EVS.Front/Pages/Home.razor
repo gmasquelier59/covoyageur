@@ -149,7 +149,6 @@
 				string criteriaEndCity = criteraEnd.AddressComponents[0].ShortName;
 				url.Append("/end/" + HttpUtility.UrlEncode(criteriaEndCity));
 			}
-
 			url.Append("/seats/" + criteriaSeats);
 			url.Append("/departure/" + criteriaDeparture.Value.ToString("yyyy-MM-dd"));
 			NavigationManager.NavigateTo(url.ToString());

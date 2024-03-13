@@ -29,7 +29,7 @@ else
 			{
 				<MudPaper Class="pa-3 mud-width-full" Style="max-width:50%">
 					<MudGrid>
-						<MudItem><MudText Typo="Typo.body2">@ride.Departure.ToString("dddd dd MMMM yyyy")</MudText></MudItem>
+						<MudItem><MudText Typo="Typo.body2"><MudIcon Icon="@Icons.Material.Filled.CalendarMonth"></MudIcon> <strong>@ride.Departure.ToString("dddd dd MMMM yyyy")</strong></MudText></MudItem>
 					</MudGrid>
 					<MudGrid Style="align-items:center;">
 						<MudItem> <MudText Typo="Typo.h6">@ride.StartCity</MudText></MudItem>
@@ -46,7 +46,7 @@ else
 
 					<MudGrid Style="align-items:center;">
 						<MudItem><MudAvatar Size="Size.Medium" Image="@ride.User.Photo"></MudAvatar></MudItem>
-						<MudItem><MudText Typo="Typo.body2" Style="margin-left:1em">@ride.User.Pseudo</MudText></MudItem>
+						<MudItem><MudText Typo="Typo.body2" Style="margin-left:10px"><strong>@ride.User.Pseudo</strong></MudText></MudItem>
 						<MudItem>
 							<MudAvatar Size="Size.Small" Title="@(ride.User.AcceptSmoker ? "Accepte les fumeurs" : "Refuse les fumeurs")" Image="@(ride.User.AcceptSmoker ? "Images/Icone/Smoke.png" : "Images/Icone/SmokeNo.png")"></MudAvatar>
 							<MudAvatar Size="Size.Small" Title="@(ride.User.AcceptFood ? "On peut manger à bord" : "Refuse qu'on mange à bord'")" Image="@(ride.User.AcceptFood ? "Images/Icone/Food.png" : "Images/Icone/FoodNo.png")"></MudAvatar>
@@ -84,7 +84,16 @@ else
 
 	protected override async Task OnInitializedAsync()
 	{
-		rides = await rideService.GetAll(startCity, endCity, DateTime.Parse(departure), seats);
+		if (String.IsNullOrEmpty(startCity))
+			rides = await rideService.GetAll();
+
+		else
+		{
+			if (String.IsNullOrEmpty(endCity))
+				rides = await rideService.GetAll(startCity, DateTime.Parse(departure), seats);
+			else
+				rides = await rideService.GetAll(startCity, endCity, DateTime.Parse(departure), seats);
+		}
 	}
 
 }
