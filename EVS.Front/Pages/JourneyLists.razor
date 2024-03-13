@@ -1,7 +1,7 @@
 ﻿@page "/journeylists"
 @page "/journeylists/start/{startCity}/end/{endCity}/seats/{seats:int}/departure/{departure}"
 @page "/journeylists/start/{startCity}/seats/{seats:int}/departure/{departure}"
-@page "/journeylists/{newId}"
+@* @page "/journeylists/{newId}" *@
 @using EVS.Core.Models
 @using EVS.Front.Services
 @using MudBlazor
@@ -81,8 +81,8 @@ else
 	[Parameter]
 	public string departure { get; set; } = "";
 
-	[Parameter]
-	public string newId { get; set; }
+	// [Parameter]
+	// public string newId { get; set; }
 
 	List<Ride> rides = null;
 

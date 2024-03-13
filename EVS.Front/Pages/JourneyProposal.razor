@@ -140,7 +140,7 @@
 		{
 			Ride? createdRide = await rideService.Create(ride);
 			Guid newId = createdRide.Id;
-			NavigationManager.NavigateTo("/JourneyLists/" + newId);
+			NavigationManager.NavigateTo("/JourneyLists/");
 		}
 	}
 
