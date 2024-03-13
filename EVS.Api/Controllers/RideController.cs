@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using EVS.Core.Models;
 using EVS.Api.Services;
+using EVS.Api.DTOs;
 
 namespace EVS.Api.Controllers
 {
@@ -80,8 +81,23 @@ namespace EVS.Api.Controllers
         /// Crée un trajet à proposer sur le site
         /// </summary>
         [HttpPost("/create")]
-        public async Task<ActionResult<Ride>> Create([FromBody] Ride ride)
+        public async Task<ActionResult<Ride>> Create([FromBody] RideDTO rideDTO)
         {
+            Ride ride = new Ride()
+            {
+                Departure = rideDTO.Departure,
+                Distance = rideDTO.Distance,
+                EndCity = rideDTO.EndCity,
+                EndLatitude = rideDTO.EndLatitude,
+                EndLongitude= rideDTO.EndLongitude,
+                Price = rideDTO.Price,
+                Seats = rideDTO.Seats,
+                StartCity = rideDTO.StartCity,
+                StartLatitude = rideDTO.StartLatitude,
+                StartLongitude = rideDTO.StartLongitude,
+                UserId = rideDTO.UserId
+            };
+
             Ride? rideAdded = await _rideService.Create(ride);
             if (rideAdded == null)
                 return BadRequest();
