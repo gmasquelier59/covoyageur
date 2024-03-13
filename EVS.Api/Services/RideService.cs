@@ -1,5 +1,6 @@
 ﻿using EVS.Core.Models;
 using EVS.Api.Repositories;
+using EVS.Api.Helpers;
 
 namespace EVS.Api.Services
 {
@@ -39,6 +40,7 @@ namespace EVS.Api.Services
 
         public async Task<Ride?> Create(Ride ride)
         {
+            ride.Distance = GeoHelper.GetDistanceAsTheCrowFlies(ride.StartLatitude, ride.StartLongitude, ride.EndLatitude, ride.EndLongitude);
             return await _rideRepository.Add(ride);
         }
 
