@@ -47,7 +47,7 @@
 											 @bind-Value="ride.EndCity" />
 
 				<MudText Style=" margin:2em 0 1em 0;" Typo="Typo.h5" class="form-label" Color="Color.Primary">Quand souhaitez vous prendre la route?</MudText>
-				<MudDatePicker  MinDate="DateTime.Today" Adornment="Adornment.Start" AdornmentColor="Color.Primary" />
+				<MudDatePicker @bind-Date="criteriaDeparture" MinDate="DateTime.Today" Adornment="Adornment.Start" AdornmentColor="Color.Primary" />
 				<MudText Style="margin:2em 0 1em 0;" Typo="Typo.h5" class="form-label" Color="Color.Primary">Combien de passagers souaitez-vous emmener ?</MudText>
 				<MudGrid Spacing="0" class="counter">
 
@@ -99,12 +99,10 @@
 
 	private DateTime? criteriaDeparture = DateTime.Today.AddDays(1);
 
-
-
 	[Parameter]
 	public Ride ride { get; set; } = new()
 	{
-			UserId = Guid.Parse("c9469a26-87f5-4019-9d8f-9fa7de4e8050"),
+			UserId = Guid.Parse("5f429d6d-238a-42ed-865c-7d9b5974e2e2"),
 
 			Departure = DateTime.Today.AddDays(5),
 			Seats = 2,
@@ -152,6 +150,16 @@
 		form.Validate();
 		if (success)
 		{
+			ride.StartCity = criteraStart.AddressComponents[0].ShortName;
+			ride.StartLatitude = criteraStart.Geometry.Location.Lat;
+			ride.StartLongitude = criteraStart.Geometry.Location.Lng;
+
+			ride.EndCity = criteraEnd.AddressComponents[0].ShortName;
+			ride.EndLatitude = criteraEnd.Geometry.Location.Lat;
+			ride.EndLongitude = criteraEnd.Geometry.Location.Lng;
+
+			ride.Departure = criteriaDeparture ?? DateTime.Today.AddDays(1);
+
 			Ride? createdRide = await rideService.Create(ride);
 			// Guid newId = createdRide.Id;
 			// NavigationManager.NavigateTo("/JourneyLists/");
