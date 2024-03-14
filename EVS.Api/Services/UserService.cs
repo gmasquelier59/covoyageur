@@ -27,7 +27,18 @@ namespace EVS.Api.Services
 
         public async Task<User?> GetById(Guid id)
         {
-            return await _userRepository.GetById(id);
+            User? user = await _userRepository.GetById(id);
+            if (user != null)
+                user.Rating = await ComputeUserRating(user);
+
+            return user;
+        }
+
+        private async Task<int> ComputeUserRating(User user)
+        {
+            Random rand = new Random();
+
+            return rand.Next(1, 5);
         }
 
         public async Task<User?> Get(Expression<Func<User, bool>> predicate)

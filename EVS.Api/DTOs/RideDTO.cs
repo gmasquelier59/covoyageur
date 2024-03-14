@@ -26,5 +26,8 @@ namespace EVS.Api.DTOs
         public Double Price { get; set; }
         [Required, Range (1, 10)]
         public int Seats {  get; set; }
+
+        [Required]
+        public Guid UserId { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using EVS.Core.Models;
 using EVS.Api.Repositories;
+using EVS.Api.Helpers;
 
 namespace EVS.Api.Services
 {
@@ -14,17 +15,17 @@ namespace EVS.Api.Services
 
         public async Task<List<Ride>> GetAll()
         {
-            return await _rideRepository.GetAll();
+            return await _rideRepository.GetAll(r => r.Departure.Date >= DateTime.Today);
         }
 
-        public async Task<List<Ride>> GetAll(string startCity, string endCity, DateTime departure)
+        public async Task<List<Ride>> GetAll(string startCity, string endCity, DateTime departure, int seats)
         {
-            return await _rideRepository.GetAll(r => r.StartCity == startCity && r.EndCity == endCity && r.Departure == departure);
+            return await _rideRepository.GetAll(r => r.StartCity == startCity && r.EndCity == endCity && r.Departure.Date >= departure && r.Seats >= seats);
         }
 
-        public async Task<List<Ride>> GetAll(string startCity, DateTime departure)
+        public async Task<List<Ride>> GetAll(string startCity, DateTime departure, int seats)
         {
-            return await _rideRepository.GetAll(r => r.StartCity == startCity && r.Departure == departure);
+            return await _rideRepository.GetAll(r => r.StartCity == startCity && r.Departure.Date >= departure && r.Seats >= seats);
         }
 
         public async Task<List<Ride>> GetAll(Guid userId)
@@ -39,6 +40,7 @@ namespace EVS.Api.Services
 
         public async Task<Ride?> Create(Ride ride)
         {
+            ride.Distance = GeoHelper.GetDistanceAsTheCrowFlies(ride.StartLatitude, ride.StartLongitude, ride.EndLatitude, ride.EndLongitude);
             return await _rideRepository.Add(ride);
         }
 

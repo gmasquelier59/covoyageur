@@ -17,12 +17,12 @@ namespace EVS.Api.Repositories
 
         public async Task<List<Ride>> GetAll()
         {
-            return await _context.Rides.Include(u => u.User).ToListAsync<Ride>();
+            return await _context.Rides.Include(u => u.User).OrderBy(r => r.Departure).ToListAsync<Ride>();
         }
 
         public async Task<List<Ride>> GetAll(Expression<Func<Ride, bool>> predicate)
         {
-            return await _context.Rides.Where(predicate).ToListAsync<Ride>();
+            return await _context.Rides.Where(predicate).OrderBy(r => r.Departure).Include(u => u.User).ToListAsync<Ride>();
         }
 
         public async Task<Ride?> GetById(Guid id)

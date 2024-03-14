@@ -1,4 +1,6 @@
 ﻿@page "/journeyproposal"
+@using EVS.Core.Models
+@using EVS.Front.Services
 @using MudBlazor
 @inherits LayoutComponentBase
 @inject IJSRuntime JSRuntime
@@ -8,6 +10,8 @@
 @using FluentValidation
 @using Severity = MudBlazor.Severity
 @inject ISnackbar Snackbar
+@inject IRideService rideService;
+@inject NavigationManager NavigationManager
 
 
 
@@ -17,36 +21,42 @@
 
 	</MudItem>
 
-
-
-	<MudItem xs="7" Style="max-width:100%">
+		<MudItem xs="7" Style="max-width:100%">
 		<MudPaper Style="padding: 1em; margin-top:3em">
-			<MudForm>
 
+			<MudForm @ref="form" @bind-IsValid="@success" Model="ride" @bind-Errors="@errors">
 
 				<MudText Style=" margin:2em 0 1em 0;" Typo="Typo.h5" class="form-label" Color="Color.Primary">D'où partez vous?</MudText>
 
-				<MudTextField T="string" data-google-autocomplete="true" data-value-field="city_from_selectedValue" Placeholder="Ville de départ" Adornment="Adornment.Start" AdornmentColor="Color.Primary" AdornmentIcon="@Icons.Material.Filled.Start" />
-				<input type="hidden" name="city_from_selectedValue" value="" />
-
+				<MudGooglePlacesAutocomplete T="string"
+											 Placeholder="Ville de départ"
+											 OnPlaceChanged="StartChanged"
+											 Adornment="Adornment.Start"
+											 AdornmentIcon="@Icons.Material.Filled.Start"
+											 ApiKey="AIzaSyDfY1D6Gea4uKJ51ppPxwQsyxcjj3An98E" 
+											 @bind-Value="ride.StartCity" />
 
 				<MudText Style=" margin:2em 0 1em 0;" Typo="Typo.h5" class="form-label" Color="Color.Primary">Où allez vous?</MudText>
 
-				<MudTextField T="string" data-google-autocomplete="true" data-value-field="city_to_selectedValue" Placeholder="Ville d'arrivée" Adornment="Adornment.Start" AdornmentColor="Color.Primary" AdornmentIcon="@Icons.Material.Filled.KeyboardTab" />
-				<input type="hidden" name="city_to_selectedValue" value="" />
+				<MudGooglePlacesAutocomplete T="string"
+											 Placeholder="Ville d'arrivée"
+											 OnPlaceChanged="EndChanged"
+											 Adornment="Adornment.Start"
+											 AdornmentIcon="@Icons.Material.Filled.KeyboardTab"
+											 ApiKey="AIzaSyDfY1D6Gea4uKJ51ppPxwQsyxcjj3An98E"
+											 @bind-Value="ride.EndCity" />
 
 				<MudText Style=" margin:2em 0 1em 0;" Typo="Typo.h5" class="form-label" Color="Color.Primary">Quand souhaitez vous prendre la route?</MudText>
-				<MudDatePicker @bind-Date="date" MinDate="DateTime.Today" Adornment="Adornment.Start" AdornmentColor="Color.Primary" />
-
+				<MudDatePicker @bind-Date="criteriaDeparture" MinDate="DateTime.Today" Adornment="Adornment.Start" AdornmentColor="Color.Primary" />
 				<MudText Style="margin:2em 0 1em 0;" Typo="Typo.h5" class="form-label" Color="Color.Primary">Combien de passagers souaitez-vous emmener ?</MudText>
 				<MudGrid Spacing="0" class="counter">
 
 					<MudItem xs="9">
 
-						<MudSlider TickMarks="true" Color="Color.Secondary" @bind-Value="@NumberPassager" TickMarkLabels="@labels" Step="1" Max="5" Min="1" />
+						<MudSlider TickMarks="true" Color="Color.Secondary" @bind-Value="@ride.Seats" TickMarkLabels="@labels" Step="1" Max="5" Min="1" />
 					</MudItem>
 					<MudItem xs="3">
-						<MudText Typo="Typo.h4" Color="Color.Secondary" Style="margin-left:1em">@NumberPassager</MudText>
+						<MudText Typo="Typo.h4" Color="Color.Secondary" Style="margin-left:1em">@ride.Seats</MudText>
 					</MudItem>
 				</MudGrid>
 
@@ -55,16 +65,16 @@
 				<MudGrid Spacing="0" class="counter">
 
 					<MudItem xs="9">
-						<MudSlider TickMarks="true" Color="Color.Secondary" @bind-Value="@NumberPrice" Step="1" Max="99" Min="1" />
+						<MudSlider TickMarks="true" Color="Color.Secondary" @bind-Value="@ride.Price" Step="1" Max="99" Min="1" />
 					</MudItem>
 					<MudItem xs="3">
-						<MudText Typo="Typo.h4" Color="Color.Secondary" Style="margin-left:1em">@NumberPrice €</MudText>
+						<MudText Typo="Typo.h4" Color="Color.Secondary" Style="margin-left:1em">@ride.Price €</MudText>
 					</MudItem>
 
 				</MudGrid>
 
 				<MudCardActions>
-					<MudButton Variant="Variant.Filled" Style="margin:2em 0;" Color="Color.Primary" Class="ml-auto" OnClick="@(async () => await Submit())">Creer votre trajet</MudButton>
+					<MudButton Variant="Variant.Filled" Style="margin:2em 0;" Color="Color.Primary" Class="ml-auto" OnClick="ActionContext">Creer votre trajet</MudButton>
 				</MudCardActions>
 
 
@@ -74,10 +84,90 @@
 
 </MudGrid>
 
+<MudPopover Open="@_isOpen" Fixed="true" Class="px-8 pt-8" AnchorOrigin="Origin.CenterCenter" TransformOrigin="Origin.CenterCenter">
+	<div class="d-flex flex-column">
+		<MudText>
+	 Votre trajet a bien été créé !
+		</MudText>
+		<MudButton Href="/JourneyLists/" Variant="Variant.Filled" Class="ml-auto mr-n3 mb-1 .mud-elevation-24" Color="Color.Primary">Continer sur le site</MudButton>
+	</div>
+</MudPopover>
 
 
 
-@functions {
+@code {
+
+	private DateTime? criteriaDeparture = DateTime.Today.AddDays(1);
+
+	[Parameter]
+	public Ride ride { get; set; } = new()
+	{
+			UserId = Guid.Parse("5f429d6d-238a-42ed-865c-7d9b5974e2e2"),
+
+			Departure = DateTime.Today.AddDays(5),
+			Seats = 2,
+			Price = 50
+	};
+
+	private GooglePlace criteraStart = null;
+	private GooglePlace criteraEnd = null;
+
+
+	private void StartChanged(GooglePlace place)
+	{
+		criteraStart = place;
+	}
+
+	private void EndChanged(GooglePlace place)
+	{
+		criteraEnd = place;
+	}
+
+	bool success;
+	string[] errors = { };
+
+
+	public void ActionContext()
+	{
+		ToggleOpen();
+		Confirm();
+	}
+
+	public void ToggleOpen()
+	{
+		form.Validate();
+		if (success)
+		{
+			if (_isOpen)
+				_isOpen = false;
+			else
+				_isOpen = true;
+		}
+	}
+
+	private async void Confirm()
+	{
+		form.Validate();
+		if (success)
+		{
+			ride.StartCity = criteraStart.AddressComponents[0].ShortName;
+			ride.StartLatitude = criteraStart.Geometry.Location.Lat;
+			ride.StartLongitude = criteraStart.Geometry.Location.Lng;
+
+			ride.EndCity = criteraEnd.AddressComponents[0].ShortName;
+			ride.EndLatitude = criteraEnd.Geometry.Location.Lat;
+			ride.EndLongitude = criteraEnd.Geometry.Location.Lng;
+
+			ride.Departure = criteriaDeparture ?? DateTime.Today.AddDays(1);
+
+			Ride? createdRide = await rideService.Create(ride);
+			// Guid newId = createdRide.Id;
+			// NavigationManager.NavigateTo("/JourneyLists/");
+		}
+	}
+
+
+
 	int NumberPrice = 15;
 	int NumberPassager;
 	string[] labels = new string[] { "1", "2", "3", "4", "5" };
@@ -96,14 +186,11 @@
 		}
 	}
 
-
-
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
 		if (firstRender)
 		{
 			await JSRuntime.InvokeVoidAsync("initAutocomplete");
-
 		}
 	}
 
@@ -120,7 +207,6 @@
 
 	private void IncrementCounterVoyager()
 	{
-
 		counterValueVoyager++;
 	}
 
@@ -134,7 +220,11 @@
 
 	private void IncrementCounterEuro()
 	{
-
 		counterValueEuro++;
 	}
+
+
+	public bool _isOpen;
+
+	
 }
