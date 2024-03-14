@@ -1,4 +1,4 @@
-﻿@page "/connection"
+﻿@* @page "/connection"
 @using MudBlazor
 @inherits LayoutComponentBase
 @using System.Text.RegularExpressions
@@ -58,4 +58,98 @@
             PasswordInput = InputType.Text;
         }
     }
+} *@
+
+
+@page "/connection"
+@using MudBlazor
+@inherits LayoutComponentBase
+@using System.Text.RegularExpressions
+@using System.ComponentModel.DataAnnotations
+@using System.Net.Http
+@using System.Net.Http.Json
+
+<MudGrid>
+    <MudItem xs="5">
+        <MudText Typo="Typo.h2" Color="Color.Primary" Style="margin:2em 0 0 3em;">Je me connecte à En voiture Simone !</MudText>
+    </MudItem>
+
+    <MudItem xs="7">
+        <MudItem>
+            <MudPaper Class="pa-4" Style="padding: 1em; margin-top:6em">
+                <MudForm OnValidSubmit="HandleSubmit">
+                    <MudTextField @bind-Value="Email" Label="Email" Variant="Variant.Filled" Margin="Margin.Dense"></MudTextField>
+                    <MudTextField @bind-Value="Password" Label="Mot de Passe" Variant="Variant.Filled" InputType="@PasswordInput" Adornment="Adornment.End" AdornmentIcon="@PasswordInputIcon" OnAdornmentClick="ButtonTestclick" AdornmentAriaLabel="Show Password" />
+                    <p style="margin:1em">Vous n'avez pas encore de compte? <MudLink Href="ProfilCreation">Cliquer ici.</MudLink></p>
+
+                    <div class="d-flex align-center justify-space-between">
+                        <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto" OnClick="Login">Se connecter</MudButton>
+                    </div>
+                </MudForm>
+            </MudPaper>
+        </MudItem>
+    </MudItem>
+</MudGrid>
+
+@code {
+    [Inject]
+    private HttpClient HttpClient { get; set; }
+
+    public string Email { get; set; }
+    public string Password { get; set; }
+
+    string defaultEmail = "test@test.com";
+    string defaultPassword = "123";
+
+    bool success;
+    bool isShow;
+    private void OnValidSubmit(EditContext context)
+    {
+        success = true;
+        StateHasChanged();
+    }
+
+    InputType PasswordInput = InputType.Password;
+    string PasswordInputIcon = Icons.Material.Filled.VisibilityOff;
+
+    void ButtonTestclick()
+    {
+        if (isShow)
+        {
+            isShow = false;
+            PasswordInputIcon = Icons.Material.Filled.VisibilityOff;
+            PasswordInput = InputType.Password;
+        }
+        else
+        {
+            isShow = true;
+            PasswordInputIcon = Icons.Material.Filled.Visibility;
+            PasswordInput = InputType.Text;
+        }
+    }
+
+    private async Task Login()
+    {
+        var loginRequest = new
+        {
+            //Email = TextValue,
+            //Password = Password
+            Email = string.IsNullOrWhiteSpace(Email) ? defaultEmail : Email,
+            Password = string.IsNullOrWhiteSpace(Password) ? defaultPassword : Password
+        };
+
+        var response = await HttpClient.PostAsJsonAsync("login", loginRequest);
+
+        if (response.IsSuccessStatusCode)
+        {
+           
+            var token = await response.Content.ReadAsStringAsync();
+           
+        }
+        else
+        {
+            
+        }
+    }
 }
+

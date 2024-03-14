@@ -3,16 +3,22 @@ using EVS.Api.Repositories;
 using EVS.Core.Models;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+using System.Linq.Expressions;
 
 namespace EVS.Api.Services
 {
     public class UserService : IUserService
     {
         private readonly IRepository<User> _userRepository;
+        private readonly string _secretKey = "my-biggest-secret-key-is-awesome"; 
 
         public UserService(IRepository<User> userRepository)
         {
-            _userRepository = userRepository;
+            _userRepository = userRepository;            
         }
         public async Task<List<User>> GetAll()
         {
@@ -24,9 +30,9 @@ namespace EVS.Api.Services
             return await _userRepository.GetById(id);
         }
 
-        public async Task<User?> Get()
+        public async Task<User?> Get(Expression<Func<User, bool>> predicate)
         {
-            throw new NotImplementedException();
+            return await _userRepository.Get(predicate);
         }
 
         public async Task<User?> Create(User user)
@@ -34,9 +40,34 @@ namespace EVS.Api.Services
             return await _userRepository.Add(user);
         }
 
-        public Task<User?> Login(string email, string password)
+        public async Task<string?> Login(string email, string password)
+        {            
+            Expression<Func<User, bool>> predicate = u => u.Email == email && u.Password == password;
+            User? user = await Get(predicate);
+
+            if (user == null)
+                return null;
+
+            return GenerateJwtToken(user);
+        }
+
+        private string GenerateJwtToken(User user)
         {
-            throw new NotImplementedException();
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes(_secretKey);
+
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new Claim[]
+                {
+                    new Claim(ClaimTypes.Name, user.Id.ToString()),
+                }),
+                Expires = DateTime.UtcNow.AddHours(48),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            };
+
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            return tokenHandler.WriteToken(token);
         }
         public async Task<User?> Update(Guid id, UserDTO userDTO)
         {

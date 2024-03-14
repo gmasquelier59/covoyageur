@@ -2,6 +2,16 @@
 using EVS.Core.Models;
 using EVS.Api.Services;
 using EVS.Api.DTOs;
+using Microsoft.AspNetCore.Identity.Data;
+using EVS.Api.Helpers;
+using EVS.Api.Repositories;
+using Microsoft.Extensions.Options;
+using System.Runtime;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.VisualBasic;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace EVS.Api.Controllers
 {
@@ -10,11 +20,14 @@ namespace EVS.Api.Controllers
     public class UserController : Controller
     {
         private readonly IUserService _userService;
+        private readonly AppSettings _settings;
+        private readonly string _securityKey = "clé super secrète";
 
-        public UserController(IUserService userService)
+        public UserController(IUserService userService, IOptions<AppSettings> appSettings)
         {
             _userService = userService;
-        }
+        _settings = appSettings.Value;
+    }
         /// <summary>
         /// Retourne la liste de tous les utilisateurs
         /// </summary>
@@ -51,35 +64,56 @@ namespace EVS.Api.Controllers
         /// <summary>
         /// Creation d'un nouvel utilisateur
         /// </summary>
-        [HttpPost("/register")]
-        public async Task<ActionResult<User>> Create([FromBody] User user)
+        [HttpPost("register")]
+        public async Task<IActionResult> Register([FromBody] User user)
         {
-            User? userAdded = await _userService.Create(user);
-            if (userAdded == null)
-                return BadRequest();
-            return CreatedAtAction(nameof(GetById), new { id = userAdded.Id }, userAdded);
+            try
+            {
+                await _userService.Create(user);
+                return Ok(new { Message = "User created!" });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Registration failed: {ex.Message}");
+            }
         }
 
-        /*        public async Task<ActionResult<User>> Create([FromBody] User user)
+
+        /*        [HttpPost("login")]
+                public async Task<IActionResult> Login([FromBody] LoginRequestDTO login)
                 {
-                    if (await _userRepository.Get(u => u.Email == user.Email) != null)
-                        return BadRequest();
-
-                    user.PassWord = EncryptPassword(user.PassWord);            
-
-                    if (await _userRepository.Add(user) > 0)
-                        return CreatedAtAction(nameof(GetById), new { id = userAdded.Id }, userAdded);
-                    return BadRequest();
+                    try
+                    {
+                        var authenticationResult = await _userService.Login(login);
+                        if (authenticationResult.Success)
+                        {
+                            return Ok(new
+                            {
+                                Token = authenticationResult.Token,
+                                Message = "Valid Authentication !",
+                                User = authenticationResult.User
+                            });
+                        }
+                        return BadRequest("Invalid Authentication !");
+                    }
+                    catch (Exception ex)
+                    {
+                        return BadRequest($"Login failed: {ex.Message}");
+                    }
                 }*/
 
 
-        /// <summary>
-        /// Retourne un token JWT d'authentification pour un utilisateur
-        /// </summary>
         [HttpPost("/login")]
-        public ActionResult Login([FromBody] User user)
+        public async Task<IActionResult> Login([FromBody] LoginRequestDTO request)
         {
-            throw new NotImplementedException();
+            string? token = await _userService.Login(request.Email, request.Password);
+
+            if (token != null)
+            {
+                return Ok(new { Token = token });
+            }
+
+            return Unauthorized();
         }
 
         /// <summary>
